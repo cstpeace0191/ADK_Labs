@@ -1,0 +1,16 @@
+# agents-cli eval run 이 읽는 채점 설정 (원본과 같은 구조).
+# metrics_to_run 에 적은 지표만 실행한다. custom_metrics 는 직접 만든 채점 함수다.
+metrics_to_run:
+  - custom_response_quality
+  - agent_turn_count
+
+custom_metrics:
+  # LLM-as-judge: response_quality.py 의 evaluate(instance) 가 1~5점과 이유를 반환한다
+  - name: custom_response_quality
+    custom_function_file: response_quality.py
+  # 코드 기반 지표: 인라인 함수도 된다
+  - name: agent_turn_count
+    custom_function: |
+      def evaluate(instance):
+          turns = (instance.get("agent_data") or {}).get("turns", [])
+          return {'score': len(turns)}

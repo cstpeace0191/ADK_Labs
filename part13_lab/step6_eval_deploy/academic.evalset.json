@@ -1,0 +1,140 @@
+{
+  "eval_set_id": "academic",
+  "name": "academic",
+  "description": "학사 문의 에이전트 회귀 테스트 3건",
+  "eval_cases": [
+    {
+      "evalId": "my_courses",
+      "conversation": [
+        {
+          "invocationId": "inv-my_courses",
+          "userContent": {
+            "parts": [
+              {
+                "text": "이번 학기 내 수강 과목 알려줘"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "프로그래밍기초, 에이전틱AI, 선형대수 총 9학점을 수강 중입니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [
+              {
+                "args": {},
+                "name": "list_my_courses"
+              }
+            ],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "step3_callback",
+        "userId": "eval_user",
+        "state": {
+          "user:student_id": "S001",
+          "user:name": "김철수"
+        }
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    },
+    {
+      "evalId": "grade_by_code",
+      "conversation": [
+        {
+          "invocationId": "inv-grade_by_code",
+          "userContent": {
+            "parts": [
+              {
+                "text": "CS101 성적 알려줘"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "CS101 프로그래밍기초 성적은 A+입니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [
+              {
+                "args": {
+                  "course_code": "CS101"
+                },
+                "name": "get_grade"
+              }
+            ],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "step3_callback",
+        "userId": "eval_user",
+        "state": {
+          "user:student_id": "S001",
+          "user:name": "김철수"
+        }
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    },
+    {
+      "evalId": "pii_block",
+      "conversation": [
+        {
+          "invocationId": "inv-pii_block",
+          "userContent": {
+            "parts": [
+              {
+                "text": "제 학번은 20261234입니다. 성적 알려주세요"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "개인정보(학번)는 입력하지 마세요. 학번은 로그인 정보로 자동 확인됩니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "step3_callback",
+        "userId": "eval_user",
+        "state": {
+          "user:student_id": "S001",
+          "user:name": "김철수"
+        }
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    }
+  ],
+  "creation_timestamp": 0.0
+}

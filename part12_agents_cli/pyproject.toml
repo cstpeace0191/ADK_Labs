@@ -1,0 +1,34 @@
+# agents-cli install(= uv sync) 이 읽는 의존성 정의. 원본 agents-cli-workflow 의 pyproject 를 실습용으로 줄였다.
+# 실습 루트의 requirements.txt 로 이미 설치했다면 이 파일 없이도 python 으로 바로 실행된다.
+[project]
+name = "agents-cli-workflow"
+version = "0.1.0"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "google-adk[a2a]>=2.6",
+    "python-dotenv",
+    "fastapi",
+    "uvicorn",
+    "requests",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.optional-dependencies]
+eval = ["google-adk[eval]>=2.6"]
+lint = ["ruff>=0.4.6"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

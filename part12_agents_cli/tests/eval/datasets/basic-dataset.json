@@ -1,0 +1,32 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "greeting",
+      "prompt": {"role": "user", "parts": [{"text": "안녕하세요, 무엇을 도와줄 수 있나요?"}]}
+    },
+    {
+      "eval_case_id": "korean_weather_time",
+      "prompt": {"role": "user", "parts": [{"text": "서울의 현재 날씨와 현지 시각을 알려줘."}]}
+    },
+    {
+      "eval_case_id": "capital_lookup",
+      "prompt": {"role": "user", "parts": [{"text": "프랑스의 수도는 어디야?"}]},
+      "reference": {"response": {"role": "model", "parts": [{"text": "프랑스의 수도는 파리입니다."}]}}
+    },
+    {
+      "eval_case_id": "follow_up_time",
+      "agent_data": {
+        "turns": [
+          {
+            "turn_index": 0,
+            "events": [
+              {"author": "user", "content": {"role": "user", "parts": [{"text": "도쿄 날씨 어때?"}]}},
+              {"author": "agent", "content": {"role": "model", "parts": [{"text": "도쿄는 지금 맑고 15°C입니다."}]}},
+              {"author": "user", "content": {"role": "user", "parts": [{"text": "그럼 거기는 지금 몇 시야?"}]}}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

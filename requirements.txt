@@ -1,0 +1,27 @@
+# Google ADK 2.x (Python 3.11+)
+google-adk[a2a,eval]>=2.6
+
+# Google Agents CLI (Part 12 엔드투엔드 워크플로우 실습)
+google-agents-cli>=1.13.0
+
+# MCP 도구(Part 6, part06_tools): ADK는 mcp 1.x 와 호환된다 (mcp 2.x 는 import 오류)
+mcp>=1.24,<2
+
+# 다른 모델 공급자(Part 4 LiteLLM 예제)
+litellm>=1.80
+pydantic>=2
+python-dotenv
+pyyaml
+fastapi
+uvicorn
+pytest
+pytest-asyncio
+greenlet
+
+# ==============================================================================
+# [참고] Google Cloud CLI (gcloud) 설치 안내
+# gcloud CLI는 Python pip 패키지가 아닌 OS 시스템 레벨 독립 실행형 도구입니다.
+# - Windows: winget install Google.CloudSDK (또는 공식 설치 프로그램 다운로드)
+# - Linux:   curl https://sdk.cloud.google.com | bash
+# - 인증:     gcloud auth application-default login
+# ==============================================================================

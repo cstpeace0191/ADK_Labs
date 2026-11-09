@@ -1,0 +1,11 @@
+# 배포 시 업로드하지 않을 파일. agents-cli deploy / gcloud 는 이 파일이 있으면 .gitignore 대신 이것을 읽는다.
+.git
+.gitignore
+.gcloudignore
+.venv/
+__pycache__/
+.env
+*.db
+artifacts/
+tests/
+.google-agents-cli/

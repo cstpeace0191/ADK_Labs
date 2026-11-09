@@ -1,0 +1,6 @@
+.env
+__pycache__/
+*.db
+*.session.json
+.adk/
+.build_gcloud/

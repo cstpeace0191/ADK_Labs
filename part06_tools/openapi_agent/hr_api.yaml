@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: HR API (실습용 목업)
+  version: "1.0"
+servers:
+  - url: http://localhost:8077
+paths:
+  /employees/{employee_id}/leave-balance:
+    get:
+      operationId: get_leave_balance
+      description: 직원의 연차 잔여일을 조회한다.
+      parameters:
+        - name: employee_id
+          in: path
+          required: true
+          description: 사번 (예 E1001)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 잔여 연차
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  employee_id: {type: string}
+                  name: {type: string}
+                  remaining_days: {type: number}
+  /holidays:
+    get:
+      operationId: list_holidays
+      description: 올해 회사 공휴일 목록을 조회한다.
+      responses:
+        "200":
+          description: 공휴일 목록

@@ -1,0 +1,140 @@
+{
+  "eval_set_id": "weather",
+  "name": "weather",
+  "description": "날씨 에이전트 회귀 테스트",
+  "eval_cases": [
+    {
+      "evalId": "seoul",
+      "conversation": [
+        {
+          "invocationId": "inv-seoul",
+          "userContent": {
+            "parts": [
+              {
+                "text": "서울 날씨 알려줘"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "서울은 맑음, 18°C입니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [
+              {
+                "args": {
+                  "city": "서울"
+                },
+                "name": "get_weather"
+              }
+            ],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "weather_agent",
+        "userId": "eval_user",
+        "state": {}
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    },
+    {
+      "evalId": "busan",
+      "conversation": [
+        {
+          "invocationId": "inv-busan",
+          "userContent": {
+            "parts": [
+              {
+                "text": "부산 날씨는 어때?"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "부산은 흐림, 20°C입니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [
+              {
+                "args": {
+                  "city": "부산"
+                },
+                "name": "get_weather"
+              }
+            ],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "weather_agent",
+        "userId": "eval_user",
+        "state": {}
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    },
+    {
+      "evalId": "unknown",
+      "conversation": [
+        {
+          "invocationId": "inv-unknown",
+          "userContent": {
+            "parts": [
+              {
+                "text": "제주 날씨?"
+              }
+            ],
+            "role": "user"
+          },
+          "finalResponse": {
+            "parts": [
+              {
+                "text": "제주의 날씨 정보는 없습니다."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediateData": {
+            "toolUses": [
+              {
+                "args": {
+                  "city": "제주"
+                },
+                "name": "get_weather"
+              }
+            ],
+            "toolResponses": [],
+            "intermediateResponses": []
+          },
+          "creationTimestamp": 0.0
+        }
+      ],
+      "sessionInput": {
+        "appName": "weather_agent",
+        "userId": "eval_user",
+        "state": {}
+      },
+      "creationTimestamp": 0.0,
+      "finalSessionState": {}
+    }
+  ],
+  "creation_timestamp": 0.0
+}

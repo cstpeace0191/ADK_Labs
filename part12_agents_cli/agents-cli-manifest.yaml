@@ -1,0 +1,23 @@
+# agents-cli 가 프로젝트 루트를 알아보는 표식 + 생성 당시 선택값.
+# agents-cli run/eval/deploy 는 현재 폴더부터 위로 올라가며 이 파일을 찾는다.
+# (원본: agents-cli-workflow, agents-cli 1.13.0 으로 생성)
+name: "agents-cli-workflow"
+acli_version: "1.13.0"
+agent_directory: "app"          # 에이전트 코드 폴더 (= ADK app 이름)
+region: 'us-east1'
+base_template: "adk_python"
+language: "python"
+framework: "google-adk"
+create_params:
+  root_agent_name: "agents_cli_workflow"   # app/agent.py 의 Agent(name=...) 와 같아야 한다
+  app_name: "app"                          # 서버 경로 /apps/{app_name}, /a2a/{app_name}
+  deployment_target: "agent_runtime"       # agent_runtime | cloud_run | gke (scaffold enhance -d 로 변경)
+  session_type: "in_memory"                # in_memory | cloud_sql | agent_platform_sessions
+  cicd_runner: "skip"                      # github_actions | google_cloud_build | skip
+  is_a2a: true                             # A2A 라우트(/a2a/app) 포함
+  agent_gateway: false
+  agent_guidance_filename: "GEMINI.md"
+  agent_runtime:
+    identity_default: "agent_identity"
+  cloud_run:
+    identity_default: "service_account"

@@ -1,0 +1,86 @@
+# Google AI Studio Gemini API 키 사용량 및 한도 가이드
+
+Google AI Studio에서 발급받는 Gemini API Key의 사용량 한도(Quota 및 Rate Limits)는 **무료 티어(Free Tier)**를 이용하는지, **유료 결제 티어(Paid Tier)**를 이용하는지에 따라 다르게 적용됩니다.
+
+---
+
+## 1. 무료 티어 (Free Tier)
+
+별도의 신용카드 등록 없이 무료로 사용하는 기본 구간입니다. 프로토타이핑, 개인 개발, 가벼운 테스트용으로 적합합니다.
+
+- **과금 여부**: 완전 무료 (신용카드 등록 불필요)
+- **주요 특징**: Flash 계열 등 일부 주요 모델을 무료로 사용할 수 있습니다.
+- **데이터 정책**: 무료 티어에서 입력한 프롬프트와 응답 데이터는 **Google의 제품 개선(AI 모델 학습 등)에 활용**될 수 있으므로, 민감한 개인정보나 기업 보안 데이터는 입력하지 않는 것이 좋습니다.
+- **제한 기준 (Rate Limits)**:
+  - 프로젝트 및 모델별로 **분당 요청 수(RPM)**, **분당 토큰 수(TPM)**, **일일 요청 수(RPD)** 제한이 적용됩니다.
+  - 모델(예: Flash 계열 등)에 따라 대략 분당 수 회~수십 회(RPM), 하루 수백 회(RPD) 수준으로 제한됩니다.
+  - 한도를 초과하면 **HTTP 429 (Too Many Requests)** 에러가 발생하며 요청이 차단됩니다.
+
+---
+
+## 2. 유료 티어 (Pay-as-you-go / Paid Tier)
+
+Google Cloud 프로젝트에 **결제 계정(Billing)**을 연동하면 전환되는 구간입니다.
+
+- **과금 방식**: 사용한 토큰 양에 따라 비용이 청구되는 **종량제 (Pay-as-you-go)**
+- **주요 특징**: Pro 모델 등 고성능 모델을 포함한 모든 모델을 제약 없이 이용할 수 있습니다.
+- **데이터 프라이버시**: 유료 티어의 데이터는 **Google 모델 학습에 사용되지 않습니다** (보안 및 규정 준수 보장).
+- **단계별 한도 (Tier 시스템)**:
+  - **Tier 1**: 결제 계정 연동 시 즉시 활성화 (10분당 지출 한도 및 일일 한도가 대폭 상향)
+  - **Tier 2 및 Tier 3**: 일정 금액 이상 사용 실적과 운영 기간이 쌓임에 따라 자동으로 등급이 상향되며, 훨씬 더 높은 처리 용량(RPM / TPM)을 보장받습니다.
+
+---
+
+## 3. 티어 비교 요약
+
+| 구분 | 무료 티어 (Free Tier) | 유료 티어 (Pay-as-you-go) |
+|---|---|---|
+| **비용** | 완전 무료 (카드 등록 불필요) | 종량제 과금 (토큰 사용량 기준) |
+| **제공 모델** | Flash 계열 중심 | Pro 및 모든 최신 모델 지원 |
+| **데이터 활용** | 모델 학습 개선에 활용될 수 있음 | 모델 학습에 활용되지 않음 (비공개 보장) |
+| **요청 한도** | 분당 수 회~수십 회 / 일일 수백 회 | Tier 1~3 등급에 따라 대규모 처리 가능 |
+| **적합한 용도** | 개인 개발, 프로토타이핑, 학습/테스트 | 상용 서비스, 프로덕션 배포, 대량 작업 |
+
+---
+
+## 4. 정확한 실시간 한도 확인 방법
+
+구글 정책이나 모델 버전에 따라 구체적인 수치가 달라질 수 있으므로, 현재 본인의 API 키에 적용된 정확한 한도는 아래 경로에서 확인할 수 있습니다.
+
+1. **[Google AI Studio](https://aistudio.google.com/) 접속 및 로그인**
+2. 좌측 메뉴에서 **대시보드(Dashboard)** 또는 **API keys** 이동 후 **Usage and limits** 확인
+3. 사용하는 모델별 현재 **RPM**(분당 요청 수), **TPM**(분당 토큰 수), **RPD**(일일 요청 수) 한도와 실시간 사용량 확인
+
+---
+
+## 5. 환경 변수 설정 (`.env`) 및 Vertex AI 연동 안내
+
+실습 루트의 `.env` 파일에서는 **Google AI Studio API 키** 방식과 **Google Cloud Vertex AI** 방식 중 하나를 선택해 인증을 구성합니다.
+
+### ① Google AI Studio API 키 사용 시 (기본)
+AI Studio에서 발급받은 API 키를 직접 등록합니다:
+```ini
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+GOOGLE_API_KEY=AIzaSy...
+```
+
+### ② Vertex AI (Google Cloud) 연동 시
+Google Cloud 크레딧을 사용하거나, 무료 키의 분당 호출 제한(429 Too Many Requests) 없이 대량의 워크플로우/에이전트 작업을 진행하려는 경우 Vertex AI로 전환합니다.
+
+1. **GCP 콘솔 준비**:
+   - [Google Cloud Console](https://console.cloud.google.com/)에서 프로젝트 생성
+   - **Vertex AI API**(`aiplatform.googleapis.com`) 활성화
+2. **`gcloud` CLI 로그인 (Application Default Credentials)**:
+   - 로컬 터미널에서 다음 명령을 실행하여 계정 인증을 완료합니다:
+     ```bash
+     gcloud auth application-default login
+     ```
+3. **`.env` 파일 설정**:
+   - `GOOGLE_GENAI_USE_VERTEXAI=TRUE`로 변경하고 GCP 프로젝트 ID 및 리전을 입력합니다 (`GOOGLE_API_KEY`는 주석 처리):
+     ```ini
+     GOOGLE_GENAI_USE_VERTEXAI=TRUE
+     GOOGLE_CLOUD_PROJECT=your-gcp-project-id
+     GOOGLE_CLOUD_LOCATION=asia-northeast3   # 서울 리전 (또는 us-central1)
+     # GOOGLE_API_KEY= (주석 처리)
+     ```
+> 💡 **Tip**: Vertex AI로 전환하면 part06_tools의 `google_search` 도구 연동 및 대규모 평가(`adk eval`), 멀티 에이전트 파이프라인을 쿼터 제한 걱정 없이 안정적으로 실행할 수 있습니다.

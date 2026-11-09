@@ -1,0 +1,780 @@
+{
+  "eval_cases": [
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "안녕하세요, 무엇을 도와줄 수 있나요?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "안녕하세요! 저는 여러 도시의 현재 날씨와 현지 시각을 안내해 드리고, 다양한 일반 질문에도 답변해 드릴 수 있는 비서입니다. \n\n어떤 도움이 필요하신가요? 도시의 날씨나 시간이 궁금하시다면 도시 이름을 말씀해 주세요!"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "greeting",
+      "agent_data": {
+        "agents": {
+          "agents_cli_workflow": {
+            "agent_id": "agents_cli_workflow",
+            "agent_type": "LlmAgent",
+            "description": "도시의 현재 날씨와 현지 시각을 알려주고 일반 질문에도 답하는 비서",
+            "instruction": "너는 정확하고 친절한 범용 비서다.\n\n1. 날씨·현지 시각 질문: 도시 이름을 그대로 get_weather / get_current_time 에 넘긴다\n   (필요하면 geocode 로 좌표를 먼저 구한다). 도시 이름, 시각, 기온, 날씨를 자연스럽게 정리해 답한다.\n2. 그 밖의 질문(인사, 일반 지식): 도구를 부르지 말고 바로 답한다.\n",
+            "tools": [
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시·지역 이름을 위도와 경도로 바꾼다.\n\nArgs:\n    location: 도시나 지역 이름 (예: 'Seoul', '서울', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude 를 담은 dict.",
+                    "name": "geocode",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "title": "Location",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "location"
+                      ],
+                      "title": "geocodeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현재 날씨를 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    날씨 상태, 기온, 체감온도, 습도, 풍속을 담은 문자열.",
+                    "name": "get_weather",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_weatherParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현지 시각을 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    현지 시각과 시간대를 담은 문자열.",
+                    "name": "get_current_time",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_current_timeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              }
+            ],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "안녕하세요! 저는 여러 도시의 현재 날씨와 현지 시각을 안내해 드리고, 다양한 일반 질문에도 답변해 드릴 수 있는 비서입니다. \n\n어떤 도움이 필요하신가요? 도시의 날씨나 시간이 궁금하시다면 도시 이름을 말씀해 주세요!"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:40:52.266290Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "서울의 현재 날씨와 현지 시각을 알려줘."
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "서울의 현재 날씨와 현지 시각 정보입니다.\n\n* **현지 시각:** 2026년 11월 9일 12:40 (KST)\n* **날씨 상태:** 대체로 맑음\n* **기온:** 10.5°C (체감온도 8.4°C)\n* **습도:** 65%\n* **풍속:** 5.0 km/h"
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "korean_weather_time",
+      "agent_data": {
+        "agents": {
+          "agents_cli_workflow": {
+            "agent_id": "agents_cli_workflow",
+            "agent_type": "LlmAgent",
+            "description": "도시의 현재 날씨와 현지 시각을 알려주고 일반 질문에도 답하는 비서",
+            "instruction": "너는 정확하고 친절한 범용 비서다.\n\n1. 날씨·현지 시각 질문: 도시 이름을 그대로 get_weather / get_current_time 에 넘긴다\n   (필요하면 geocode 로 좌표를 먼저 구한다). 도시 이름, 시각, 기온, 날씨를 자연스럽게 정리해 답한다.\n2. 그 밖의 질문(인사, 일반 지식): 도구를 부르지 말고 바로 답한다.\n",
+            "tools": [
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시·지역 이름을 위도와 경도로 바꾼다.\n\nArgs:\n    location: 도시나 지역 이름 (예: 'Seoul', '서울', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude 를 담은 dict.",
+                    "name": "geocode",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "title": "Location",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "location"
+                      ],
+                      "title": "geocodeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현재 날씨를 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    날씨 상태, 기온, 체감온도, 습도, 풍속을 담은 문자열.",
+                    "name": "get_weather",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_weatherParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현지 시각을 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    현지 시각과 시간대를 담은 문자열.",
+                    "name": "get_current_time",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_current_timeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              }
+            ],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "function_call": {
+                        "id": "call_15933630654450258298",
+                        "args": {
+                          "location": "Seoul"
+                        },
+                        "name": "get_weather"
+                      }
+                    },
+                    {
+                      "function_call": {
+                        "id": "call_15933630654450260311",
+                        "args": {
+                          "location": "Seoul"
+                        },
+                        "name": "get_current_time"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:40:53.349262Z"
+              },
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "call_15933630654450258298",
+                        "name": "get_weather",
+                        "response": {
+                          "result": "Weather for Seoul, South Korea (37.5660, 126.9784):\n- Condition: 대체로 맑음\n- Temperature: 10.5°C (Feels like: 8.4°C)\n- Relative Humidity: 65%\n- Wind Speed: 5.0 km/h"
+                        }
+                      }
+                    },
+                    {
+                      "function_response": {
+                        "id": "call_15933630654450260311",
+                        "name": "get_current_time",
+                        "response": {
+                          "result": "The current local time for 'Seoul, South Korea' at (37.5660, 126.9784) in timezone 'Asia/Seoul' is 2026-11-09 12:40:57 KST (UTC+0900)."
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                },
+                "event_time": "2026-11-09T03:40:56.518259Z"
+              },
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "서울의 현재 날씨와 현지 시각 정보입니다.\n\n* **현지 시각:** 2026년 11월 9일 12:40 (KST)\n* **날씨 상태:** 대체로 맑음\n* **기온:** 10.5°C (체감온도 8.4°C)\n* **습도:** 65%\n* **풍속:** 5.0 km/h"
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:40:57.564294Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "prompt": {
+        "parts": [
+          {
+            "text": "프랑스의 수도는 어디야?"
+          }
+        ],
+        "role": "user"
+      },
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "프랑스의 수도는 **파리(Paris)**입니다."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "reference": {
+        "response": {
+          "parts": [
+            {
+              "text": "프랑스의 수도는 파리입니다."
+            }
+          ],
+          "role": "model"
+        }
+      },
+      "eval_case_id": "capital_lookup",
+      "agent_data": {
+        "agents": {
+          "agents_cli_workflow": {
+            "agent_id": "agents_cli_workflow",
+            "agent_type": "LlmAgent",
+            "description": "도시의 현재 날씨와 현지 시각을 알려주고 일반 질문에도 답하는 비서",
+            "instruction": "너는 정확하고 친절한 범용 비서다.\n\n1. 날씨·현지 시각 질문: 도시 이름을 그대로 get_weather / get_current_time 에 넘긴다\n   (필요하면 geocode 로 좌표를 먼저 구한다). 도시 이름, 시각, 기온, 날씨를 자연스럽게 정리해 답한다.\n2. 그 밖의 질문(인사, 일반 지식): 도구를 부르지 말고 바로 답한다.\n",
+            "tools": [
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시·지역 이름을 위도와 경도로 바꾼다.\n\nArgs:\n    location: 도시나 지역 이름 (예: 'Seoul', '서울', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude 를 담은 dict.",
+                    "name": "geocode",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "title": "Location",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "location"
+                      ],
+                      "title": "geocodeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현재 날씨를 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    날씨 상태, 기온, 체감온도, 습도, 풍속을 담은 문자열.",
+                    "name": "get_weather",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_weatherParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현지 시각을 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    현지 시각과 시간대를 담은 문자열.",
+                    "name": "get_current_time",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_current_timeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              }
+            ],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "turn_id": "turn_0",
+            "events": [
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "프랑스의 수도는 **파리(Paris)**입니다."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:40:59.179907Z"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "responses": [
+        {
+          "response": {
+            "parts": [
+              {
+                "text": "도쿄의 현재 현지 시각은 **오후 12시 41분**입니다."
+              }
+            ],
+            "role": "model"
+          }
+        }
+      ],
+      "eval_case_id": "follow_up_time",
+      "agent_data": {
+        "agents": {
+          "agents_cli_workflow": {
+            "agent_id": "agents_cli_workflow",
+            "agent_type": "LlmAgent",
+            "description": "도시의 현재 날씨와 현지 시각을 알려주고 일반 질문에도 답하는 비서",
+            "instruction": "너는 정확하고 친절한 범용 비서다.\n\n1. 날씨·현지 시각 질문: 도시 이름을 그대로 get_weather / get_current_time 에 넘긴다\n   (필요하면 geocode 로 좌표를 먼저 구한다). 도시 이름, 시각, 기온, 날씨를 자연스럽게 정리해 답한다.\n2. 그 밖의 질문(인사, 일반 지식): 도구를 부르지 말고 바로 답한다.\n",
+            "tools": [
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시·지역 이름을 위도와 경도로 바꾼다.\n\nArgs:\n    location: 도시나 지역 이름 (예: 'Seoul', '서울', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude 를 담은 dict.",
+                    "name": "geocode",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "title": "Location",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "location"
+                      ],
+                      "title": "geocodeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현재 날씨를 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    날씨 상태, 기온, 체감온도, 습도, 풍속을 담은 문자열.",
+                    "name": "get_weather",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_weatherParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              },
+              {
+                "function_declarations": [
+                  {
+                    "description": "도시 이름 또는 위도·경도로 현지 시각을 조회한다.\n\nArgs:\n    location: 도시나 지역 이름. 좌표를 주면 생략할 수 있다.\n    latitude: 위도 (선택).\n    longitude: 경도 (선택).\n\nReturns:\n    현지 시각과 시간대를 담은 문자열.",
+                    "name": "get_current_time",
+                    "parameters_json_schema": {
+                      "properties": {
+                        "location": {
+                          "default": "",
+                          "title": "Location",
+                          "type": "string"
+                        },
+                        "latitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Latitude"
+                        },
+                        "longitude": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ],
+                          "default": null,
+                          "title": "Longitude"
+                        }
+                      },
+                      "title": "get_current_timeParams",
+                      "type": "object"
+                    }
+                  }
+                ]
+              }
+            ],
+            "sub_agents": []
+          }
+        },
+        "turns": [
+          {
+            "turn_index": 0,
+            "events": [
+              {
+                "author": "user",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "도쿄 날씨 어때?"
+                    }
+                  ],
+                  "role": "user"
+                }
+              },
+              {
+                "author": "agent",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "도쿄는 지금 맑고 15°C입니다."
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "user",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "그럼 거기는 지금 몇 시야?"
+                    }
+                  ],
+                  "role": "user"
+                }
+              },
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "function_call": {
+                        "id": "call_5479134609879257578",
+                        "args": {
+                          "location": "도쿄"
+                        },
+                        "name": "get_current_time"
+                      }
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:40:59.835686Z"
+              },
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "call_5479134609879257578",
+                        "name": "get_current_time",
+                        "response": {
+                          "result": "The current local time for '도쿄, 일본' at (35.6762, 139.6503) in timezone 'Asia/Tokyo' is 2026-11-09 12:41:01 JST (UTC+0900)."
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                },
+                "event_time": "2026-11-09T03:41:01.689352Z"
+              },
+              {
+                "author": "agents_cli_workflow",
+                "content": {
+                  "parts": [
+                    {
+                      "text": "도쿄의 현재 현지 시각은 **오후 12시 41분**입니다."
+                    }
+                  ],
+                  "role": "model"
+                },
+                "event_time": "2026-11-09T03:41:01.692355Z"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

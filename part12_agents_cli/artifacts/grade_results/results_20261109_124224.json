@@ -1,0 +1,1567 @@
+{
+  "eval_case_results": [
+    {
+      "eval_case_index": 0,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "\uc0ac\uc6a9\uc790\uc758 \uc778\uc0ac\ub9d0\uc5d0 \ub300\ud574 \uc5d0\uc774\uc804\ud2b8\uac00 \uc790\uc2e0\uc758 \uc5ed\ud560\uacfc \uae30\ub2a5\uc744 \uce5c\uc808\ud558\uace0 \uba85\ud655\ud558\uac8c \uc18c\uac1c\ud558\uc600\uc73c\uba70, \uc9c8\ubb38\uc758 \uc758\ub3c4\uc5d0 \uc644\ubcbd\ud558\uac8c \ubd80\ud569\ud558\ub294 \ud6cc\ub96d\ud55c \uc751\ub2f5\uc785\ub2c8\ub2e4.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "agent_turn_count": {
+              "metric_name": "agent_turn_count",
+              "score": 1.0,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 1,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "\uc0ac\uc6a9\uc790\uc758 \uc9c8\ubb38\uc778 \uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \ub3c4\uad6c\ub97c \ud65c\uc6a9\ud558\uc5ec \uc815\ud655\ud558\uace0 \uc0c1\uc138\ud558\uac8c \uc870\ud68c\ud558\uc600\uc73c\uba70, \ubcf4\uae30 \uc27d\uac8c \uae54\ub054\ud55c \ud615\uc2dd\uc73c\ub85c \uba85\ud655\ud558\uac8c \ub2f5\ubcc0\ud558\uc600\uc2b5\ub2c8\ub2e4.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "agent_turn_count": {
+              "metric_name": "agent_turn_count",
+              "score": 1.0,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 2,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "\uc0ac\uc6a9\uc790\uc758 \uc9c8\ubb38\uc778 \ud504\ub791\uc2a4\uc758 \uc218\ub3c4\uc5d0 \ub300\ud574 \uc815\ud655\ud558\uace0 \uba85\ud655\ud558\uac8c '\ud30c\ub9ac'\ub77c\uace0 \ub2f5\ubcc0\ud558\uc600\uc73c\uba70, \uae30\ub300 \ub2f5\uacfc\ub3c4 \uc644\uc804\ud788 \uc77c\uce58\ud569\ub2c8\ub2e4.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "agent_turn_count": {
+              "metric_name": "agent_turn_count",
+              "score": 1.0,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 3,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "\uc0ac\uc6a9\uc790\uc758 \ub3c4\ucfc4 \ud604\uc7ac \uc2dc\uac01\uc5d0 \ub300\ud55c \uc9c8\ubb38\uc5d0 \ub300\ud574 \ub3c4\uad6c(get_current_time)\ub97c \uc62c\ubc14\ub974\uac8c \ud638\ucd9c\ud558\uace0, \uadf8 \uacb0\uacfc\ub97c \ubc14\ud0d5\uc73c\ub85c \uc815\ud655\ud558\uace0 \uba85\ud655\ud55c \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc81c\uacf5\ud588\uc2b5\ub2c8\ub2e4.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "agent_turn_count": {
+              "metric_name": "agent_turn_count",
+              "score": 1.0,
+              "explanation": null,
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary_metrics": [
+    {
+      "metric_name": "custom_response_quality",
+      "num_cases_total": 4,
+      "num_cases_valid": 4,
+      "num_cases_error": 0,
+      "mean_score": 5.0,
+      "stdev_score": 0.0,
+      "pass_rate": null
+    },
+    {
+      "metric_name": "agent_turn_count",
+      "num_cases_total": 4,
+      "num_cases_valid": 4,
+      "num_cases_error": 0,
+      "mean_score": 1.0,
+      "stdev_score": 0.0,
+      "pass_rate": null
+    }
+  ],
+  "win_rates": null,
+  "evaluation_dataset": [
+    {
+      "bigquery_source": null,
+      "gcs_source": null,
+      "eval_cases": [
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "\uc548\ub155\ud558\uc138\uc694, \ubb34\uc5c7\uc744 \ub3c4\uc640\uc904 \uc218 \uc788\ub098\uc694?",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null,
+                "media_processing": null,
+                "speech_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "\uc548\ub155\ud558\uc138\uc694! \uc800\ub294 \uc5ec\ub7ec \ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc548\ub0b4\ud574 \ub4dc\ub9ac\uace0, \ub2e4\uc591\ud55c \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ubcc0\ud574 \ub4dc\ub9b4 \uc218 \uc788\ub294 \ube44\uc11c\uc785\ub2c8\ub2e4. \n\n\uc5b4\ub5a4 \ub3c4\uc6c0\uc774 \ud544\uc694\ud558\uc2e0\uac00\uc694? \ub3c4\uc2dc\uc758 \ub0a0\uc528\ub098 \uc2dc\uac04\uc774 \uad81\uae08\ud558\uc2dc\ub2e4\uba74 \ub3c4\uc2dc \uc774\ub984\uc744 \ub9d0\uc500\ud574 \uc8fc\uc138\uc694!",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "greeting",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "agents_cli_workflow": {
+                "agent_id": "agents_cli_workflow",
+                "agent_type": "LlmAgent",
+                "description": "\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c",
+                "instruction": "\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\n\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\n",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.",
+                        "name": "geocode",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "geocodeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_current_time",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_current_timeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\uc548\ub155\ud558\uc138\uc694! \uc800\ub294 \uc5ec\ub7ec \ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc548\ub0b4\ud574 \ub4dc\ub9ac\uace0, \ub2e4\uc591\ud55c \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ubcc0\ud574 \ub4dc\ub9b4 \uc218 \uc788\ub294 \ube44\uc11c\uc785\ub2c8\ub2e4. \n\n\uc5b4\ub5a4 \ub3c4\uc6c0\uc774 \ud544\uc694\ud558\uc2e0\uac00\uc694? \ub3c4\uc2dc\uc758 \ub0a0\uc528\ub098 \uc2dc\uac04\uc774 \uad81\uae08\ud558\uc2dc\ub2e4\uba74 \ub3c4\uc2dc \uc774\ub984\uc744 \ub9d0\uc500\ud574 \uc8fc\uc138\uc694!",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:40:52.266290Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        },
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc918.",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null,
+                "media_processing": null,
+                "speech_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\uc785\ub2c8\ub2e4.\n\n* **\ud604\uc9c0 \uc2dc\uac01:** 2026\ub144 11\uc6d4 9\uc77c 12:40 (KST)\n* **\ub0a0\uc528 \uc0c1\ud0dc:** \ub300\uccb4\ub85c \ub9d1\uc74c\n* **\uae30\uc628:** 10.5\u00b0C (\uccb4\uac10\uc628\ub3c4 8.4\u00b0C)\n* **\uc2b5\ub3c4:** 65%\n* **\ud48d\uc18d:** 5.0 km/h",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "korean_weather_time",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "agents_cli_workflow": {
+                "agent_id": "agents_cli_workflow",
+                "agent_type": "LlmAgent",
+                "description": "\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c",
+                "instruction": "\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\n\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\n",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.",
+                        "name": "geocode",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "geocodeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_current_time",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_current_timeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": {
+                            "id": "call_15933630654450258298",
+                            "args": {
+                              "location": "Seoul"
+                            },
+                            "name": "get_weather",
+                            "partial_args": null,
+                            "will_continue": null
+                          },
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        },
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": {
+                            "id": "call_15933630654450260311",
+                            "args": {
+                              "location": "Seoul"
+                            },
+                            "name": "get_current_time",
+                            "partial_args": null,
+                            "will_continue": null
+                          },
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:40:53.349262Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": {
+                            "will_continue": null,
+                            "scheduling": null,
+                            "parts": null,
+                            "id": "call_15933630654450258298",
+                            "name": "get_weather",
+                            "response": {
+                              "result": "Weather for Seoul, South Korea (37.5660, 126.9784):\n- Condition: \ub300\uccb4\ub85c \ub9d1\uc74c\n- Temperature: 10.5\u00b0C (Feels like: 8.4\u00b0C)\n- Relative Humidity: 65%\n- Wind Speed: 5.0 km/h"
+                            }
+                          },
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        },
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": {
+                            "will_continue": null,
+                            "scheduling": null,
+                            "parts": null,
+                            "id": "call_15933630654450260311",
+                            "name": "get_current_time",
+                            "response": {
+                              "result": "The current local time for 'Seoul, South Korea' at (37.5660, 126.9784) in timezone 'Asia/Seoul' is 2026-11-09 12:40:57 KST (UTC+0900)."
+                            }
+                          },
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": "2026-11-09T03:40:56.518259Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\uc785\ub2c8\ub2e4.\n\n* **\ud604\uc9c0 \uc2dc\uac01:** 2026\ub144 11\uc6d4 9\uc77c 12:40 (KST)\n* **\ub0a0\uc528 \uc0c1\ud0dc:** \ub300\uccb4\ub85c \ub9d1\uc74c\n* **\uae30\uc628:** 10.5\u00b0C (\uccb4\uac10\uc628\ub3c4 8.4\u00b0C)\n* **\uc2b5\ub3c4:** 65%\n* **\ud48d\uc18d:** 5.0 km/h",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:40:57.564294Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        },
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \uc5b4\ub514\uc57c?",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null,
+                "media_processing": null,
+                "speech_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 **\ud30c\ub9ac(Paris)**\uc785\ub2c8\ub2e4.",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": {
+            "response": {
+              "parts": [
+                {
+                  "media_resolution": null,
+                  "code_execution_result": null,
+                  "executable_code": null,
+                  "file_data": null,
+                  "function_call": null,
+                  "function_response": null,
+                  "inline_data": null,
+                  "text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \ud30c\ub9ac\uc785\ub2c8\ub2e4.",
+                  "thought": null,
+                  "thought_signature": null,
+                  "video_metadata": null,
+                  "tool_call": null,
+                  "tool_response": null,
+                  "part_metadata": null,
+                  "audio_transcription": null,
+                  "media_processing": null,
+                  "speech_metadata": null
+                }
+              ],
+              "role": "model"
+            }
+          },
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "capital_lookup",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "agents_cli_workflow": {
+                "agent_id": "agents_cli_workflow",
+                "agent_type": "LlmAgent",
+                "description": "\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c",
+                "instruction": "\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\n\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\n",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.",
+                        "name": "geocode",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "geocodeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_current_time",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_current_timeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 **\ud30c\ub9ac(Paris)**\uc785\ub2c8\ub2e4.",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:40:59.179907Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        },
+        {
+          "prompt": null,
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "\ub3c4\ucfc4\uc758 \ud604\uc7ac \ud604\uc9c0 \uc2dc\uac01\uc740 **\uc624\ud6c4 12\uc2dc 41\ubd84**\uc785\ub2c8\ub2e4.",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "follow_up_time",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "agents_cli_workflow": {
+                "agent_id": "agents_cli_workflow",
+                "agent_type": "LlmAgent",
+                "description": "\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c",
+                "instruction": "\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\n\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\n",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\n\nReturns:\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.",
+                        "name": "geocode",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "geocodeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  },
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\n\nArgs:\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\n\nReturns:\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.",
+                        "name": "get_current_time",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "default": "",
+                              "title": "Location",
+                              "type": "string"
+                            },
+                            "latitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Latitude"
+                            },
+                            "longitude": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": "Longitude"
+                            }
+                          },
+                          "title": "get_current_timeParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": null,
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": null,
+                "events": [
+                  {
+                    "author": "user",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\ub3c4\ucfc4 \ub0a0\uc528 \uc5b4\ub54c?",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\ub3c4\ucfc4\ub294 \uc9c0\uae08 \ub9d1\uace0 15\u00b0C\uc785\ub2c8\ub2e4.",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "user",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\uadf8\ub7fc \uac70\uae30\ub294 \uc9c0\uae08 \uba87 \uc2dc\uc57c?",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": null,
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": {
+                            "id": "call_5479134609879257578",
+                            "args": {
+                              "location": "\ub3c4\ucfc4"
+                            },
+                            "name": "get_current_time",
+                            "partial_args": null,
+                            "will_continue": null
+                          },
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:40:59.835686Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": {
+                            "will_continue": null,
+                            "scheduling": null,
+                            "parts": null,
+                            "id": "call_5479134609879257578",
+                            "name": "get_current_time",
+                            "response": {
+                              "result": "The current local time for '\ub3c4\ucfc4, \uc77c\ubcf8' at (35.6762, 139.6503) in timezone 'Asia/Tokyo' is 2026-11-09 12:41:01 JST (UTC+0900)."
+                            }
+                          },
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": "2026-11-09T03:41:01.689352Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "agents_cli_workflow",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "\ub3c4\ucfc4\uc758 \ud604\uc7ac \ud604\uc9c0 \uc2dc\uac01\uc740 **\uc624\ud6c4 12\uc2dc 41\ubd84**\uc785\ub2c8\ub2e4.",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-11-09T03:41:01.692355Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        }
+      ],
+      "eval_dataset_df": null,
+      "candidate_name": null
+    }
+  ],
+  "metadata": {
+    "candidate_names": [
+      "candidate_1"
+    ],
+    "dataset_name": null,
+    "dataset_id": null,
+    "creation_timestamp": "2026-11-09T03:42:24.402333Z",
+    "dataset": [
+      {
+        "prompt_display_text": "\uc548\ub155\ud558\uc138\uc694, \ubb34\uc5c7\uc744 \ub3c4\uc640\uc904 \uc218 \uc788\ub098\uc694?",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\uc548\ub155\ud558\uc138\uc694, \ubb34\uc5c7\uc744 \ub3c4\uc640\uc904 \uc218 \uc788\ub098\uc694?\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "\uc548\ub155\ud558\uc138\uc694! \uc800\ub294 \uc5ec\ub7ec \ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc548\ub0b4\ud574 \ub4dc\ub9ac\uace0, \ub2e4\uc591\ud55c \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ubcc0\ud574 \ub4dc\ub9b4 \uc218 \uc788\ub294 \ube44\uc11c\uc785\ub2c8\ub2e4. \n\n\uc5b4\ub5a4 \ub3c4\uc6c0\uc774 \ud544\uc694\ud558\uc2e0\uac00\uc694? \ub3c4\uc2dc\uc758 \ub0a0\uc528\ub098 \uc2dc\uac04\uc774 \uad81\uae08\ud558\uc2dc\ub2e4\uba74 \ub3c4\uc2dc \uc774\ub984\uc744 \ub9d0\uc500\ud574 \uc8fc\uc138\uc694!",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\uc548\ub155\ud558\uc138\uc694! \uc800\ub294 \uc5ec\ub7ec \ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc548\ub0b4\ud574 \ub4dc\ub9ac\uace0, \ub2e4\uc591\ud55c \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ubcc0\ud574 \ub4dc\ub9b4 \uc218 \uc788\ub294 \ube44\uc11c\uc785\ub2c8\ub2e4. \\n\\n\uc5b4\ub5a4 \ub3c4\uc6c0\uc774 \ud544\uc694\ud558\uc2e0\uac00\uc694? \ub3c4\uc2dc\uc758 \ub0a0\uc528\ub098 \uc2dc\uac04\uc774 \uad81\uae08\ud558\uc2dc\ub2e4\uba74 \ub3c4\uc2dc \uc774\ub984\uc744 \ub9d0\uc500\ud574 \uc8fc\uc138\uc694!\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"agents_cli_workflow\": {\"agent_id\": \"agents_cli_workflow\", \"agent_type\": \"LlmAgent\", \"description\": \"\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c\", \"instruction\": \"\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\\n\\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\\n\", \"tools\": [{\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\\n\\nReturns:\\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.\", \"name\": \"geocode\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"geocodeParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_weatherParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_current_time\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_current_timeParams\", \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"text\": \"\uc548\ub155\ud558\uc138\uc694! \uc800\ub294 \uc5ec\ub7ec \ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc548\ub0b4\ud574 \ub4dc\ub9ac\uace0, \ub2e4\uc591\ud55c \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ubcc0\ud574 \ub4dc\ub9b4 \uc218 \uc788\ub294 \ube44\uc11c\uc785\ub2c8\ub2e4. \\n\\n\uc5b4\ub5a4 \ub3c4\uc6c0\uc774 \ud544\uc694\ud558\uc2e0\uac00\uc694? \ub3c4\uc2dc\uc758 \ub0a0\uc528\ub098 \uc2dc\uac04\uc774 \uad81\uae08\ud558\uc2dc\ub2e4\uba74 \ub3c4\uc2dc \uc774\ub984\uc744 \ub9d0\uc500\ud574 \uc8fc\uc138\uc694!\"}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:40:52.266290Z\"}]}]}"
+      },
+      {
+        "prompt_display_text": "\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc918.",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc918.\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\uc785\ub2c8\ub2e4.\n\n* **\ud604\uc9c0 \uc2dc\uac01:** 2026\ub144 11\uc6d4 9\uc77c 12:40 (KST)\n* **\ub0a0\uc528 \uc0c1\ud0dc:** \ub300\uccb4\ub85c \ub9d1\uc74c\n* **\uae30\uc628:** 10.5\u00b0C (\uccb4\uac10\uc628\ub3c4 8.4\u00b0C)\n* **\uc2b5\ub3c4:** 65%\n* **\ud48d\uc18d:** 5.0 km/h",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\uc785\ub2c8\ub2e4.\\n\\n* **\ud604\uc9c0 \uc2dc\uac01:** 2026\ub144 11\uc6d4 9\uc77c 12:40 (KST)\\n* **\ub0a0\uc528 \uc0c1\ud0dc:** \ub300\uccb4\ub85c \ub9d1\uc74c\\n* **\uae30\uc628:** 10.5\u00b0C (\uccb4\uac10\uc628\ub3c4 8.4\u00b0C)\\n* **\uc2b5\ub3c4:** 65%\\n* **\ud48d\uc18d:** 5.0 km/h\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"agents_cli_workflow\": {\"agent_id\": \"agents_cli_workflow\", \"agent_type\": \"LlmAgent\", \"description\": \"\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c\", \"instruction\": \"\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\\n\\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\\n\", \"tools\": [{\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\\n\\nReturns:\\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.\", \"name\": \"geocode\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"geocodeParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_weatherParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_current_time\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_current_timeParams\", \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"function_call\": {\"id\": \"call_15933630654450258298\", \"args\": {\"location\": \"Seoul\"}, \"name\": \"get_weather\"}}, {\"function_call\": {\"id\": \"call_15933630654450260311\", \"args\": {\"location\": \"Seoul\"}, \"name\": \"get_current_time\"}}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:40:53.349262Z\"}, {\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"function_response\": {\"id\": \"call_15933630654450258298\", \"name\": \"get_weather\", \"response\": {\"result\": \"Weather for Seoul, South Korea (37.5660, 126.9784):\\n- Condition: \ub300\uccb4\ub85c \ub9d1\uc74c\\n- Temperature: 10.5\u00b0C (Feels like: 8.4\u00b0C)\\n- Relative Humidity: 65%\\n- Wind Speed: 5.0 km/h\"}}}, {\"function_response\": {\"id\": \"call_15933630654450260311\", \"name\": \"get_current_time\", \"response\": {\"result\": \"The current local time for 'Seoul, South Korea' at (37.5660, 126.9784) in timezone 'Asia/Seoul' is 2026-11-09 12:40:57 KST (UTC+0900).\"}}}], \"role\": \"user\"}, \"event_time\": \"2026-11-09T03:40:56.518259Z\"}, {\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"text\": \"\uc11c\uc6b8\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01 \uc815\ubcf4\uc785\ub2c8\ub2e4.\\n\\n* **\ud604\uc9c0 \uc2dc\uac01:** 2026\ub144 11\uc6d4 9\uc77c 12:40 (KST)\\n* **\ub0a0\uc528 \uc0c1\ud0dc:** \ub300\uccb4\ub85c \ub9d1\uc74c\\n* **\uae30\uc628:** 10.5\u00b0C (\uccb4\uac10\uc628\ub3c4 8.4\u00b0C)\\n* **\uc2b5\ub3c4:** 65%\\n* **\ud48d\uc18d:** 5.0 km/h\"}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:40:57.564294Z\"}]}]}"
+      },
+      {
+        "prompt_display_text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \uc5b4\ub514\uc57c?",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \uc5b4\ub514\uc57c?\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \ud30c\ub9ac\uc785\ub2c8\ub2e4.",
+        "reference_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 \ud30c\ub9ac\uc785\ub2c8\ub2e4.\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "response_display_text": "\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 **\ud30c\ub9ac(Paris)**\uc785\ub2c8\ub2e4.",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 **\ud30c\ub9ac(Paris)**\uc785\ub2c8\ub2e4.\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"agents_cli_workflow\": {\"agent_id\": \"agents_cli_workflow\", \"agent_type\": \"LlmAgent\", \"description\": \"\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c\", \"instruction\": \"\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\\n\\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\\n\", \"tools\": [{\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\\n\\nReturns:\\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.\", \"name\": \"geocode\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"geocodeParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_weatherParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_current_time\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_current_timeParams\", \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"text\": \"\ud504\ub791\uc2a4\uc758 \uc218\ub3c4\ub294 **\ud30c\ub9ac(Paris)**\uc785\ub2c8\ub2e4.\"}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:40:59.179907Z\"}]}]}"
+      },
+      {
+        "prompt_display_text": "",
+        "prompt_raw_json": "",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "\ub3c4\ucfc4\uc758 \ud604\uc7ac \ud604\uc9c0 \uc2dc\uac01\uc740 **\uc624\ud6c4 12\uc2dc 41\ubd84**\uc785\ub2c8\ub2e4.",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"\ub3c4\ucfc4\uc758 \ud604\uc7ac \ud604\uc9c0 \uc2dc\uac01\uc740 **\uc624\ud6c4 12\uc2dc 41\ubd84**\uc785\ub2c8\ub2e4.\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"agents_cli_workflow\": {\"agent_id\": \"agents_cli_workflow\", \"agent_type\": \"LlmAgent\", \"description\": \"\ub3c4\uc2dc\uc758 \ud604\uc7ac \ub0a0\uc528\uc640 \ud604\uc9c0 \uc2dc\uac01\uc744 \uc54c\ub824\uc8fc\uace0 \uc77c\ubc18 \uc9c8\ubb38\uc5d0\ub3c4 \ub2f5\ud558\ub294 \ube44\uc11c\", \"instruction\": \"\ub108\ub294 \uc815\ud655\ud558\uace0 \uce5c\uc808\ud55c \ubc94\uc6a9 \ube44\uc11c\ub2e4.\\n\\n1. \ub0a0\uc528\u00b7\ud604\uc9c0 \uc2dc\uac01 \uc9c8\ubb38: \ub3c4\uc2dc \uc774\ub984\uc744 \uadf8\ub300\ub85c get_weather / get_current_time \uc5d0 \ub118\uae34\ub2e4\\n   (\ud544\uc694\ud558\uba74 geocode \ub85c \uc88c\ud45c\ub97c \uba3c\uc800 \uad6c\ud55c\ub2e4). \ub3c4\uc2dc \uc774\ub984, \uc2dc\uac01, \uae30\uc628, \ub0a0\uc528\ub97c \uc790\uc5f0\uc2a4\ub7fd\uac8c \uc815\ub9ac\ud574 \ub2f5\ud55c\ub2e4.\\n2. \uadf8 \ubc16\uc758 \uc9c8\ubb38(\uc778\uc0ac, \uc77c\ubc18 \uc9c0\uc2dd): \ub3c4\uad6c\ub97c \ubd80\ub974\uc9c0 \ub9d0\uace0 \ubc14\ub85c \ub2f5\ud55c\ub2e4.\\n\", \"tools\": [{\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc\u00b7\uc9c0\uc5ed \uc774\ub984\uc744 \uc704\ub3c4\uc640 \uacbd\ub3c4\ub85c \ubc14\uafbc\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984 (\uc608: 'Seoul', '\uc11c\uc6b8', 'Paris').\\n\\nReturns:\\n    status, location, display_name, latitude, longitude \ub97c \ub2f4\uc740 dict.\", \"name\": \"geocode\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"geocodeParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc7ac \ub0a0\uc528\ub97c \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ub0a0\uc528 \uc0c1\ud0dc, \uae30\uc628, \uccb4\uac10\uc628\ub3c4, \uc2b5\ub3c4, \ud48d\uc18d\uc744 \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_weatherParams\", \"type\": \"object\"}}]}, {\"function_declarations\": [{\"description\": \"\ub3c4\uc2dc \uc774\ub984 \ub610\ub294 \uc704\ub3c4\u00b7\uacbd\ub3c4\ub85c \ud604\uc9c0 \uc2dc\uac01\uc744 \uc870\ud68c\ud55c\ub2e4.\\n\\nArgs:\\n    location: \ub3c4\uc2dc\ub098 \uc9c0\uc5ed \uc774\ub984. \uc88c\ud45c\ub97c \uc8fc\uba74 \uc0dd\ub7b5\ud560 \uc218 \uc788\ub2e4.\\n    latitude: \uc704\ub3c4 (\uc120\ud0dd).\\n    longitude: \uacbd\ub3c4 (\uc120\ud0dd).\\n\\nReturns:\\n    \ud604\uc9c0 \uc2dc\uac01\uacfc \uc2dc\uac04\ub300\ub97c \ub2f4\uc740 \ubb38\uc790\uc5f4.\", \"name\": \"get_current_time\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"default\": \"\", \"title\": \"Location\", \"type\": \"string\"}, \"latitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Latitude\"}, \"longitude\": {\"anyOf\": [{\"type\": \"number\"}, {\"type\": \"null\"}], \"default\": null, \"title\": \"Longitude\"}}, \"title\": \"get_current_timeParams\", \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"events\": [{\"author\": \"user\", \"content\": {\"parts\": [{\"text\": \"\ub3c4\ucfc4 \ub0a0\uc528 \uc5b4\ub54c?\"}], \"role\": \"user\"}}, {\"author\": \"agent\", \"content\": {\"parts\": [{\"text\": \"\ub3c4\ucfc4\ub294 \uc9c0\uae08 \ub9d1\uace0 15\u00b0C\uc785\ub2c8\ub2e4.\"}], \"role\": \"model\"}}, {\"author\": \"user\", \"content\": {\"parts\": [{\"text\": \"\uadf8\ub7fc \uac70\uae30\ub294 \uc9c0\uae08 \uba87 \uc2dc\uc57c?\"}], \"role\": \"user\"}}, {\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"function_call\": {\"id\": \"call_5479134609879257578\", \"args\": {\"location\": \"\ub3c4\ucfc4\"}, \"name\": \"get_current_time\"}}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:40:59.835686Z\"}, {\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"function_response\": {\"id\": \"call_5479134609879257578\", \"name\": \"get_current_time\", \"response\": {\"result\": \"The current local time for '\ub3c4\ucfc4, \uc77c\ubcf8' at (35.6762, 139.6503) in timezone 'Asia/Tokyo' is 2026-11-09 12:41:01 JST (UTC+0900).\"}}}], \"role\": \"user\"}, \"event_time\": \"2026-11-09T03:41:01.689352Z\"}, {\"author\": \"agents_cli_workflow\", \"content\": {\"parts\": [{\"text\": \"\ub3c4\ucfc4\uc758 \ud604\uc7ac \ud604\uc9c0 \uc2dc\uac01\uc740 **\uc624\ud6c4 12\uc2dc 41\ubd84**\uc785\ub2c8\ub2e4.\"}], \"role\": \"model\"}, \"event_time\": \"2026-11-09T03:41:01.692355Z\"}]}]}"
+      }
+    ]
+  },
+  "agent_info": null
+}
