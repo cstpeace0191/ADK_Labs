@@ -45,10 +45,10 @@
 ADK 2.x는 Python 3.11 이상이 필요하다. `uv`는 시스템에 해당 버전의 Python이 없어도 자체적으로 다운로드하여 가상환경을 구성할 수 있다.
 
 ```bash
-# Python 3.11 설치 (필요시)
+# Python 3.12 설치 (필요시)
 uv python install 3.12
 
-# Python 3.11 기반 가상환경 생성
+# Python 3.12 기반 가상환경 생성
 uv venv --python 3.12
 ```
 
