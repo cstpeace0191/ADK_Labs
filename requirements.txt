@@ -17,6 +17,7 @@ uvicorn
 pytest
 pytest-asyncio
 greenlet
+sqlalchemy
 
 # ==============================================================================
 # [참고] Google Cloud CLI (gcloud) 설치 안내

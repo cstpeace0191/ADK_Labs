@@ -5,8 +5,20 @@ part03_cli 폴더에서:
     adk web --port 8000
 """
 import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from google.adk import Agent
+
+load_dotenv(Path(__file__).resolve().parents[2] / ".env", override=True)
+if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").upper() in ("TRUE", "1"):
+    os.environ.pop("GOOGLE_API_KEY", None)
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "global")
+else:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
+    os.environ.pop("GOOGLE_CLOUD_LOCATION", None)
 
 
 def get_weather(city: str) -> dict:

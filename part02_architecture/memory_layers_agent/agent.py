@@ -14,9 +14,21 @@
 실행: python run_memory_layers.py   (또는 adk web 에서 memory_layers_agent 선택)
 """
 import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from google.adk import Agent
 from google.adk.tools import ToolContext, load_memory, preload_memory
+
+load_dotenv(Path(__file__).resolve().parents[2] / ".env", override=True)
+if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").upper() in ("TRUE", "1"):
+    os.environ.pop("GOOGLE_API_KEY", None)
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "global")
+else:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
+    os.environ.pop("GOOGLE_CLOUD_LOCATION", None)
 
 
 def save_profile(name: str, tool_context: ToolContext) -> dict:
