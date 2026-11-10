@@ -21,8 +21,16 @@ from google.adk.agents.llm_agent import Agent
 
 # 환경 변수 로드
 _ROOT = Path(__file__).resolve().parents[1]
-load_dotenv(_ROOT / ".env")
-load_dotenv(_ROOT.parent / ".env")
+load_dotenv(_ROOT / ".env", override=True)
+load_dotenv(_ROOT.parent / ".env", override=True)
+if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").upper() in ("TRUE", "1"):
+    os.environ.pop("GOOGLE_API_KEY", None)
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.setdefault("GOOGLE_CLOUD_LOCATION", "global")
+else:
+    os.environ.pop("GEMINI_API_KEY", None)
+    os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
+    os.environ.pop("GOOGLE_CLOUD_LOCATION", None)
 
 OFFLINE = os.getenv("AGENT_OFFLINE", "0") == "1"
 _HEADERS = {"User-Agent": "ADK-Labs/1.0 (chat-time-weather-agent)"}
