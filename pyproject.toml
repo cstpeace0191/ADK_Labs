@@ -1,13 +1,27 @@
 [project]
 name = "adk-labs"
 version = "0.1.0"
-description = "Add your description here"
+description = "Google ADK Lecture Notes & Labs"
 readme = "README.md"
 authors = [
     { name = "CublickAdmin", email = "admin@cublick.com" }
 ]
-requires-python = ">=3.12"
-dependencies = []
+requires-python = ">=3.11"
+dependencies = [
+    "google-adk[a2a,eval]>=2.6",
+    "google-agents-cli>=1.13.0",
+    "mcp>=1.24,<2",
+    "litellm>=1.80",
+    "pydantic>=2",
+    "python-dotenv",
+    "pyyaml",
+    "fastapi",
+    "uvicorn",
+    "pytest",
+    "pytest-asyncio",
+    "greenlet",
+    "sqlalchemy",
+]
 
 [project.scripts]
 adk-labs = "adk_labs:main"
