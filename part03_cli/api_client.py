@@ -36,6 +36,13 @@ def main():
         print("api_server가 실행 중이 아닙니다. part03_cli 폴더에서 `adk api_server --port 8000` 을 먼저 실행하세요.")
         return
     print("GET /list-apps ->", apps)
+    if APP not in apps:
+        print(f"⚠ '{APP}' 에이전트가 목록({apps})에 없습니다.")
+        print("  api_server가 상위 폴더(ADK_Labs)에서 실행된 상태입니다.")
+        print("  api_server를 종료(Ctrl+C)한 뒤 `part03_cli` 폴더에서 다시 실행하세요:")
+        print("    cd part03_cli")
+        print("    adk api_server --port 8000")
+        return
 
     sid = f"s-{uuid.uuid4().hex[:6]}"
     r = requests.post(f"{BASE}/apps/{APP}/users/{USER}/sessions/{sid}", json={"state": {}})
@@ -45,7 +52,12 @@ def main():
             "new_message": {"role": "user", "parts": [{"text": "서울 날씨?"}]}}
 
     print("\n== POST /run (전체 이벤트 배열)")
-    for ev in requests.post(f"{BASE}/run", json=body, timeout=120).json():
+    run_resp = requests.post(f"{BASE}/run", json=body, timeout=120)
+    data = run_resp.json()
+    if not run_resp.ok or not isinstance(data, list):
+        print(f"⚠ /run 호출 실패 (HTTP {run_resp.status_code}): {data}")
+        return
+    for ev in data:
         print_parts(ev)
 
     print("\n== POST /run_sse (Server-Sent Events)")
