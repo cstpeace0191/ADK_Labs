@@ -1,12 +1,14 @@
-﻿# part03_cli — 개발 환경과 adk CLI
+# part03_cli — 개발 환경과 adk CLI
 
 `part03_cli` 폴더(= 에이전트들의 상위 폴더)에서 실행한다. 강의노트 **Part 3 · 03. 개발 환경과 CLI**(슬라이드 26–43)와 짝을 이룬다.
 
 ```text
 part03_cli/
-├── my_agent/
+├── my_agent/             # adk create 기본 스캐폴딩 에이전트 (README-KR.md)
 │   ├── __init__.py       # from . import agent
 │   └── agent.py          # root_agent = Agent(...)   ← 개발자가 쓰는 것은 이것뿐 (adk 사용 시)
+├── my_agent_mod/         # get_weather 도구를 추가한 커스텀 에이전트 (README-KR.md)
+├── my-agents-cli/        # agents-cli create 로 생성된 프로덕션 풀스택 에이전트 (README-KR.md)
 ├── run_direct_runner.py  # 🔑 직접 Runner 코드: 등록 → 실행 → 이벤트 소비 (슬라이드 27–29 · 33)
 ├── adk_internals.py      # 🟢/🔑 adk 가 대신 해 주는 5단계 재현 (슬라이드 30–32)
 └── api_client.py         # 🔑 adk api_server 의 /run · /run_sse 호출 (슬라이드 37)
@@ -79,6 +81,10 @@ agents-cli 소개 · adk와의 비교 · 명령 지도 · 프로젝트 구조 ·
 | `adk run --replay queries.json my_agent` | `{"state": {...}, "queries": [...]}` 입력 파일을 사람 입력 없이 실행 (세션 파일이 아니다) |
 | `adk web --port 8000` | 개발 UI: http://localhost:8000 (Events · Trace · State · Graph 탭) |
 | `adk api_server --port 8000 --session_service_uri="sqlite:///sessions.db"` | 헤드리스 REST/SSE 서버 |
+
+> 💡 **`adk web` 실행 위치별 UI 차이**:
+> - **부모 폴더(`part03_cli/`) 실행**: 다중 에이전트 모드로 동작하여 웹 UI 좌측 상단에 **에이전트 선택 드롭다운 메뉴**가 노출됩니다. (`my_agent`, `my_agent_mod` 등을 자유롭게 전환)
+> - **에이전트 폴더(`my_agent/` 등) 내부 실행**: 단일 에이전트 모드로 동작하여 **선택 메뉴 없이 해당 에이전트 단독 화면**으로 잠금 고정됩니다.
 
 플래그는 버전마다 다를 수 있으니 `adk run --help`로 확인한다.
 
