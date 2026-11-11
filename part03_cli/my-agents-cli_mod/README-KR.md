@@ -92,12 +92,16 @@ uv run agents-cli playground
 ---
 
 ### 단계 3: CLI 단일 프롬프트 실행 (`agents-cli run`)
-웹 UI 없이 터미널에서 즉시 단일 질문에 대한 에이전트의 응답을 확인합니다:
+웹 UI 없이 터미널에서 즉시 단일 질문에 대한 에이전트의 응답을 확인합니다. 별도의 `--prompt` 플래그 없이 질문 메시지를 직접 인자(`MESSAGE`)로 전달합니다:
 
 ```bash
-agents-cli run --prompt "샌프란시스코의 현재 날씨 알려줘"
-# 또는
-uv run agents-cli run --prompt "What is the weather in San Francisco?"
+# 기본 단일 실행 (질문 메시지를 직접 전달)
+agents-cli run "샌프란시스코의 현재 날씨 알려줘"
+
+# 백그라운드 서버를 띄워 세션을 유지하며 대화할 때 (--start-server, --session-id)
+agents-cli run --start-server --session-id s1 "안녕하세요!"
+agents-cli run --session-id s1 "방금 제가 뭐라고 했나요?"
+agents-cli run --stop-server  # 백그라운드 서버 종료
 ```
 
 ---
