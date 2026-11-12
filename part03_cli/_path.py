@@ -1,4 +1,4 @@
-"""스크립트 실행 시 실습 루트(common 패키지)를 import 경로에 추가하고 .env를 읽는다."""
+"""Add the lab root to the import path and load .env when running a script."""
 import sys
 from pathlib import Path
 

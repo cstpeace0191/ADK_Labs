@@ -81,11 +81,18 @@ uv run run_direct_runner.py "부산 날씨 알려줘"
 
 `adk run my_agent`가 내부에서 하는 5단계를 ADK 자신의 코드(`AgentLoader`, `load_dotenv_for_agent`, `create_*_service_from_options`)로 그대로 재현한다.
 
-```bash
-uv run adk_internals.py                    # ①~④ (LLM 호출 없음)
-uv run adk_internals.py --in_memory         # adk run --in_memory 와 같은 서비스 선택
-uv run adk_internals.py --ask "서울 날씨?"   # ⑤ 까지: adk run 의 한 턴
+```powershell
+python .\adk_internals.py                                      # 기본: ①~④ 재현
+python .\adk_internals.py --in_memory                          # 메모리 서비스 사용
+python .\adk_internals.py --session_service_uri sqlite:///tmp_sessions.db
+python .\adk_internals.py --ask "서울 날씨?"                    # 실제 LLM 호출로 한 턴 실행
 ```
+
+기본 실행은 `my_agent`를 찾아 `.env`를 로드하고, 세션·아티팩트·메모리 서비스를 만든 다음 `Runner`를 구성해 각 단계의 정보를 출력합니다. `--ask`를 주지 않으면 여기서 종료하며, 사용자 입력을 기다리는 REPL이나 서버를 시작하지 않고 LLM도 호출하지 않습니다. 따라서 기본 실행은 LLM API 키 없이 동작합니다.
+
+`--in_memory`는 세션과 아티팩트에 메모리 기반 서비스를 선택합니다. `--session_service_uri`는 세션 저장소를 직접 지정합니다. 두 옵션은 이 스크립트가 구성하는 서비스에 영향을 줍니다.
+
+`--ask "질문"`을 지정하면 새 세션을 만들고 해당 질문을 `runner.run_async()`에 전달해 한 턴을 실행합니다. 모델 응답과 도구 호출 정보를 출력하며, 실제 LLM 호출이므로 API 키와 모델 설정이 필요합니다.
 
 ```text
 ① 찾기       AgentLoader → LlmAgent name='weather_agent' (from my_agent/agent.py)
@@ -125,6 +132,25 @@ python adk_cli_map.py            # commands · loader · services · routes
 | `services` | 34 | 세션 `memory · sqlite · postgresql · mysql · agentengine`, 아티팩트 `memory · gs · file` … |
 | `routes` | 35–36 | api_server 경로 22개 · adk web 59개(`/dev/*` 35개) |
 
+### `adk_cli_map.py` 실행 시 수행되는 일
+
+```powershell
+python .\adk_cli_map.py                 # 네 항목 전체 확인
+python .\adk_cli_map.py commands        # 명령 트리만 확인
+python .\adk_cli_map.py loader          # 에이전트 로더만 확인
+python .\adk_cli_map.py services        # 서비스 URI scheme만 확인
+python .\adk_cli_map.py routes          # API 경로만 확인
+```
+
+인자를 생략하면 `all`과 동일하게 아래 네 항목을 차례로 출력합니다.
+
+- **commands**: 설치된 ADK의 Click 명령 그룹을 순회해 `adk` 명령 트리와 각 명령의 처리 함수를 출력합니다.
+- **loader**: `AgentLoader`가 `part03_cli`에서 `my_agent`를 찾아 로드한 객체의 종류와 이름, 에이전트 검색 순서를 출력합니다. 에이전트 정의를 로드하는 것이며 사용자 질의를 실행하지는 않습니다.
+- **services**: ADK 서비스 레지스트리에서 session, artifact, memory 서비스가 지원하는 URI scheme을 출력합니다.
+- **routes**: `api_server`용(`web=False`)과 `adk web`용(`web=True`) FastAPI 앱을 메모리 안에서 구성하고, 각 앱의 경로 수, `/run*` 경로, `/dev/*` 경로 수 및 web 전용 경로 예시를 출력합니다. 이 과정에서 서버를 시작하거나 에이전트 질의를 보내지 않습니다.
+
+이 스크립트는 ADK 내부 구현을 학습하기 위한 조회용 도구입니다. LLM 질의를 하지 않으므로 API 키가 필요하지 않으며, 출력 경로 수와 명령 목록은 설치된 ADK 버전에 따라 달라질 수 있습니다.
+
 ---
 
 ## 4. adk 주요 명령 (슬라이드 40–43)
@@ -145,6 +171,8 @@ python adk_cli_map.py            # commands · loader · services · routes
 
 ## 5. api_server 호출
 
+`part03_cli` 폴더에서 `adk api_server`를 실행하면 하위 폴더의 에이전트들을 API로 제공합니다. 서버를 시작하는 것만으로 특정 에이전트가 실행되지는 않습니다. `/run` 또는 `/run_sse` 요청의 `app_name` 값이 호출할 에이전트를 선택합니다. 사용 가능한 에이전트는 `GET http://localhost:8000/list-apps`로 확인할 수 있습니다.
+
 ```bash
 adk api_server --port 8000
 ```
@@ -155,12 +183,25 @@ adk api_server --port 8000
 uv run api_client.py
 ```
 
+`api_client.py`의 기본값은 `APP = "my_agent"`입니다. 날씨 도구가 포함된 에이전트를 호출하려면 `APP = "my_agent_mod"`로 변경하세요. curl 요청도 같은 방식으로 `app_name`과 세션 경로의 에이전트 이름을 지정합니다.
+
+### `/run`과 `/run_sse`의 차이
+
+두 엔드포인트 모두 같은 에이전트에 질의를 보내지만 이벤트를 전달하는 방식이 다릅니다.
+
+| 엔드포인트 | 응답 방식 | 클라이언트 사용 |
+|---|---|---|
+| `POST /run` | 에이전트 실행이 끝난 뒤 전체 이벤트를 JSON 배열로 한 번에 반환 | 완료 후 배열을 순회해 이벤트를 처리 |
+| `POST /run_sse` | 실행 중 생성되는 이벤트를 Server-Sent Events(SSE) 스트림으로 전달 | 연결을 유지하며 이벤트를 순차적으로 읽고 처리 |
+
+따라서 `/run`은 전체 결과를 한꺼번에 받을 때, `/run_sse`는 실행 도중 이벤트를 실시간으로 소비하거나 진행 상황을 보여줄 때 적합합니다. `api_client.py`는 먼저 `/run`으로 `서울 날씨?` 요청의 전체 이벤트를 받은 다음, 같은 세션에서 `부산은?` 요청을 `/run_sse`로 보내 이벤트를 한 줄씩 출력합니다. 두 요청은 각각 별도의 에이전트 턴입니다.
+
 curl로 직접 호출할 때:
 
 ```bash
 # 세션 생성
-curl -X POST localhost:8000/apps/my_agent/users/u1/sessions/s1
+curl -X POST localhost:8000/apps/my_agent_mod/users/u1/sessions/s1
 
 # 에이전트 질의 실행
-curl -X POST localhost:8000/run -H "Content-Type: application/json" -d "{\"app_name\":\"my_agent\",\"user_id\":\"u1\",\"session_id\":\"s1\",\"new_message\":{\"role\":\"user\",\"parts\":[{\"text\":\"서울 날씨?\"}]}}"
+curl -X POST localhost:8000/run -H "Content-Type: application/json" -d "{\"app_name\":\"my_agent_mod\",\"user_id\":\"u1\",\"session_id\":\"s1\",\"new_message\":{\"role\":\"user\",\"parts\":[{\"text\":\"서울 날씨?\"}]}}"
 ```

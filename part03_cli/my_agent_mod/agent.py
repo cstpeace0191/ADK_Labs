@@ -1,6 +1,6 @@
-"""`adk create my_agent_mod` 골격을 슬라이드 50 '첫 번째 에이전트'로 채운 버전.
+"""Version of the `adk create my_agent_mod` scaffold completed as the "First Agent" example from slide 50.
 
-part03_cli 폴더에서:
+Run from the part03_cli folder:
     adk run my_agent_mod
     adk web --port 8000
 """
@@ -22,17 +22,17 @@ else:
 
 
 def get_weather(city: str) -> dict:
-    """지정한 도시의 현재 날씨를 반환한다."""
-    data = {"서울": "맑음, 18°C", "부산": "흐림, 20°C"}
+    """Return the current weather for the specified city."""
+    data = {"Seoul": "Clear, 18°C", "Busan": "Cloudy, 20°C"}
     if city in data:
         return {"status": "success", "report": data[city]}
-    return {"status": "error", "error_message": f"{city} 정보 없음"}
+    return {"status": "error", "error_message": f"No data available for {city}"}
 
 
 root_agent = Agent(
     name="weather_agent",
     model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
-    description="일반 질문 답변 및 도시 날씨를 알려주는 에이전트",
-    instruction="사용자가 묻는 도시의 날씨를 get_weather로 조회해 한 문장으로 답하고, 그밖의 질문은 아느대로 답해줘.",
+    description="An agent that answers general questions and provides city weather.",
+    instruction="Use get_weather to look up the weather for a city the user asks about and answer in one sentence. Answer other questions using your general knowledge.",
     tools=[get_weather],
 )

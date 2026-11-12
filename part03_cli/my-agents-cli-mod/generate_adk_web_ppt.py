@@ -105,7 +105,7 @@ def create_deck(output_path: str):
     p_t1.font.color.rgb = COLOR_PRIMARY_LIGHT
 
     p_t2 = tf_title.add_paragraph()
-    p_t2.text = "웹 인터페이스 UI 생성 및 동작 원리 심층 분석"
+    p_t2.text = "In-Depth Analysis of the Web UI and How It Works"
     p_t2.font.name = FONT_MAIN
     p_t2.font.size = Pt(32)
     p_t2.font.bold = True
@@ -117,7 +117,7 @@ def create_deck(output_path: str):
     tf_desc = tb_desc.text_frame
     tf_desc.word_wrap = True
     p_d = tf_desc.paragraphs[0]
-    p_d.text = "FastAPI 백엔드(DevServer)와 Angular Material 정적 SPA의 결합 구조, SSE 실시간 스트리밍 메커니즘, 핫 리로드 및 시각화 도구의 통합 아키텍처 해설"
+    p_d.text = "An overview of the integrated architecture of the FastAPI DevServer and Angular Material SPA, SSE streaming, hot reload, and visualization tools"
     p_d.font.name = FONT_MAIN
     p_d.font.size = Pt(15)
     p_d.font.color.rgb = RGBColor(148, 163, 184)
@@ -132,11 +132,11 @@ def create_deck(output_path: str):
     p_m.font.color.rgb = RGBColor(100, 116, 139)
 
     # ==========================================
-    # SLIDE 2: 전체 아키텍처 개요
+    # SLIDE 2: System architecture overview
     # ==========================================
     s2 = prs.slides.add_slide(blank_layout)
     set_slide_background(s2, COLOR_BG_LIGHT)
-    add_header(s2, "전체 시스템 아키텍처: 백엔드 & 프론트엔드 결합 구조")
+    add_header(s2, "System Architecture: Integrated Backend and Frontend")
 
     # 3 Cards Layout
     col_w = Inches(3.64)
@@ -150,17 +150,17 @@ def create_deck(output_path: str):
     tf1 = tb1.text_frame
     tf1.word_wrap = True
     p1 = tf1.paragraphs[0]
-    p1.text = "1. 프론트엔드 (Angular SPA)"
+    p1.text = "1. Frontend (Angular SPA)"
     p1.font.name = FONT_MAIN
     p1.font.size = Pt(16)
     p1.font.bold = True
     p1.font.color.rgb = COLOR_PRIMARY
 
     bullets1 = [
-        ("기술 스택", "Angular 기반 Single Page Application, Angular Material (M3) 테마"),
-        ("사전 빌드 산출물", "ADK 파이썬 패키지 내부 'browser/' 폴더에 컴파일된 JS/CSS 정적 에셋 내장"),
-        ("경량 배포", "사용자 PC에 Node.js/npm 설치 불필요, 파이썬 환경만으로 독립 구동"),
-        ("주요 UI 컴포넌트", "에이전트 선택창, Playground 대화창, Graphviz 뷰어, 이벤트 트레이스 타임라인")
+        ("Technology stack", "Angular-based Single Page Application with an Angular Material (M3) theme"),
+        ("Prebuilt assets", "Compiled JS/CSS assets are included in the ADK Python package's 'browser/' folder"),
+        ("Lightweight deployment", "No Node.js/npm installation required; runs using the Python environment alone"),
+        ("Key UI components", "Agent selector, Playground chat, Graphviz viewer, and event trace timeline")
     ]
     for title, desc in bullets1:
         p = tf1.add_paragraph()
@@ -182,17 +182,17 @@ def create_deck(output_path: str):
     tf2 = tb2.text_frame
     tf2.word_wrap = True
     p2 = tf2.paragraphs[0]
-    p2.text = "2. 통신 프로토콜 (REST & SSE)"
+    p2.text = "2. Communication Protocols (REST & SSE)"
     p2.font.name = FONT_MAIN
     p2.font.size = Pt(16)
     p2.font.bold = True
     p2.font.color.rgb = COLOR_ACCENT_TEAL
 
     bullets2 = [
-        ("REST API", "에이전트 목록 조회(/list-apps), 세션 생성 및 메타데이터 동기화"),
-        ("Server-Sent Events", "/run_sse 엔드포인트를 통한 청크 단위 실시간 스트리밍"),
-        ("이벤트 스트림 분기", "사고 과정(Thought), 도구 호출(Tool Call), 텍스트 토큰을 구분하여 실시간 렌더링"),
-        ("보안 미들웨어", "OriginCheckMiddleware 및 로컬 루프백 DNS Rebinding 방지 적용")
+        ("REST API", "List agents (/list-apps), create sessions, and synchronize metadata"),
+        ("Server-Sent Events", "Real-time chunked streaming through the /run_sse endpoint"),
+        ("Event stream handling", "Render thoughts, tool calls, and text tokens separately in real time"),
+        ("Security middleware", "OriginCheckMiddleware and local loopback DNS rebinding protection")
     ]
     for title, desc in bullets2:
         p = tf2.add_paragraph()
@@ -214,17 +214,17 @@ def create_deck(output_path: str):
     tf3 = tb3.text_frame
     tf3.word_wrap = True
     p3 = tf3.paragraphs[0]
-    p3.text = "3. 백엔드 (DevServer)"
+    p3.text = "3. Backend (DevServer)"
     p3.font.name = FONT_MAIN
     p3.font.size = Pt(16)
     p3.font.bold = True
     p3.font.color.rgb = COLOR_ACCENT_PURPLE
 
     bullets3 = [
-        ("FastAPI + Uvicorn", "비동기 ASGI 서버 구조로 8000 포트 바인딩 및 정적 파일 마운트"),
-        ("DevServer 클래스", "프로덕션 ApiServer에 개발 전용(/dev/...) 기능 및 빌더 통합"),
-        ("에이전트 로더", "NestedAgentLoader를 통해 로컬 디렉터리의 에이전트 자동 스캔"),
-        ("로컬 영속성", "SQLite 기반 로컬 세션 및 로컬 파일시스템 기반 아티팩트 관리")
+        ("FastAPI + Uvicorn", "Async ASGI server bound to port 8000 with static file mounting"),
+        ("DevServer class", "Extends the production ApiServer with development (/dev/...) features and the builder"),
+        ("Agent loader", "Automatically scans local directories for agents through NestedAgentLoader"),
+        ("Local persistence", "SQLite-based sessions and artifacts stored on the local filesystem")
     ]
     for title, desc in bullets3:
         p = tf3.add_paragraph()
@@ -245,18 +245,18 @@ def create_deck(output_path: str):
     tb_b = s2.shapes.add_textbox(Inches(1.0), Inches(6.15), Inches(11.3), Inches(0.65))
     tf_b = tb_b.text_frame
     p_bb = tf_b.paragraphs[0]
-    p_bb.text = "💡 핵심 특징: 별도의 프론트엔드 개발 서버를 띄울 필요 없이, 'adk web' 단일 명령어만으로 백엔드 API와 프론트엔드 UI가 원스톱으로 제공됩니다."
+    p_bb.text = "💡 Key feature: A single 'adk web' command serves both the backend API and frontend UI; no separate frontend development server is needed."
     p_bb.font.name = FONT_MAIN
     p_bb.font.size = Pt(11.5)
     p_bb.font.bold = True
     p_bb.font.color.rgb = RGBColor(15, 76, 129)
 
     # ==========================================
-    # SLIDE 3: 프론트엔드 UI 구성 및 서빙 방식
+    # SLIDE 3: Frontend UI structure and serving
     # ==========================================
     s3 = prs.slides.add_slide(blank_layout)
     set_slide_background(s3, COLOR_BG_LIGHT)
-    add_header(s3, "웹 UI 리소스 패키징 및 FastAPI 마운트 방식")
+    add_header(s3, "Web UI Asset Packaging and FastAPI Mounting")
 
     card_w2 = Inches(5.66)
     # Left Box
@@ -265,18 +265,18 @@ def create_deck(output_path: str):
     tf_l = tb_l.text_frame
     tf_l.word_wrap = True
     p_lh = tf_l.paragraphs[0]
-    p_lh.text = "1. Angular 정적 번들 디렉터리 구조"
+    p_lh.text = "1. Angular Static Bundle Directory Structure"
     p_lh.font.name = FONT_MAIN
     p_lh.font.size = Pt(17)
     p_lh.font.bold = True
     p_lh.font.color.rgb = COLOR_PRIMARY
 
     left_items = [
-        ("저장 위치", "site-packages/google/adk/cli/browser/"),
-        ("index.html", "Google Sans 웹폰트, M3 다크 테마 변수(--mat-sys-*) 및 <app-root> 선언"),
-        ("main-*.js / polyfills-*.js", "컴파일된 Angular 핵심 애플리케이션 및 브라우저 호환성 번들"),
-        ("chunk-*.js", "코드 스플리팅(Code Splitting)이 적용된 라우트별 비동기 로딩 모듈"),
-        ("styles-*.css", "Google Material 3 전역 스타일 및 레이아웃 CSS")
+        ("Location", "site-packages/google/adk/cli/browser/"),
+        ("index.html", "Google Sans web font, M3 dark theme variables (--mat-sys-*), and <app-root> declaration"),
+        ("main-*.js / polyfills-*.js", "Compiled Angular application and browser compatibility bundles"),
+        ("chunk-*.js", "Route-specific asynchronous modules using code splitting"),
+        ("styles-*.css", "Global Google Material 3 styles and layout CSS")
     ]
     for tag, desc in left_items:
         p = tf_l.add_paragraph()
@@ -298,18 +298,18 @@ def create_deck(output_path: str):
     tf_r = tb_r.text_frame
     tf_r.word_wrap = True
     p_rh = tf_r.paragraphs[0]
-    p_rh.text = "2. FastAPI 정적 마운트 & 런타임 설정 주입"
+    p_rh.text = "2. FastAPI Static Mounting and Runtime Configuration Injection"
     p_rh.font.name = FONT_MAIN
     p_rh.font.size = Pt(17)
     p_rh.font.bold = True
     p_rh.font.color.rgb = COLOR_ACCENT_TEAL
 
     right_items = [
-        ("경로 리다이렉션", "사용자가 '/' 또는 '/dev-ui'로 접속하면 자동으로 '/dev-ui/'로 307 리다이렉트 처리"),
-        ("_DevUiStaticFiles 마운트", "app.mount('/dev-ui/', _DevUiStaticFiles(directory=web_assets_dir)) 등록"),
-        ("동적 설정 JSON 엔드포인트", "GET /dev-ui/assets/config/runtime-config.json 제공"),
-        ("동적 주입 파라미터", "backendUrl, 텔레메트리 동의 정보, 사용자 지정 로고(--logo-text, --logo-image-url)"),
-        ("브라우저 구동 순서", "1) index.html 로드 -> 2) runtime-config.json fetch -> 3) /list-apps로 에이전트 목록 수신")
+        ("Path redirection", "Requests to '/' or '/dev-ui' are automatically redirected to '/dev-ui/' with status 307"),
+        ("_DevUiStaticFiles mount", "Register app.mount('/dev-ui/', _DevUiStaticFiles(directory=web_assets_dir))"),
+        ("Dynamic configuration endpoint", "Serves GET /dev-ui/assets/config/runtime-config.json"),
+        ("Injected runtime parameters", "backendUrl, telemetry consent, and custom logos (--logo-text, --logo-image-url)"),
+        ("Browser startup sequence", "1) Load index.html -> 2) Fetch runtime-config.json -> 3) Receive agent list from /list-apps")
     ]
     for tag, desc in right_items:
         p = tf_r.add_paragraph()
@@ -326,11 +326,11 @@ def create_deck(output_path: str):
         p_c.font.color.rgb = COLOR_TEXT_MUTED
 
     # ==========================================
-    # SLIDE 4: adk web 실행 라이프사이클 (5단계)
+    # SLIDE 4: adk web lifecycle (5 steps)
     # ==========================================
     s4 = prs.slides.add_slide(blank_layout)
     set_slide_background(s4, COLOR_BG_LIGHT)
-    add_header(s4, "서버 구동 라이프사이클: CLI 호출부터 브라우저 렌더링까지")
+    add_header(s4, "Server Lifecycle: From CLI Invocation to Browser Rendering")
 
     step_w = Inches(2.2)
     step_gap = Inches(0.18)
@@ -338,35 +338,35 @@ def create_deck(output_path: str):
     step_h = Inches(4.8)
 
     steps = [
-        ("Step 1", "CLI 명령어 파싱", "cli_tools_click.py", [
-            "adk web 커맨드 진입",
-            "--port 8000, --host 인자 수집",
-            "agents_dir 경로 확인",
-            "로깅 및 Click context 설정"
+        ("Step 1", "Parse CLI Command", "cli_tools_click.py", [
+            "Enter the adk web command",
+            "Collect --port 8000 and --host arguments",
+            "Resolve the agents_dir path",
+            "Configure logging and Click context"
         ], COLOR_PRIMARY),
-        ("Step 2", "DevServer 초기화", "fast_api.py", [
+        ("Step 2", "Initialize DevServer", "fast_api.py", [
             "get_fast_api_app(web=True)",
-            "ApiServer 대신 DevServer 생성",
-            "개발용 엔드포인트(/dev/...) 활성화",
-            "Lifespan 컨텍스트 등록"
+            "Create DevServer instead of ApiServer",
+            "Enable development endpoints (/dev/...)",
+            "Register the lifespan context"
         ], COLOR_ACCENT_TEAL),
-        ("Step 3", "에이전트 스캔 & 로더", "NestedAgentLoader", [
-            "지정 폴더 내 에이전트 자동 검색",
-            "agent.py, root_agent.yaml 로드",
-            "세션/메모리/아티팩트 서비스 초기화",
-            "SQLite 로컬 스토리지 바인딩"
+        ("Step 3", "Scan and Load Agents", "NestedAgentLoader", [
+            "Automatically find agents in the specified folder",
+            "Load agent.py and root_agent.yaml",
+            "Initialize session, memory, and artifact services",
+            "Bind local SQLite storage"
         ], COLOR_ACCENT_PURPLE),
-        ("Step 4", "정적 UI 마운트", "api_server.py", [
-            "browser/ 경로를 /dev-ui/에 마운트",
-            "runtime-config.json 라우트 등록",
-            "루트 경로(/) 자동 리다이렉트",
-            "CORS 및 Origin 필터 적용"
+        ("Step 4", "Mount Static UI", "api_server.py", [
+            "Mount browser/ at /dev-ui/",
+            "Register the runtime-config.json route",
+            "Automatically redirect the root path (/)",
+            "Apply CORS and Origin filters"
         ], COLOR_ACCENT_GREEN),
-        ("Step 5", "Uvicorn 서버 기동", "uvicorn.run()", [
-            "127.0.0.1:8000 루프백 대기",
-            "파일 감지(Reload) 프로세스 가동",
-            "터미널에 접속 URL 녹색 배너 출력",
-            "브라우저 HTTP/SSE 요청 처리 시작"
+        ("Step 5", "Start Uvicorn Server", "uvicorn.run()", [
+            "Listen on loopback address 127.0.0.1:8000",
+            "Start the file-watching reload process",
+            "Print the access URL banner in the terminal",
+            "Begin handling browser HTTP/SSE requests"
         ], RGBColor(234, 88, 12))
     ]
 
@@ -419,11 +419,11 @@ def create_deck(output_path: str):
             p.font.color.rgb = COLOR_TEXT_MAIN
 
     # ==========================================
-    # SLIDE 5: 실시간 대화 스트리밍 (/run_sse)
+    # SLIDE 5: Real-time conversation streaming (/run_sse)
     # ==========================================
     s5 = prs.slides.add_slide(blank_layout)
     set_slide_background(s5, COLOR_BG_LIGHT)
-    add_header(s5, "실시간 대화 스트리밍 프로토콜: /run_sse 이벤트 흐름")
+    add_header(s5, "Real-Time Conversation Streaming: /run_sse Event Flow")
 
     # Left: Protocol Diagram Card
     diag_w = Inches(5.66)
@@ -432,7 +432,7 @@ def create_deck(output_path: str):
     tf_dg = tb_dg.text_frame
     tf_dg.word_wrap = True
     p_dh = tf_dg.paragraphs[0]
-    p_dh.text = "클라이언트-서버 SSE 통신 흐름"
+    p_dh.text = "Client-Server SSE Communication Flow"
     p_dh.font.name = FONT_MAIN
     p_dh.font.size = Pt(17)
     p_dh.font.bold = True
@@ -441,17 +441,17 @@ def create_deck(output_path: str):
     p_code = tf_dg.add_paragraph()
     p_code.space_before = Pt(14)
     p_code.text = (
-        "[브라우저 UI]                           [DevServer]\n"
+        "[Browser UI]                            [DevServer]\n"
         "     │                                       │\n"
         "     │── 1. POST /run_sse ──────────────────>│\n"
         "     │   (RunAgentRequest JSON body)         │\n"
         "     │                                       │\n"
         "     │<── 2. HTTP 200 (text/event-stream) ───│\n"
         "     │                                       │\n"
-        "     │<── 3. event: trace (사고 과정) ───────│\n"
-        "     │<── 4. event: tool_call (도구 호출) ───│\n"
-        "     │<── 5. event: tool_result (도구 결과) ─│\n"
-        "     │<── 6. event: chunk (텍스트 토큰) ─────│\n"
+        "     │<── 3. event: trace (reasoning) ───────│\n"
+        "     │<── 4. event: tool_call ───────────────│\n"
+        "     │<── 5. event: tool_result ─────────────│\n"
+        "     │<── 6. event: chunk (text token) ──────│\n"
         "     │<── 7. event: session_update ──────────│\n"
         "     │                                       │\n"
     )
@@ -465,18 +465,18 @@ def create_deck(output_path: str):
     tf_ev = tb_ev.text_frame
     tf_ev.word_wrap = True
     p_eh = tf_ev.paragraphs[0]
-    p_eh.text = "SSE 이벤트 타입 및 UI 렌더링 방식"
+    p_eh.text = "SSE Event Types and UI Rendering"
     p_eh.font.name = FONT_MAIN
     p_eh.font.size = Pt(17)
     p_eh.font.bold = True
     p_eh.font.color.rgb = COLOR_ACCENT_TEAL
 
     event_list = [
-        ("trace (사고 과정)", "LLM의 중간 추론 및 Chain-of-Thought 데이터를 전달하여 접이식 아코디언 상자에 표시"),
-        ("tool_call (도구 호출)", "에이전트가 어떤 도구를 어떤 파라미터로 호출했는지 호출 명세를 시각화"),
-        ("tool_result (도구 결과)", "실행된 함수/도구의 반환값 및 에러 상태를 UI에 구조화된 JSON 형태로 렌더링"),
-        ("chunk (텍스트 토큰)", "최종 답변 텍스트를 실시간 타이핑 효과(Typing Effect)로 스트리밍 렌더링"),
-        ("session_update (상태 커밋)", "대화 종료 시 세션 상태(State Delta)를 SQLite에 커밋하고 UI 세션 기록 갱신")
+        ("trace (reasoning)", "Delivers intermediate LLM reasoning and Chain-of-Thought data for display in a collapsible panel"),
+        ("tool_call", "Visualizes which tool the agent called and the parameters it used"),
+        ("tool_result", "Renders function/tool return values and error states as structured JSON in the UI"),
+        ("chunk (text token)", "Streams the final answer in real time with a typing effect"),
+        ("session_update (state commit)", "Commits session state (State Delta) to SQLite and updates the UI session history")
     ]
     for ev_name, ev_desc in event_list:
         p = tf_ev.add_paragraph()
@@ -493,11 +493,11 @@ def create_deck(output_path: str):
         p_c.font.color.rgb = COLOR_TEXT_MUTED
 
     # ==========================================
-    # SLIDE 6: 핵심 개발자 편의 기능 4가지
+    # SLIDE 6: Four key developer convenience features
     # ==========================================
     s6 = prs.slides.add_slide(blank_layout)
     set_slide_background(s6, COLOR_BG_LIGHT)
-    add_header(s6, "ADK Web만의 핵심 개발자 도구 (Developer Features)")
+    add_header(s6, "Key ADK Web Developer Features")
 
     grid_w = Inches(5.66)
     grid_h = Inches(2.45)
@@ -507,25 +507,25 @@ def create_deck(output_path: str):
     col2_l = Inches(6.87)
 
     features = [
-        (col1_l, row1_t, "1. Agent Graph (구조 시각화)", COLOR_PRIMARY, [
+        (col1_l, row1_t, "1. Agent Graph (Structure Visualization)", COLOR_PRIMARY, [
             "• API: GET /dev/apps/{app_name}/build_graph",
-            "• 메커니즘: agent_graph.py가 에이전트 클래스를 파싱하여 Graphviz DOT 그래프 생성",
-            "• 시각화 내용: 서브에이전트 계층, 조건부 전이 라우팅, 연결된 도구 목록 다이어그램 제공"
+            "• Mechanism: agent_graph.py parses agent classes and generates Graphviz DOT graphs",
+            "• Visualization: Diagrams of sub-agent hierarchies, conditional routing, and connected tools"
         ]),
-        (col2_l, row1_t, "2. 실시간 핫 리로드 (Watchdog)", COLOR_ACCENT_TEAL, [
-            "• 파일 감지: watchdog.observers.Observer가 agents_dir 변경 모니터링",
-            "• 캐시 무효화: 코드 변경 시 메모리에 캐시된 Runner 인스턴스를 즉시 갱신",
-            "• 무중단 반영: 서버 재시작 없이 브라우저에서 바로 새 대화를 시작해 로직 테스트 가능"
+        (col2_l, row1_t, "2. Live Hot Reload (Watchdog)", COLOR_ACCENT_TEAL, [
+            "• File monitoring: watchdog.observers.Observer watches for changes in agents_dir",
+            "• Cache invalidation: Refreshes the Runner instance cached in memory when code changes",
+            "• No interruption: Test changes in a new browser conversation without restarting the server"
         ]),
-        (col1_l, row2_t, "3. Agent Builder 어시스턴트", COLOR_ACCENT_PURPLE, [
-            "• 시각적 조작: UI 상에서 프롬프트, 모델, 도구 파라미터를 대화식으로 수정",
-            "• 파일 동기화: /dev/apps/{app_name}/builder/save로 로컬 YAML/Python 코드에 직접 반영",
-            "• 안전 장치: 임의 코드 쓰기 방지를 위해 127.0.0.1 로컬 루프백 접속 시에만 활성화"
+        (col1_l, row2_t, "3. Agent Builder Assistant", COLOR_ACCENT_PURPLE, [
+            "• Visual editing: Interactively edit prompts, models, and tool parameters in the UI",
+            "• File synchronization: Apply changes directly to local YAML/Python using /dev/apps/{app_name}/builder/save",
+            "• Safeguard: Enabled only on the 127.0.0.1 loopback interface to prevent arbitrary code writes"
         ]),
-        (col2_l, row2_t, "4. 평가(Eval) & 이벤트 트레이스", COLOR_ACCENT_GREEN, [
-            "• 트레이스 디버깅: /debug/trace 엔드포인트로 세션별 모든 이벤트 타임라인 확인",
-            "• Eval Runner 연동: /dev/apps/{app_name}/eval-sets로 웹에서 바로 평가 데이터셋 실행",
-            "• 아티팩트 관리: 생성된 파일/데이터의 버전별 다운로드 및 브라우저 즉시 미리보기"
+        (col2_l, row2_t, "4. Evaluation and Event Traces", COLOR_ACCENT_GREEN, [
+            "• Trace debugging: Inspect each session's event timeline through /debug/trace",
+            "• Eval Runner integration: Run evaluation datasets from the web using /dev/apps/{app_name}/eval-sets",
+            "• Artifact management: Download generated files/data by version and preview them in the browser"
         ])
     ]
 
@@ -550,11 +550,11 @@ def create_deck(output_path: str):
             p.font.color.rgb = COLOR_TEXT_MAIN
 
     # ==========================================
-    # SLIDE 7: adk web vs adk api_server 비교 테이블
+    # SLIDE 7: adk web vs adk api_server comparison table
     # ==========================================
     s7 = prs.slides.add_slide(blank_layout)
     set_slide_background(s7, COLOR_BG_LIGHT)
-    add_header(s7, "개발용(adk web) vs 프로덕션(adk api_server) 아키텍처 비교")
+    add_header(s7, "Development (adk web) vs. Production (adk api_server) Architecture")
 
     rows = 7
     cols = 3
@@ -569,7 +569,7 @@ def create_deck(output_path: str):
     tbl.columns[1].width = Inches(4.56)
     tbl.columns[2].width = Inches(4.56)
 
-    headers = ["비교 항목", "adk web (로컬 개발용)", "adk api_server (프로덕션 배포용)"]
+    headers = ["Feature", "adk web (local development)", "adk api_server (production deployment)"]
     for j, h in enumerate(headers):
         cell = tbl.cell(0, j)
         cell.fill.solid()
@@ -583,12 +583,12 @@ def create_deck(output_path: str):
         p.font.color.rgb = COLOR_TEXT_WHITE
 
     table_data = [
-        ("서버 클래스", "DevServer (ApiServer를 상속받아 개발 기능 확장)", "ApiServer (경량 순수 코어 API 서버)"),
-        ("웹 UI 서빙 (/dev-ui)", "포함 (사전 컴파일된 Angular SPA 마운트)", "미포함 (정적 파일 및 UI 엔드포인트 비활성화)"),
-        ("개발용 엔드포인트", "활성화 (/dev/... 빌더, 트레이스, 테스트, 그래프)", "비활성화 (외부 노출 차단)"),
-        ("코드 변경 감지", "기본 활성화 (--reload 및 watchdog 기반 실시간 반영)", "비활성화 (컨테이너/불변 프로세스로 구동)"),
-        ("기본 데이터 저장소", "로컬 파일시스템 및 SQLite (--use_local_storage=True)", "Cloud SQL, Cloud Storage, Firestore 등 분산 저장소"),
-        ("보안 및 인증 모델", "로컬 루프백 전용 (인증 없음, Origin/Host 검증)", "OIDC 토큰 검증, IAM 서비스 계정, Cloud Run 인증")
+        ("Server class", "DevServer (extends ApiServer with development features)", "ApiServer (lightweight core API server)"),
+        ("Web UI (/dev-ui)", "Included (mounts the precompiled Angular SPA)", "Not included (static files and UI endpoints disabled)"),
+        ("Development endpoints", "Enabled (/dev/... builder, traces, tests, graphs)", "Disabled (prevents external exposure)"),
+        ("Code change detection", "Enabled by default (--reload and watchdog-based updates)", "Disabled (runs in a container or immutable process)"),
+        ("Default data storage", "Local filesystem and SQLite (--use_local_storage=True)", "Distributed stores such as Cloud SQL, Cloud Storage, and Firestore"),
+        ("Security and authentication", "Local loopback only (no authentication; Origin/Host validation)", "OIDC token validation, IAM service accounts, and Cloud Run authentication")
     ]
 
     for i, (col1, col2, col3) in enumerate(table_data, start=1):
@@ -609,11 +609,11 @@ def create_deck(output_path: str):
                 p.font.color.rgb = COLOR_TEXT_MAIN
 
     # ==========================================
-    # SLIDE 8: 요약 및 유용한 실행 옵션
+    # SLIDE 8: Summary and useful command-line options
     # ==========================================
     s8 = prs.slides.add_slide(blank_layout)
     set_slide_background(s8, COLOR_BG_LIGHT)
-    add_header(s8, "핵심 요약 및 유용한 adk web 실행 옵션")
+    add_header(s8, "Key Takeaways and Useful adk web Options")
 
     # Left: 3 Key Takeaways
     create_card(s8, Inches(0.8), Inches(1.6), card_w2, Inches(5.2))
@@ -621,16 +621,16 @@ def create_deck(output_path: str):
     tf_t = tb_t.text_frame
     tf_t.word_wrap = True
     p_th = tf_t.paragraphs[0]
-    p_th.text = "🎯 핵심 요약 (Key Takeaways)"
+    p_th.text = "🎯 Key Takeaways"
     p_th.font.name = FONT_MAIN
     p_th.font.size = Pt(17)
     p_th.font.bold = True
     p_th.font.color.rgb = COLOR_PRIMARY
 
     takeaways = [
-        ("올인원 로컬 개발 환경", "추가적인 프론트엔드 빌드나 의존성 설정 없이, 파이썬 패키지 내부의 Angular M3 SPA를 즉시 서빙하여 생산성을 극대화합니다."),
-        ("실시간 스트리밍 대화", "/run_sse 엔드포인트를 통해 LLM의 사고 과정(Thought), 도구 호출(Tool Call), 텍스트 토큰을 분리 수신하여 실시간으로 렌더링합니다."),
-        ("개발자 친화적 도구 내장", "Graphviz 기반 에이전트 구조 시각화, 파일 수정 시 자동 리로드, 웹 기반 데이터셋 평가 러너를 기본 지원합니다.")
+        ("All-in-one local development", "Serve the Angular M3 SPA included in the Python package without a separate frontend build or dependency setup."),
+        ("Real-time streaming conversations", "Receive and render LLM thoughts, tool calls, and text tokens separately through the /run_sse endpoint."),
+        ("Built-in developer tools", "Includes Graphviz agent visualization, automatic reload on file changes, and a web-based dataset evaluation runner.")
     ]
     for num_t, desc_t in takeaways:
         p = tf_t.add_paragraph()
@@ -652,18 +652,18 @@ def create_deck(output_path: str):
     tf_op = tb_op.text_frame
     tf_op.word_wrap = True
     p_oph = tf_op.paragraphs[0]
-    p_oph.text = "⚙️ 유용한 CLI 명령어 옵션"
+    p_oph.text = "⚙️ Useful CLI Options"
     p_oph.font.name = FONT_MAIN
     p_oph.font.size = Pt(17)
     p_oph.font.bold = True
     p_oph.font.color.rgb = COLOR_ACCENT_TEAL
 
     cli_options = [
-        ("--port <번호>", "서버 바인딩 포트 변경 (기본값: 8000)", "adk web --port 8080"),
-        ("--logo-text <텍스트>", "UI 상단 헤더의 로고 텍스트 커스터마이징", "--logo-text 'My Custom Agent'"),
-        ("--logo-image-url <URL>", "UI 상단 로고 이미지 URL 지정", "--logo-image-url 'https://.../logo.png'"),
-        ("--reload / --no-reload", "코드 변경 시 자동 리로드 여부 제어 (기본: True)", "adk web --no-reload"),
-        ("<agents_dir> 지정", "현재 폴더가 아닌 특정 에이전트 디렉터리 타겟팅", "adk web ./app")
+        ("--port <number>", "Change the server port (default: 8000)", "adk web --port 8080"),
+        ("--logo-text <text>", "Customize the logo text in the UI header", "--logo-text 'My Custom Agent'"),
+        ("--logo-image-url <URL>", "Set the URL of the logo image in the UI header", "--logo-image-url 'https://.../logo.png'"),
+        ("--reload / --no-reload", "Enable or disable reload on code changes (default: True)", "adk web --no-reload"),
+        ("<agents_dir>", "Target an agent directory instead of the current folder", "adk web ./app")
     ]
     for opt, desc, example in cli_options:
         p = tf_op.add_paragraph()
@@ -675,7 +675,7 @@ def create_deck(output_path: str):
         p.font.color.rgb = COLOR_TEXT_MAIN
 
         p_ex = tf_op.add_paragraph()
-        p_ex.text = f"   예시: {example}"
+        p_ex.text = f"   Example: {example}"
         p_ex.font.name = "Consolas"
         p_ex.font.size = Pt(9.5)
         p_ex.font.color.rgb = COLOR_PRIMARY
@@ -687,4 +687,3 @@ def create_deck(output_path: str):
 if __name__ == "__main__":
     out_file = sys.argv[1] if len(sys.argv) > 1 else "ADK_Web_Architecture_Guide.pptx"
     create_deck(out_file)
-

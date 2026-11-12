@@ -81,11 +81,18 @@ A single `run_async()` corresponds to one full cycle of the agent loop (Slide 25
 
 Recreates the 5 steps that `adk run my_agent` performs internally using ADK's native code (`AgentLoader`, `load_dotenv_for_agent`, `create_*_service_from_options`).
 
-```bash
-uv run adk_internals.py                    # Steps ①~④ (No LLM calls)
-uv run adk_internals.py --in_memory         # Selects services matching adk run --in_memory
-uv run adk_internals.py --ask "Seoul weather?"   # Through step ⑤: one turn of adk run
+```powershell
+python .\adk_internals.py                                      # Default: recreate steps ①–④
+python .\adk_internals.py --in_memory                          # Use in-memory services
+python .\adk_internals.py --session_service_uri sqlite:///tmp_sessions.db
+python .\adk_internals.py --ask "Seoul weather?"                # Make an LLM call for one turn
 ```
+
+By default, the script finds `my_agent`, loads `.env`, creates the session, artifact, and memory services, then builds a `Runner` and prints details for each step. Without `--ask`, it exits there: it does not wait in an interactive REPL, start a server, or call the LLM. The default run therefore does not require an LLM API key.
+
+`--in_memory` selects in-memory services for sessions and artifacts. `--session_service_uri` lets you specify the session store directly. These options control the services configured by this script.
+
+With `--ask "question"`, the script creates a new session and runs one turn by passing the question to `runner.run_async()`. It prints model responses and tool-call information. This makes a real LLM call and requires an API key and model configuration.
 
 ```text
 ① Discover       AgentLoader → LlmAgent name='weather_agent' (from my_agent/agent.py)
@@ -125,6 +132,25 @@ python adk_cli_map.py            # commands · loader · services · routes
 | `services` | 34 | Session: `memory · sqlite · postgresql · mysql · agentengine`, Artifact: `memory · gs · file` … |
 | `routes` | 35–36 | api_server routes: 22 · adk web routes: 59 (`/dev/*`: 35) |
 
+### What `adk_cli_map.py` Does
+
+```powershell
+python .\adk_cli_map.py                 # Inspect all four areas
+python .\adk_cli_map.py commands        # Inspect only the command tree
+python .\adk_cli_map.py loader          # Inspect only the agent loader
+python .\adk_cli_map.py services        # Inspect only service URI schemes
+python .\adk_cli_map.py routes          # Inspect only API routes
+```
+
+With no argument, the script behaves as if you passed `all` and prints these four sections in order:
+
+- **commands**: Walks the installed ADK Click command group and prints the `adk` command tree and each command's handler.
+- **loader**: Uses `AgentLoader` to find and load `my_agent` from `part03_cli`, then prints the loaded object's type and name and the agent search order. It loads the agent definition; it does not run a user query.
+- **services**: Prints the URI schemes registered by ADK for session, artifact, and memory services.
+- **routes**: Builds the FastAPI apps in memory for `api_server` (`web=False`) and `adk web` (`web=True`), then prints each app's route count, `/run*` routes, `/dev/*` count, and examples of web-only routes. It does not start a server or send an agent query.
+
+This is an inspection tool for learning ADK internals. It does not make LLM calls and does not require an API key. Route counts and command listings may vary with the installed ADK version.
+
 ---
 
 ## 4. Key adk Commands (Slides 40–43)
@@ -145,6 +171,8 @@ Flags may differ across versions; check `adk run --help` for the latest options.
 
 ## 5. Calling api_server
 
+When you start `adk api_server` from `part03_cli`, it serves the agents in its subdirectories through the API. Starting the server does not run one particular agent; the `app_name` in each `/run` or `/run_sse` request selects the agent. Check the available agents with `GET http://localhost:8000/list-apps`.
+
 ```bash
 adk api_server --port 8000
 ```
@@ -155,13 +183,25 @@ In another terminal:
 uv run api_client.py
 ```
 
+`api_client.py` defaults to `APP = "my_agent"`. Change it to `APP = "my_agent_mod"` to call the agent that includes the weather tool. For curl requests, set the agent name in both `app_name` and the session URL.
+
+### `/run` vs. `/run_sse`
+
+Both endpoints send a query to the same agent; they differ in how events are delivered.
+
+| Endpoint | Response behavior | Client usage |
+|---|---|---|
+| `POST /run` | Returns the complete set of events as a JSON array after the agent finishes | Process the array after the request completes |
+| `POST /run_sse` | Streams events as Server-Sent Events (SSE) as they are generated | Keep the connection open and read/process events incrementally |
+
+Use `/run` when you want the complete result at once, and `/run_sse` when you want to consume events or show progress while the agent is running. In `api_client.py`, the first `/run` request collects all events for `Seoul weather?`; then `/run_sse` sends `What about Busan?` in the same session and prints each event as it arrives. These are separate agent turns.
+
 Calling directly with curl:
 
 ```bash
 # Create session
-curl -X POST localhost:8000/apps/my_agent/users/u1/sessions/s1
+curl -X POST localhost:8000/apps/my_agent_mod/users/u1/sessions/s1
 
 # Query agent
-curl -X POST localhost:8000/run -H "Content-Type: application/json" -d "{\"app_name\":\"my_agent\",\"user_id\":\"u1\",\"session_id\":\"s1\",\"new_message\":{\"role\":\"user\",\"parts\":[{\"text\":\"Seoul weather?\"}]}}"
+curl -X POST localhost:8000/run -H "Content-Type: application/json" -d "{\"app_name\":\"my_agent_mod\",\"user_id\":\"u1\",\"session_id\":\"s1\",\"new_message\":{\"role\":\"user\",\"parts\":[{\"text\":\"Seoul weather?\"}]}}"
 ```
-

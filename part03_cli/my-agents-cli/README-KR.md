@@ -68,72 +68,7 @@ my-agents-cli/
 
 ---
 
-## 3. 사전 설정: `agents-cli playground` 실행 전 Google Cloud 인증 (ADC) 설정
-
-`agents-cli playground` 또는 ADK 서버를 실행할 때 로컬 컴퓨터에 Google Cloud 인증 정보(Application Default Credentials, ADC)가 설정되어 있지 않으면 다음과 같은 오류가 발생합니다:
-
-```text
-DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
-```
-
-로컬 개발 환경에서는 `agents-cli playground`를 실행하기 전에 아래 방법 중 하나로 인증을 먼저 완료해야 합니다.
-
-### 방법 1: Google Cloud CLI (`gcloud`)를 통한 ADC 로그인 설정 (권장)
-
-1. **Google Cloud CLI 설치 여부 확인**
-   터미널에 아래 명령어를 입력해 `gcloud` 도구가 설치되어 있는지 확인합니다:
-   ```bash
-   gcloud --version
-   ```
-   - **확인 방법**: `Google Cloud SDK ...` 버전 정보가 출력되면 다음 단계로 넘어갑니다. (`command not found` 또는 인식되지 않는다는 메시지가 뜬다면 [Google Cloud CLI 공식 페이지](https://cloud.google.com/sdk/docs/install)에서 먼저 설치해야 합니다.)
-
-2. **Application Default Credentials (ADC) 로그인 실행**
-   터미널에 아래 명령어를 입력하여 브라우저 인증 창을 엽니다:
-   ```bash
-   gcloud auth application-default login
-   ```
-   - **확인 방법**: 명령어 실행 후 자동으로 웹 브라우저가 열리며 Google 계정 로그인 화면이 나타납니다.
-
-3. **Google 계정 로그인 및 권한 허용**
-   브라우저에서 Google Cloud 프로젝트 권한이 있는 계정으로 로그인한 뒤 **허용(Allow)** 버튼을 클릭합니다.
-   - **확인 방법**: 브라우저에 `You are now authenticated with the gcloud CLI!` 문구가 뜨고, 터미널에 `Credentials saved to file: [.../application_default_credentials.json]` 메시지가 출력되면 성공입니다.
-
-4. **프로젝트 ID 설정 및 `.env` 확인 후 재실행**
-   사용할 Google Cloud 프로젝트 ID를 기본값으로 지정하고 `.env` 파일의 `GOOGLE_CLOUD_PROJECT`에도 반영한 뒤, `agents-cli playground`를 실행합니다:
-   ```bash
-   gcloud config set project [본인의_프로젝트_ID]
-   ```
-   - **확인 방법**: `agents-cli playground`를 다시 실행했을 때 `DefaultCredentialsError` 없이 정상적으로 작동하면 해결된 것입니다.
-
-### 방법 2 (대안): 서비스 계정 키(JSON) 파일로 인증하는 경우
-
-브라우저 로그인 대신 발급받은 서비스 계정 키(`.json` 파일)를 사용해야 하는 환경이라면, 터미널에서 환경 변수를 지정한 뒤 실행하세요.
-
-- **Windows (PowerShell)**:
-  ```powershell
-  $env:GOOGLE_APPLICATION_CREDENTIALS="C:\경로\키파일이름.json"
-  ```
-- **macOS / Linux**:
-  ```bash
-  export GOOGLE_APPLICATION_CREDENTIALS="/경로/키파일이름.json"
-  ```
-- **확인 방법**: 해당 터미널 세션에서 바로 `agents-cli playground`를 다시 실행했을 때 인증 오류가 사라지는지 확인합니다.
-
-### 방법 3 (대안): Google Cloud ADC 없이 Gemini API 키(Google AI Studio)로 실행하는 경우
-
-GCP 프로젝트(Vertex AI) 대신 Google AI Studio에서 발급받은 무료/유료 Gemini API 키로 실행하려면, `my-agents-cli/.env` 파일에서 GCP 설정 3줄을 주석 처리하고 `GEMINI_API_KEY`를 활성화합니다:
-
-```ini
-# GOOGLE_GENAI_USE_ENTERPRISE=true
-# GOOGLE_CLOUD_PROJECT=your-gcp-project-id
-# GOOGLE_CLOUD_LOCATION=global
-
-GEMINI_API_KEY=your-api-key-here
-```
-
----
-
-## 4. 실행 방법 (How to Run)
+## 3. 실행 방법 (How to Run)
 
 `my-agents-cli` 디렉터리 내부에서 명령어를 실행합니다:
 
@@ -161,7 +96,7 @@ agents-cli eval
 
 # 7. Google Cloud Agent Runtime 배포
 gcloud config set project <your-project-id>
-agents-cli deploy
+agents-cli deploy --no-confirm-project
 
 # 8. 배포된 에이전트를 Gemini에 등록
 agents-cli publish gemini
@@ -169,7 +104,7 @@ agents-cli publish gemini
 
 ---
 
-## 5. 🛠️ 프로젝트 관리 명령어
+## 4. 🛠️ 프로젝트 관리 명령어
 
 | 명령어 | 기능 |
 | :--- | :--- |
@@ -179,7 +114,7 @@ agents-cli publish gemini
 
 ---
 
-## 6. 요청 처리 흐름: uvicorn에서 Agent까지
+## 5. 요청 처리 흐름: uvicorn에서 Agent까지
 
 `app/fast_api_app.py`를 기준으로, 클라이언트가 보낸 HTTP 요청이 `root_agent`까지 도달하는 경로입니다.
 
@@ -230,7 +165,7 @@ root_agent (LlmAgent "my_agents_cli")
 
 ---
 
-## 7. 관측 가능성 (Observability) 및 A2A 지원
+## 6. 관측 가능성 (Observability) 및 A2A 지원
 
 - **관측 가능성**: Cloud Trace, BigQuery, Cloud Logging으로 텔레메트리 데이터가 자동 전송되도록 내장되어 있습니다.
 - **A2A Inspector**: 본 에이전트는 [A2A 프로토콜](https://a2a-protocol.org/)을 완벽히 지원하며, [A2A Inspector](https://github.com/a2aproject/a2a-inspector)로 상호 운용성을 검증할 수 있습니다.
