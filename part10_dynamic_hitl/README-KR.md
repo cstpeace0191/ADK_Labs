@@ -1,6 +1,6 @@
 ﻿# part10_dynamic_hitl — 동적 워크플로우, HITL 및 재시도 (Dynamic, HITL & Retry)
 
-> 강의노트 **Part 10 · 10. Dynamic · HITL · Retry** (슬라이드 101–109)와 짝을 이룬다.
+> 강의노트 **Part 10 · 10. Dynamic · HITL · Retry** (슬라이드 106–114)와 짝을 이룬다.
 
 실행 시점에 그래프 형상이 동적으로 결정되는 **동적 노드/병렬 처리**, 사람의 개입을 안전하게 처리하는 **Human-in-the-Loop (HITL)**, 그리고 일시적 장애를 복구하는 **재시도(Retry)** 패턴을 다룹니다.
 

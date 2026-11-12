@@ -1,4 +1,4 @@
-"""강의노트 Part 8 슬라이드 88: 1.x Workflow Agent — Sequential · Parallel · Loop.
+"""강의노트 Part 8 슬라이드 93: 1.x Workflow Agent — Sequential · Parallel · Loop.
 
 값 전달: 각 에이전트의 output_key → 다음 instruction 의 {key}
 (1.x 코드를 읽을 줄 알아야 하지만, 새 코드는 Part 9 Graph Workflow(실습 part09)로 작성한다)

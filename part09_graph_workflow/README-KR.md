@@ -1,6 +1,6 @@
 ﻿# part09_graph_workflow — ADK 2.0 그래프 워크플로우 (Graph Workflow)
 
-> 강의노트 **Part 9 · 09. ADK 2.0 Graph Workflow** (슬라이드 91–100)와 짝을 이룬다.
+> 강의노트 **Part 9 · 09. ADK 2.0 Graph Workflow** (슬라이드 96–105)와 짝을 이룬다.
 
 노드(Node)와 엣지(Edge)로 구성되는 방향성 그래프 기반의 결정론적 제어 흐름과 LLM 에이전트의 결합 패턴을 다룹니다.
 

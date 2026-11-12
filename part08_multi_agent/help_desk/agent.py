@@ -1,4 +1,4 @@
-"""강의노트 Part 8 슬라이드 87: sub_agents 와 LLM 위임(transfer_to_agent).
+"""강의노트 Part 8 슬라이드 92: sub_agents 와 LLM 위임(transfer_to_agent).
 
 부모 프롬프트에 하위 에이전트 목록 + description 이 자동 포함되고,
 LLM 이 transfer_to_agent(name) 를 호출하면 대화 제어권이 하위 에이전트로 넘어간다(chat 모드).

@@ -1,4 +1,4 @@
-"""part05_skills 실습 러너 (Gemini 키 필요) — 강의노트 Part 5 슬라이드 58~62.
+"""part05_skills 실습 러너 (Gemini 키 필요) — 강의노트 Part 5 슬라이드 63~67.
 
 실행: python run_skills.py [weather|greeting|all]   (기본 all)
   weather  : 발견(list_skills) → 활성화(load_skill) → get_weather(adk_additional_tools) →

@@ -1,4 +1,4 @@
-"""강의노트 Part 6 슬라이드 75: MCP Toolset — 표준 프로토콜로 외부 도구(파일시스템 서버) 연결.
+"""강의노트 Part 6 슬라이드 80: MCP Toolset — 표준 프로토콜로 외부 도구(파일시스템 서버) 연결.
 
 필요: Node.js(npx), `pip install "mcp>=1.24,<2"`  (mcp 2.x 는 현재 ADK와 호환되지 않음)
 tool_filter 로 읽기 도구만 노출(최소 권한).

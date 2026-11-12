@@ -1,4 +1,4 @@
-"""part11 평가·배포 대상 에이전트 (Part 4 슬라이드 45 날씨 에이전트)."""
+"""part11 평가·배포 대상 에이전트 (Part 4 슬라이드 50 날씨 에이전트)."""
 import os
 
 from google.adk import Agent

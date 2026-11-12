@@ -1,4 +1,4 @@
-"""강의노트 Part 8 슬라이드 89~90: ADK 2.0 협업 모드 — coordinator + single_turn / task 서브에이전트.
+"""강의노트 Part 8 슬라이드 94~95: ADK 2.0 협업 모드 — coordinator + single_turn / task 서브에이전트.
 
 mode        | 사용자와 대화        | 부모로 복귀
 chat (기본) | 가능                 | 수동 transfer

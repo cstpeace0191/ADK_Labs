@@ -1,4 +1,4 @@
-"""강의노트 Part 4 슬라이드 51: 프로그램에서 실행하기 — Runner + SessionService.
+"""강의노트 Part 4 슬라이드 56: 프로그램에서 실행하기 — Runner + SessionService.
 
 app_name · user_id · session_id 세 축으로 대화를 식별하고,
 create_session(state=...)로 초기 State를 주입한다.

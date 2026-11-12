@@ -1,7 +1,7 @@
 # Google ADK 2.x (Python 3.11+)
 google-adk[a2a,eval]>=2.6
 
-# Google Agents CLI (Part 12 엔드투엔드 워크플로우 실습)
+# Google Agents CLI (Part 13 엔드투엔드 워크플로우 실습)
 google-agents-cli>=1.13.0
 
 # MCP 도구(Part 6, part06_tools): ADK는 mcp 1.x 와 호환된다 (mcp 2.x 는 import 오류)

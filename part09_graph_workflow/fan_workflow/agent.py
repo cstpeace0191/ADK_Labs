@@ -1,4 +1,4 @@
-"""강의노트 Part 9 슬라이드 97: 코드 ③ Fan-out 과 JoinNode Fan-in (LLM 없음).
+"""강의노트 Part 9 슬라이드 102: 코드 ③ Fan-out 과 JoinNode Fan-in (LLM 없음).
 
 ("START", (a, b), join) : a, b 를 병렬 실행 → JoinNode 가 {노드이름: 결과} dict 로 합친다.
 """

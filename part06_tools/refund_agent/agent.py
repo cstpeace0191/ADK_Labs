@@ -1,4 +1,4 @@
-"""강의노트 Part 6 슬라이드 77: 사람 확인이 필요한 도구 — LongRunningFunctionTool.
+"""강의노트 Part 6 슬라이드 82: 사람 확인이 필요한 도구 — LongRunningFunctionTool.
 
 도구는 즉시 'pending' 을 반환하고, 외부 시스템(관리자)의 승인 결과는 나중에
 같은 function_call id 로 FunctionResponse 를 보내 주입한다 (run_tools.py refund 참고).

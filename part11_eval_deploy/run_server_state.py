@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 117~118: '서버와 상태'를 누가 책임지나 — LLM 없이 확인한다 (🟢 키 불필요).
+"""강의노트 Part 11 슬라이드 122~123: '서버와 상태'를 누가 책임지나 — LLM 없이 확인한다 (🟢 키 불필요).
 
 실행: python run_server_state.py [lost|shared|factory|all]   (기본 all)
   lost    : 세션 저장소 없이 '인스턴스 A → B'로 요청이 옮겨 가면 대화가 사라진다 (Cloud Run 기본값의 문제)

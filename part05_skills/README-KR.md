@@ -1,9 +1,9 @@
 # part05_skills — Skills for ADK Agents
 
-> 강의노트 **Part 5 · 05. Skills for ADK Agents** (슬라이드 52–69)와 짝을 이룬다.
+> 강의노트 **Part 5 · 05. Skills for ADK Agents** (슬라이드 57–74)와 짝을 이룬다.
 > SKILL.md · 점진적 공개 · SkillToolset · google.adk.skills · Agents CLI 스킬
 
-ADK 에이전트가 **실행 중에 쓰는 스킬**(SkillToolset)을 다룬다. 코딩 에이전트(Claude Code · Antigravity)가 ADK 코드를 **만들 때 쓰는 스킬**(google-agents-cli-*, 슬라이드 63–68)의 설치·연결은 [`../part12_agents_cli/coding_with_ai/`](../part12_agents_cli/coding_with_ai/README-KR.md)에 있다.
+ADK 에이전트가 **실행 중에 쓰는 스킬**(SkillToolset)을 다룬다. 코딩 에이전트(Claude Code · Antigravity)가 ADK 코드를 **만들 때 쓰는 스킬**(google-agents-cli-*, 슬라이드 68–73)의 설치·연결은 [`../part13_agents_cli/coding_with_ai/`](../part13_agents_cli/coding_with_ai/README-KR.md)에 있다.
 
 ---
 
@@ -27,12 +27,12 @@ part05_skills/
 
 | 슬라이드 | 내용 | 코드 |
 |---|---|---|
-| 53–54 | 에이전트 스킬, SKILL.md 폴더 · L1→L2→L3 | `skills_agent/skills/weather-report/` |
-| 57 | 코딩 도구의 Skills vs ADK Skills | 이 폴더 = ADK Skills, 코딩 도구 스킬은 `part12_agents_cli/coding_with_ai/` |
-| 58 | ADK Skills 구조: SkillToolset 연결 | `skills_agent/agent.py` |
-| 59–60 | google.adk.skills 모듈 · `load_skill_from_dir()` 처리 흐름 · 검증 | `skills_explorer.py load` · `validate` |
-| 61–62 | 런타임 구조 · 실행 중 동작(활성화 기록, 도구 동적 노출) | `skills_explorer.py toolset` · `run_skills.py` |
-| 67 | 코딩 에이전트에 ADK 스킬 설치 | `skills_explorer.py coding` (설치 확인) |
+| 58–59 | 에이전트 스킬, SKILL.md 폴더 · L1→L2→L3 | `skills_agent/skills/weather-report/` |
+| 62 | 코딩 도구의 Skills vs ADK Skills | 이 폴더 = ADK Skills, 코딩 도구 스킬은 `part13_agents_cli/coding_with_ai/` |
+| 63 | ADK Skills 구조: SkillToolset 연결 | `skills_agent/agent.py` |
+| 64–65 | google.adk.skills 모듈 · `load_skill_from_dir()` 처리 흐름 · 검증 | `skills_explorer.py load` · `validate` |
+| 66–67 | 런타임 구조 · 실행 중 동작(활성화 기록, 도구 동적 노출) | `skills_explorer.py toolset` · `run_skills.py` |
+| 72 | 코딩 에이전트에 ADK 스킬 설치 | `skills_explorer.py coding` (설치 확인) |
 
 ## 3. 실행 (part05_skills 폴더에서)
 

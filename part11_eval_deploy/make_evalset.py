@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 111: 평가셋(evalset) 생성 — ADK의 EvalSet 스키마로 직접 만든다.
+"""강의노트 Part 11 슬라이드 116: 평가셋(evalset) 생성 — ADK의 EvalSet 스키마로 직접 만든다.
 
 각 케이스 = 사용자 질문 + 기대 도구 궤적(tool_uses) + 기대 최종 응답.
 실행: python make_evalset.py   →  weather_agent/weather.evalset.json

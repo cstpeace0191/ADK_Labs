@@ -1,4 +1,4 @@
-"""강의노트 Part 7 슬라이드 82: 세션 종료 → add_session_to_memory → 다음 세션에서 preload/load (Gemini 키 필요).
+"""강의노트 Part 7 슬라이드 87: 세션 종료 → add_session_to_memory → 다음 세션에서 preload/load (Gemini 키 필요).
 
 운영에서는 InMemoryMemoryService 대신 VertexAiMemoryBankService(사실 자동 추출·병합)를 쓴다.
 실행: python run_memory.py

@@ -1,4 +1,4 @@
-"""강의노트 Part 9 슬라이드 96: 코드 ② Route로 분기하기 (LLM 없음, 비용 0).
+"""강의노트 Part 9 슬라이드 101: 코드 ② Route로 분기하기 (LLM 없음, 비용 0).
 
 입력 "42"  → auto-approved $42
 입력 "250" → needs review $250

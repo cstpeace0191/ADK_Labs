@@ -1,4 +1,4 @@
-"""강의노트 Part 7 슬라이드 84 Plugin: 앱 전체에 적용되는 콜백 묶음(BasePlugin).
+"""강의노트 Part 7 슬라이드 89 Plugin: 앱 전체에 적용되는 콜백 묶음(BasePlugin).
 
 에이전트마다 로깅·정책 콜백을 반복하지 않고 Runner(plugins=[...])에 한 번 등록한다.
 """

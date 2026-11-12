@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 123 '소비': 원격 A2A 에이전트를 하위 에이전트로 사용.
+"""강의노트 Part 11 슬라이드 128 '소비': 원격 A2A 에이전트를 하위 에이전트로 사용.
 
 먼저 prime_agent A2A 서버를 띄운 뒤 (uvicorn prime_agent.agent:a2a_app --port 8001)
     adk web          (a2a_demo 폴더에서 → host_agent 선택)

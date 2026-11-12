@@ -1,6 +1,6 @@
 ﻿# part07_context — Context, State, Memory 및 Guardrails
 
-> 강의노트 **Part 7 · 07. Session · State · Memory · Callback** (슬라이드 78–84)과 짝을 이룬다.
+> 강의노트 **Part 7 · 07. Session · State · Memory · Callback** (슬라이드 83–89)과 짝을 이룬다.
 
 대화의 상태를 관리하는 **State 접두사 스코프**, **세션 영속성(SQLite DatabaseSessionService)**, 장기 기억을 위한 **MemoryService**, 그리고 보안 및 모니터링을 위한 **Callbacks & Plugin 가드레일**을 다룹니다.
 

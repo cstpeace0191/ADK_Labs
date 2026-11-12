@@ -1,4 +1,4 @@
-"""강의노트 Part 7 슬라이드 80~81: State 접두사 + DatabaseSessionService(SQLite) 영속성 (Gemini 키 필요).
+"""강의노트 Part 7 슬라이드 85~86: State 접두사 + DatabaseSessionService(SQLite) 영속성 (Gemini 키 필요).
 
 - 세션 1에서 이름을 알려주면 user:name 이 저장된다.
 - 같은 사용자의 '새' 세션 2에서도 user:name 이 보인다 (세션 범위 visits 는 0부터).

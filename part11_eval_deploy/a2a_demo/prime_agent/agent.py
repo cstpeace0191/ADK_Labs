@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 123 '노출': 소수 판별 에이전트를 A2A 서버로.
+"""강의노트 Part 11 슬라이드 128 '노출': 소수 판별 에이전트를 A2A 서버로.
 
 실행 (part11_eval_deploy/a2a_demo 폴더):
     uvicorn prime_agent.agent:a2a_app --port 8001

@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 120: gcloud run deploy 로 올릴 컨테이너 서버(main.py)를 배포 전에 로컬에서 검증한다 (🟢 키 불필요).
+"""강의노트 Part 11 슬라이드 125: gcloud run deploy 로 올릴 컨테이너 서버(main.py)를 배포 전에 로컬에서 검증한다 (🟢 키 불필요).
 
 deploy_gcloud_run.sh 와 같은 빌드 폴더(main.py + weather_agent/)를 임시로 만들고,
 main.py 의 FastAPI 앱을 TestClient 로 띄워 ADK HTTP API 가 살아 있는지 본다. LLM 은 부르지 않는다.

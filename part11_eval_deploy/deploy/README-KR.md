@@ -1,6 +1,6 @@
 # deploy — 클라우드 배포 스크립트 및 컨테이너 정의
 
-> 강의노트 **Part 11 · 11. 평가 · 배포 · 운영**: 배포 대상(112) · Cloud Run(113) · Agent Runtime(114) · 비교(115–116) · **서버와 상태(117–118)** · Cloud Run 배포(119) · **gcloud run deploy(120)** · **배포 경로 정리(121)** · Agent Runtime 배포와 트리거(122)
+> 강의노트 **Part 11 · 11. 평가 · 배포 · 운영**: 배포 대상(113) · Cloud Run(114) · Agent Runtime(115) · 비교(116–117) · **서버와 상태(118–119)** · Cloud Run 배포(120) · **gcloud run deploy(121)** · **배포 경로 정리(122)** · Agent Runtime 배포와 트리거(123)
 
 ADK 에이전트(`../weather_agent`)를 **Google Cloud Run**과 **Agent Runtime**(구 Agent Engine, Vertex AI)에 배포하는 스크립트와 컨테이너 예시다.
 실습 시간에는 배포하지 않는다(GCP 프로젝트·결제 필요). 배포 전에 `../run_server_state.py`(🟢 키 불필요)로 '상태를 누가 책임지나'를 먼저 확인한다.
@@ -35,7 +35,7 @@ bash deploy/deploy_cloud_run.sh
 bash deploy/deploy_agent_runtime.sh runtime
 ```
 
-## 3. gcloud run deploy로 Cloud Run 배포 (슬라이드 120)
+## 3. gcloud run deploy로 Cloud Run 배포 (슬라이드 125)
 
 `adk deploy cloud_run`은 에이전트 폴더만 주면 ADK가 서버와 Dockerfile을 만든다. `gcloud run deploy`는 **서버 코드(main.py)와 Dockerfile을 내가 쓰고** 그 폴더를 올린다.
 
@@ -54,18 +54,18 @@ bash deploy/deploy_gcloud_run.sh                         # = gcloud run deploy w
 - `--no-allow-unauthenticated`(비공개) → `TOKEN=$(gcloud auth print-identity-token)`을 `Authorization: Bearer`로 붙여 `/list-apps`, `/apps/weather_agent/users/u1/sessions/s1`, `/run_sse`를 호출한다.
 - 키를 이미지나 `--set-env-vars`에 평문으로 넣지 않는다. `--set-secrets=GOOGLE_API_KEY=gemini-api-key:latest` (서비스 계정에 `roles/secretmanager.secretAccessor`). Vertex AI(`USE_VERTEXAI=TRUE`)면 키 없이 서비스 계정 권한으로 호출한다.
 
-## 4. Agent Runtime은 gcloud run deploy로 올리지 않는다 (슬라이드 121)
+## 4. Agent Runtime은 gcloud run deploy로 올리지 않는다 (슬라이드 126)
 
 `gcloud run deploy`는 **Cloud Run 서비스만** 만든다. Agent Runtime(구 Agent Engine)은 다음 중 하나로 올린다.
 
 | 방법 | 명령 | 이 폴더 |
 |---|---|---|
 | ADK CLI | `adk deploy agent_engine --project … --region … --display_name … ./weather_agent` | `deploy_agent_runtime.sh runtime` |
-| agents-cli | `agents-cli deploy` (기본 대상 Agent Runtime) | `../../part12_agents_cli/` |
+| agents-cli | `agents-cli deploy` (기본 대상 Agent Runtime) | `../../part13_agents_cli/` |
 | Python SDK | `vertexai.Client(...).agent_engines.create(agent=AdkApp(agent=root_agent), config={requirements, staging_bucket})` | `deploy_agent_runtime_sdk.py` |
 | SDK (Dockerfile · 이미지) | `client.runtimes.create(config={"image_spec": {}} 또는 {"container_spec": {"image_uri": …}})` — google-cloud-aiplatform ≥ 1.144, 런타임 계약 준수 | (실습 환경 1.132에는 없음) |
 
-## 5. 서버와 상태: 누가 책임지나 (슬라이드 117–118)
+## 5. 서버와 상태: 누가 책임지나 (슬라이드 122–123)
 
 | 책임 | Cloud Run (내가) | Agent Runtime (플랫폼이) |
 |---|---|---|

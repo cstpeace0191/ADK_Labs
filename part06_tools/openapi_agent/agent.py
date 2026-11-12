@@ -1,4 +1,4 @@
-"""강의노트 Part 6 슬라이드 76: OpenAPI Toolset과 인증 — 사내 REST API를 도구로.
+"""강의노트 Part 6 슬라이드 81: OpenAPI Toolset과 인증 — 사내 REST API를 도구로.
 
 operationId(get_leave_balance, list_holidays)가 곧 도구 이름이 된다.
 API 키는 코드에 하드코딩하지 않고 환경변수(운영: Secret Manager)에서 읽어 헤더로 첨부한다.

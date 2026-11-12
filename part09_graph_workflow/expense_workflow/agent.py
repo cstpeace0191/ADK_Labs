@@ -1,4 +1,4 @@
-"""강의노트 Part 9 슬라이드 100: 사례 ② ambient-expense-agent (이벤트 → 코드 분기 → LLM → 승인).
+"""강의노트 Part 9 슬라이드 105: 사례 ② ambient-expense-agent (이벤트 → 코드 분기 → LLM → 승인).
 
 START → parse_expense_email → route_by_amount ─ AUTO_APPROVE ($100 미만) → auto_approve
                                                └ NEEDS_REVIEW → review_agent(LLM) → request_approval(사람) → process_decision

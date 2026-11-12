@@ -12,4 +12,4 @@ Part 1은 개념 강의라 **실습 코드가 없다**. 폴더 번호를 강의�
 | 11–14 | 아키텍처 패러다임 · 비교표 | 그래프 워크플로우 → [`../part09_graph_workflow/`](../part09_graph_workflow/README-KR.md) |
 | 15 | 선택 가이드: 하이브리드 조합 | 멀티에이전트 → [`../part08_multi_agent/`](../part08_multi_agent/README-KR.md) |
 
-실습 환경 준비(uv, Python 3.11, `.env`)는 루트 [README-KR.md](../README-KR.md)를 따른다.
+실습 환경 준비(uv, Python 3.11 이상, `.env`)는 루트 [README(Overview)-KR.md](<../README(Overview)-KR.md>)를 따른다.

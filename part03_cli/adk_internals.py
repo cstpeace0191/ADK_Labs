@@ -1,4 +1,4 @@
-"""강의노트 Part 3 슬라이드 30~32: adk CLI 가 대신 해 주는 일을 ADK 내부 코드로 그대로 재현한다.
+"""강의노트 Part 3 슬라이드 31~38: adk CLI 가 대신 해 주는 일을 ADK 내부 코드로 그대로 재현한다.
 
 `adk run my_agent` 를 실행하면 adk 는 다음 5단계를 거친다 (google.adk.cli.cli._setup_runner_context, ADK 2.6.3).
   ① 찾기       AgentLoader 가 my_agent 폴더에서 app → root_agent 순으로 찾는다

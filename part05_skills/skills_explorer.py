@@ -1,10 +1,10 @@
-"""강의노트 Part 5 Skills for ADK Agents (슬라이드 58~62): google.adk.skills 를 LLM 없이 직접 써 본다 (🟢 키 불필요).
+"""강의노트 Part 5 Skills for ADK Agents (슬라이드 63~67): google.adk.skills 를 LLM 없이 직접 써 본다 (🟢 키 불필요).
 
 실행: python skills_explorer.py [load|validate|toolset|coding|all]   (기본 all)
-  load     : L1 list_skills_in_dir → L2/L3 load_skill_from_dir → <available_skills> XML (슬라이드 59~60)
-  validate : 로드 시점 검증 — 폴더 이름≠name, 대문자 name, SKILL.md 없음, description 1,024자 초과 (슬라이드 60)
-  toolset  : SkillToolset 이 모델에 주는 도구 — 활성화 전/후 (adk_additional_tools 동적 노출, 슬라이드 61~62)
-  coding   : 코딩 에이전트용 스킬(~/.agents/skills 등)도 같은 SKILL.md 형식이라 ADK 로더로 읽힌다 (슬라이드 57·67)
+  load     : L1 list_skills_in_dir → L2/L3 load_skill_from_dir → <available_skills> XML (슬라이드 64~65)
+  validate : 로드 시점 검증 — 폴더 이름≠name, 대문자 name, SKILL.md 없음, description 1,024자 초과 (슬라이드 65)
+  toolset  : SkillToolset 이 모델에 주는 도구 — 활성화 전/후 (adk_additional_tools 동적 노출, 슬라이드 66~67)
+  coding   : 코딩 에이전트용 스킬(~/.agents/skills 등)도 같은 SKILL.md 형식이라 ADK 로더로 읽힌다 (슬라이드 62·72)
 
 버전 메모: 실습 환경 google-adk 2.6.3 기준. 최신(2.14)에만 있는 이름(load_skills_from_dir, unload_skill,
 discovery_mode, lifecycle_config)은 있으면 쓰고, 없으면 '없음'으로 표시한다.
@@ -146,7 +146,7 @@ def demo_coding() -> None:
             continue
         adk = sorted(k for k in metas if k.startswith("google-agents-cli"))
         print(f"  {label:<22} {path}  스킬 {len(metas)}개, 그중 google-agents-cli-* {len(adk)}개")
-    print("  설치: uvx google-agents-cli setup  (자세히: part12_agents_cli/coding_with_ai/README-KR.md)")
+    print("  설치: uvx google-agents-cli setup  (자세히: part13_agents_cli/coding_with_ai/README-KR.md)")
 
 
 def main() -> None:

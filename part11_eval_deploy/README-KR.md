@@ -1,6 +1,6 @@
 ﻿# part11_eval_deploy — 에이전트 평가(Eval), A2A 통신 및 배포(Deploy)
 
-> 강의노트 **Part 11 · 11. 평가 · 배포 · 운영**(슬라이드 110–124)과 짝을 이룬다: 평가(111) · 배포(112–122: 서버와 상태 117–118, gcloud run deploy 120, 배포 경로 121) · A2A(123).
+> 강의노트 **Part 11 · 11. 평가 · 배포 · 운영**(슬라이드 115–129)과 짝을 이룬다: 평가(116) · 배포(117–127: 서버와 상태 122–123, gcloud run deploy 125, 배포 경로 126) · A2A(128).
 
 에이전트의 품질을 정량적으로 측정하는 **ADK Eval 툴체인**, 원격 에이전트 간 협업을 위한 **A2A(Agent-to-Agent) 프로토콜**, 그리고 **Cloud Run / Agent Runtime 배포** 구성을 다룹니다.
 
@@ -16,7 +16,7 @@ part11_eval_deploy/
 ├── tests/               # 🔑 test_weather_eval.py (AgentEvaluator) · 🟢 test_container_app.py (gcloud 배포용 서버 로컬 검증)
 ├── make_evalset.py      # 대화 기록으로부터 ADK 표준 evalset.json 파일 생성 도구
 ├── run_a2a_client.py    # A2A 원격 에이전트 호출 클라이언트
-├── run_server_state.py  # 🟢 서버와 상태: 인스턴스 교체 시 세션 유실 vs 바깥 DB, adk 가 고르는 SessionService (슬라이드 117–118)
+├── run_server_state.py  # 🟢 서버와 상태: 인스턴스 교체 시 세션 유실 vs 바깥 DB, adk 가 고르는 SessionService (슬라이드 122–123)
 └── README-KR.md            # 현재 문서
 ```
 
@@ -62,7 +62,7 @@ uv run uvicorn a2a_demo.prime_agent.agent:a2a_app --port 8001
 uv run run_a2a_client.py
 ```
 
-### 4) 서버와 상태 확인 (🟢 키 불필요, 슬라이드 117–118)
+### 4) 서버와 상태 확인 (🟢 키 불필요, 슬라이드 122–123)
 ```bash
 uv run run_server_state.py            # all
 uv run run_server_state.py factory    # lost | shared | factory
@@ -78,7 +78,7 @@ uv run run_server_state.py factory    # lost | shared | factory
 - Cloud Run은 `K_SERVICE` 환경변수로 감지되어 메모리 세션이 된다. 그래서 `deploy/deploy_cloud_run.sh`에 `SESSION_URI`(Cloud SQL `postgresql+asyncpg://…` 또는 `agentengine://<id>`)를 준다.
 - Agent Runtime에 배포하면 `GOOGLE_CLOUD_AGENT_ENGINE_ID`가 주입되어 관리형 세션·Memory Bank가 자동으로 쓰인다. 자세히: [deploy/README-KR.md](deploy/README-KR.md)
 
-### 5) gcloud run deploy 준비와 Agent Runtime SDK 배포 확인 (🟢, 슬라이드 120–121)
+### 5) gcloud run deploy 준비와 Agent Runtime SDK 배포 확인 (🟢, 슬라이드 125–126)
 ```bash
 uv run pytest tests/test_container_app.py -q             # 컨테이너 서버(main.py): /list-apps · 세션 생성 · DB 저장 → 2 passed
 DRY_RUN=1 bash deploy/deploy_gcloud_run.sh              # 빌드 폴더(.build_gcloud) + gcloud run deploy 명령만 출력

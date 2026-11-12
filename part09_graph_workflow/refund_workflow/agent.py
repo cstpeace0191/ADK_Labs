@@ -1,4 +1,4 @@
-"""강의노트 Part 9 슬라이드 99: 사례 ① 환불 처리 그래프 (Google Cloud 블로그 패턴 재구성).
+"""강의노트 Part 9 슬라이드 104: 사례 ① 환불 처리 그래프 (Google Cloud 블로그 패턴 재구성).
 
 START → (fetch_order, fetch_payment, fetch_history) 병렬 조회 → join_case → route_refund
 route_refund ─ AUTO_APPROVE  → approve_notice (Agent: 안내문 작성)
@@ -57,7 +57,7 @@ def route_refund(node_input: dict):
     return Event(output=case, route=route)
 
 
-# ── 사람 승인 게이트 (Part 10 슬라이드 106 패턴)
+# ── 사람 승인 게이트 (Part 10 슬라이드 111 패턴)
 class Decision(BaseModel):
     approve: bool
     note: str = ""

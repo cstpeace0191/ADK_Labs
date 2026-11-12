@@ -1,4 +1,4 @@
-"""강의노트 Part 4 슬라이드 48: 구조화 출력 output_schema 와 output_key."""
+"""강의노트 Part 4 슬라이드 53: 구조화 출력 output_schema 와 output_key."""
 import os
 
 from google.adk import Agent

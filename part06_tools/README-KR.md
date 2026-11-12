@@ -1,6 +1,6 @@
 ﻿# part06_tools — ADK Tools (도구 확장과 통합)
 
-> 강의노트 **Part 6 · 06. Tools: 에이전트의 손과 발** (슬라이드 70–77)과 짝을 이룬다. Skills(SkillToolset)는 Part 5 → [`../part05_skills/`](../part05_skills/README-KR.md)
+> 강의노트 **Part 6 · 06. Tools: 에이전트의 손과 발** (슬라이드 75–82)과 짝을 이룬다. Skills(SkillToolset)는 Part 5 → [`../part05_skills/`](../part05_skills/README-KR.md)
 
 Google ADK에서 에이전트가 외부 세계와 상호작용하는 5가지 도구 패턴(**Function Tool + Context/Confirmation**, **AgentTool**, **MCP**, **OpenAPI**, **Long Running Tool**)을 다룹니다.
 

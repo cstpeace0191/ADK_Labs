@@ -1,7 +1,6 @@
 # my-agents-cli-mod
 
-간단한 ReAct 에이전트  
-`agents-cli` 버전 `1.13.0`으로 생성된 에이전트 프로젝트입니다.
+`agents-cli create my-agents-cli_mod -y` 으로 생성된 에이전트 프로젝트에서, ./app/agent.py 를 수정한 것입니다.
 
 ---
 

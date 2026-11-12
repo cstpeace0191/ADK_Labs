@@ -1,6 +1,6 @@
 """part06_tools 실습 러너 (Gemini 키 필요).
 
-실행: python run_tools.py [shop|analyst|mcp|openapi|refund|all]   (강의노트 Part 6 슬라이드 70~77)
+실행: python run_tools.py [shop|analyst|mcp|openapi|refund|all]   (강의노트 Part 6 슬라이드 75~82)
   shop    : Function Tool + ToolContext state + 결제 전 확인(require_confirmation)
   analyst : AgentTool(google_search 에이전트, 코드실행 에이전트)
   mcp     : MCP 파일시스템 서버 (Node.js 필요)

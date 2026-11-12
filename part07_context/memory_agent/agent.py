@@ -1,4 +1,4 @@
-"""강의노트 Part 7 슬라이드 82: Memory — preload_memory / load_memory.
+"""강의노트 Part 7 슬라이드 87: Memory — preload_memory / load_memory.
 
 preload_memory: 매 턴 자동으로 장기 기억을 검색해 프롬프트에 넣는다.
 load_memory   : 모델이 필요할 때 도구로 검색한다.

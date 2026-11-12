@@ -1,4 +1,4 @@
-"""강의노트 Part 10 슬라이드 106: 승인 게이트 패턴 — 재실행형 RequestInput + 구조화 응답으로 라우팅 (LLM 없음).
+"""강의노트 Part 10 슬라이드 111: 승인 게이트 패턴 — 재실행형 RequestInput + 구조화 응답으로 라우팅 (LLM 없음).
 
 @node(rerun_on_resume=True) 노드는 재개 시 처음부터 다시 실행되며,
 ctx.resume_inputs[interrupt_id] 로 사람 응답을 읽는다.

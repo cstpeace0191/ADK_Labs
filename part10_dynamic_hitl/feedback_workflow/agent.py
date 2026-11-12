@@ -1,4 +1,4 @@
-"""강의노트 Part 10 슬라이드 105 (두 번째 예): payload + response_schema 를 가진 RequestInput.
+"""강의노트 Part 10 슬라이드 110 (두 번째 예): payload + response_schema 를 가진 RequestInput.
 
 - payload        : UI 에 함께 표시할 데이터 (추천 일정)
 - response_schema: 기대 응답 형식 '안내' — 형식 강제가 아니므로 받은 값은 코드에서 다시 검증한다

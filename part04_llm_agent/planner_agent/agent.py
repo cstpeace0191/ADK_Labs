@@ -1,4 +1,4 @@
-"""강의노트 Part 4 슬라이드 50: Planner = 모델 thinking 설정 (계획 엔진이 아니다).
+"""강의노트 Part 4 슬라이드 55: Planner = 모델 thinking 설정 (계획 엔진이 아니다).
 
 - BuiltInPlanner : 모델의 thinking 기능 설정 (thinking_level 또는 thinking_budget 중 하나만)
 - PlanReActPlanner: /*PLANNING*/ /*ACTION*/ 태그 출력을 유도

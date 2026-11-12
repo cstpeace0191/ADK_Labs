@@ -1,4 +1,4 @@
-"""강의노트 Part 3 슬라이드 27~29 · 33: 직접 Runner 코드 — 등록 → 실행 → 이벤트 소비 (Gemini 키 필요).
+"""강의노트 Part 2 슬라이드 23~25 · Part 3 슬라이드 39: 직접 Runner 코드 — 등록 → 실행 → 이벤트 소비 (Gemini 키 필요).
 
 adk CLI 없이, 응용 SW가 Runner 를 직접 만들어 agent loop 를 돌린다.
 같은 my_agent/agent.py 를 `adk run my_agent` 로도 실행할 수 있다 (adk 가 아래 ①을 대신 해 준다).
@@ -26,7 +26,7 @@ async def main(question: str) -> None:
     print(f"① 등록   Runner(agent={root_agent.name}, session_service=InMemorySessionService)")
     print(f"         세션 생성 app_name=demo · user_id=u1 · session_id={session.id[:8]}…")
 
-    # ② 실행: run_async() 한 번 = agent loop 한 바퀴 (슬라이드 29의 1~5단계)
+    # ② 실행: run_async() 한 번 = agent loop 한 바퀴 (슬라이드 25의 1~5단계)
     msg = types.Content(role="user", parts=[types.Part(text=question)])
     print(f"② 실행   run_async(new_message={question!r})")
     step = 0

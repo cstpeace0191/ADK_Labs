@@ -1,4 +1,4 @@
-"""강의노트 Part 10 슬라이드 103: Dynamic 병렬 실행(asyncio.gather) 과 parallel_worker (LLM 없음).
+"""강의노트 Part 10 슬라이드 108: Dynamic 병렬 실행(asyncio.gather) 과 parallel_worker (LLM 없음).
 
 - research      : 주제 리스트를 받아 상한 5개까지 search_topic 을 병렬 실행
 - followups     : 발견마다 후속 조사를 최대 3개, 깊이 2까지만 (모델 제안 + 코드 상한)

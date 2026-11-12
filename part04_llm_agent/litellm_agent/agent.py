@@ -1,4 +1,4 @@
-"""강의노트 Part 4 슬라이드 49: 모델 선택 — Gemini 기본, LiteLLM 경유로 다른 공급자.
+"""강의노트 Part 4 슬라이드 54: 모델 선택 — Gemini 기본, LiteLLM 경유로 다른 공급자.
 
 ANTHROPIC_API_KEY 가 있으면 Claude 모델을, 없으면 Gemini 로 대체한다.
 """

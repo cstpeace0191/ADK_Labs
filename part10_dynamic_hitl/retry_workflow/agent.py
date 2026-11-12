@@ -1,4 +1,4 @@
-"""강의노트 Part 10 슬라이드 107: RetryConfig 와 timeout — 노드 단위 내구성 (LLM 없음).
+"""강의노트 Part 10 슬라이드 112: RetryConfig 와 timeout — 노드 단위 내구성 (LLM 없음).
 
 fetch_forecast 는 처음 2번 ConnectionError, 3번째 시도에 성공한다 (max_attempts=3).
 시도마다 timeout 을 넘기면 NodeTimeoutError 가 나고, exceptions 에 포함되어 있으므로 역시 재시도된다.

@@ -1,4 +1,4 @@
-"""강의노트 Part 4 슬라이드 45: 첫 번째 에이전트 (name · description · instruction · tools)."""
+"""강의노트 Part 4 슬라이드 50: 첫 번째 에이전트 (name · description · instruction · tools)."""
 import os
 
 from google.adk import Agent

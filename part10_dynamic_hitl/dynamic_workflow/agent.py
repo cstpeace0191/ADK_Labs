@@ -1,4 +1,4 @@
-"""강의노트 Part 10 슬라이드 102: Dynamic Workflow — 엣지 대신 파이썬 제어 흐름 (LLM 없음).
+"""강의노트 Part 10 슬라이드 107: Dynamic Workflow — 엣지 대신 파이썬 제어 흐름 (LLM 없음).
 
 ctx.run_node(child, node_input=...) 로 자식 노드를 코드에서 스케줄한다.
 run_node 를 부르는 부모 노드는 rerun_on_resume=True 가 필수.

@@ -1,9 +1,9 @@
-"""강의노트 Part 6 슬라이드 72: Function Tool — 시그니처와 docstring이 곧 API.
+"""강의노트 Part 6 슬라이드 77: Function Tool — 시그니처와 docstring이 곧 API.
 
 - 타입 힌트 필수, docstring에 인자 형식·예시
 - 예외 대신 status · error_message 반환
 - ToolContext는 스키마에서 자동 제외되고, state 쓰기는 state_delta로 기록된다
-- 부작용(결제)은 require_confirmation 으로 사람 확인 (슬라이드 77 '도구 확인')
+- 부작용(결제)은 require_confirmation 으로 사람 확인 (슬라이드 82 '도구 확인')
 """
 import os
 

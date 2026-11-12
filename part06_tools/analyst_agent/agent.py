@@ -1,4 +1,4 @@
-"""강의노트 Part 6 슬라이드 74: 내장 도구와 AgentTool — 검색/코드실행 에이전트를 도구로 감싸기.
+"""강의노트 Part 6 슬라이드 79: 내장 도구와 AgentTool — 검색/코드실행 에이전트를 도구로 감싸기.
 
 google_search · BuiltInCodeExecutor 는 Gemini 전용 내장 도구라 다른 도구와 한 에이전트에
 섞기 어렵다 → 각각 전담 에이전트로 만들고 AgentTool로 감싸 부모가 함수처럼 호출한다.

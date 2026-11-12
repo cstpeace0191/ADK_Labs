@@ -1,6 +1,6 @@
 ﻿# part04_llm_agent — LLM Agent 심화 기능
 
-> 강의노트 **Part 4 · 04. LLM Agent 프로그래밍** (슬라이드 44–51)과 짝을 이룬다.
+> 강의노트 **Part 4 · 04. LLM Agent 프로그래밍** (슬라이드 49–56)과 짝을 이룬다.
 
 Google ADK의 `Agent` 핵심 구성 요소인 **도구 연동**, **프롬프트 템플릿(State 치환)**, **구조화 출력(`output_schema`)**, **모델 사고 설정(`Planner`)**, **타 공급자 모델 연동(`LiteLLM`)**을 다룹니다.
 

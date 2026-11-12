@@ -1,4 +1,4 @@
-"""`adk create my_agent_mod` 골격을 슬라이드 45 '첫 번째 에이전트'로 채운 버전.
+"""`adk create my_agent_mod` 골격을 슬라이드 50 '첫 번째 에이전트'로 채운 버전.
 
 part03_cli 폴더에서:
     adk run my_agent_mod

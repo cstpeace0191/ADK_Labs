@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 111: pytest 에서 AgentEvaluator 로 CI 품질 게이트 (Gemini 키 필요).
+"""강의노트 Part 11 슬라이드 116: pytest 에서 AgentEvaluator 로 CI 품질 게이트 (Gemini 키 필요).
 
 실행 (part11_eval_deploy 폴더):  pytest -q tests
 """

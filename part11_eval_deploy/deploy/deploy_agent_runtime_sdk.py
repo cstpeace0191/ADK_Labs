@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 121: Agent Runtime 은 gcloud run deploy 가 아니라 ADK CLI · agents-cli · Python SDK 로 올린다.
+"""강의노트 Part 11 슬라이드 126: Agent Runtime 은 gcloud run deploy 가 아니라 ADK CLI · agents-cli · Python SDK 로 올린다.
 
 이 스크립트는 세 번째 길(Python SDK, google-cloud-aiplatform)을 보여 준다.
   기본(dry-run, 🟢 키·GCP 불필요): 로컬에서 AdkApp 을 만들어 보고, 배포 설정만 출력한다.

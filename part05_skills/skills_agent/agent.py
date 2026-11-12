@@ -1,17 +1,17 @@
-"""강의노트 Part 5 Skills for ADK Agents (슬라이드 54 · 58~62): Skills for ADK agents — 필요할 때만 불러오는 에이전트 전문 지식.
+"""강의노트 Part 5 Skills for ADK Agents (슬라이드 59 · 63~67): Skills for ADK agents — 필요할 때만 불러오는 에이전트 전문 지식.
 
-점진적 공개(progressive disclosure) 3단계 (슬라이드 53·54):
+점진적 공개(progressive disclosure) 3단계 (슬라이드 58·59):
   발견 Discovery   = L1 메타데이터: SKILL.md frontmatter 의 name · description → 항상 노출 (list_skills)
   활성화 Activation = L2 지시     : SKILL.md 본문(단계별 지시문)              → load_skill
   실행 Execution   = L3 리소스    : scripts/ · references/ · assets/           → run_skill_script · load_skill_resource
 
-스킬 폴더 구성 (슬라이드 54·58): skills/weather-report/
+스킬 폴더 구성 (슬라이드 59·63): skills/weather-report/
   SKILL.md                     YAML 프런트매터(name, description, metadata) + 단계별 지시문
   scripts/outdoor_rule.py      결정론적 코드: 야외 활동 판단 (같은 입력 → 같은 결과)
   references/rules.md          도메인 규칙, 예외 상황 매뉴얼 (폭염·한파, 조회 실패)
   assets/briefing_template.md  재사용 템플릿 (출력 형식)
 
-ADK 실행 중 동작 (슬라이드 61·62, google-adk 2.6.3 기준):
+ADK 실행 중 동작 (슬라이드 66·67, google-adk 2.6.3 기준):
   - additional_tools 는 스킬 frontmatter 의 metadata.adk_additional_tools 에 이름을 적은 도구만,
     그 스킬이 load_skill 로 활성화된 뒤에 노출된다 (빠뜨리면 모델이 도구 없이 답을 지어낸다).
   - run_skill_script 는 code_executor 가 있어야 동작한다. 실습은 UnsafeLocalCodeExecutor(현재 프로세스에서 실행)를 쓴다.

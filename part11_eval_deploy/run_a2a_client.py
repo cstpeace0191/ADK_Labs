@@ -1,4 +1,4 @@
-"""강의노트 Part 11 슬라이드 123: A2A 소비 측 실행 (Gemini 키 필요).
+"""강의노트 Part 11 슬라이드 128: A2A 소비 측 실행 (Gemini 키 필요).
 
 터미널 A (a2a_demo 폴더):  uvicorn prime_agent.agent:a2a_app --port 8001
 터미널 B (part11_eval_deploy): python run_a2a_client.py

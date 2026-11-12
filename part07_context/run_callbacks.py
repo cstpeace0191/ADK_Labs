@@ -1,4 +1,4 @@
-"""강의노트 Part 7 슬라이드 83~84: Callback 가드레일 + AuditPlugin.
+"""강의노트 Part 7 슬라이드 88~89: Callback 가드레일 + AuditPlugin.
 
 1) 금칙어 입력 → before_model_callback 이 LLM 호출 없이 차단 (키 없이도 동작)
 2) qty>10 → before_tool_callback 이 도구 실행을 막고 오류 dict 반환 (Gemini 키 필요)
