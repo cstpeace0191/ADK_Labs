@@ -1,175 +1,204 @@
 # my-agents-cli-mod
 
-This project is generated via `agents-cli create my-agents-cli-mod -y` and modified in `./app/agent.py` to create a real-time weather and world clock AI assistant.
+A lab project generated with `agents-cli create my-agents-cli-mod` (agents-cli **1.13.0**, template `adk_python`), in which [`app/agent.py`](app/agent.py) was modified into a **general-purpose AI assistant that reports real-time local time and weather for cities worldwide and also answers general questions**.
+
+> 📄 Korean version: [README-KR.md](README-KR.md) · Template default guide (English summary): [README.md](README.md)
 
 ---
 
-## Project Structure Overview
+## 1. Changes from the Original Template (`app/agent.py`)
 
-```text
-my-agents-cli-mod/
-├── app/         # Core agent application code
-│   ├── agent.py               # Main agent logic (customized with real-time APIs)
-│   ├── fast_api_app.py        # FastAPI backend server
-│   └── app_utils/             # Application utilities and helper functions
-├── tests/                     # Unit, integration, and evaluation test suites
-├── GEMINI.md                  # AI-assisted development guide
-└── pyproject.toml             # Project dependency configuration
+| Item | Details |
+| :--- | :--- |
+| Agent name | `root_agent.name = "my_agents_cli_mod"` (kept identical to `root_agent_name` in `agents-cli-manifest.yaml`), `App(name="app")` |
+| Model | `ADK_MODEL` environment variable (default `gemini-3.8-flash`), retried with `HttpRetryOptions(attempts=3)` |
+| Tools | `geocode` · `get_current_time` · `get_weather` (3 tools) |
+| External API | [Open-Meteo](https://open-meteo.com/) Geocoding / Forecast API — **no API key required** |
+| Korean support | Korean → English city name dictionary (`KOREAN_CITY_MAP`, 28 cities incl. Seoul, Busan, Tokyo, New York), Korean mapping of WMO weather codes (`WMO_WEATHER_CODES`) |
+| Offline fallback | On network failure or when `AGENT_OFFLINE=1`, uses backup coordinates/timezones for major cities (`_OFFLINE`) and a default weather response (`source: offline_fallback`) |
+| Instruction | Time/weather questions are answered in Korean using tools; all other general questions (trivia, programming, translation, etc.) are answered directly without tools |
+
+### Tool Summary
+
+| Tool | Input | Returns |
+| :--- | :--- | :--- |
+| `geocode(location)` | City/region name (Korean or English) | `display_name`, `latitude`, `longitude`, `timezone` |
+| `get_current_time(location, query, latitude, longitude)` | City name or coordinates | Local time (`%Y-%m-%d %H:%M:%S %Z (UTC%z)`), timezone |
+| `get_weather(location, query, latitude, longitude)` | City name or coordinates | Weather condition, temperature, feels-like temperature, humidity, wind speed |
+
+---
+
+## 2. Environment Variables (`.env`)
+
+`app/agent.py` reads `.env` from two locations:
+
+1. `my-agents-cli-mod/.env` (takes precedence if present, `override=True`)
+2. The lab root `ADK_Labs/.env` (`_ROOT.parent.parent / ".env"`)
+
+Therefore, **configuring only the root `ADK_Labs/.env` is enough** for this project to work. This folder has no separate `.env`.
+
+```ini
+# ① Google AI Studio
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+GOOGLE_API_KEY=<your-gemini-api-key>
+
+# ② Vertex AI (requires gcloud auth application-default login)
+# GOOGLE_GENAI_USE_VERTEXAI=TRUE
+# GOOGLE_CLOUD_PROJECT=<your-gcp-project-id>
+# GOOGLE_CLOUD_LOCATION=global
+
+# (Optional) Change model / offline mode
+# ADK_MODEL=gemini-3.5-flash-lite
+# AGENT_OFFLINE=1
 ```
 
-> 💡 **Tip:** Use [Antigravity CLI](https://antigravity.google/) for AI-assisted development. Project context is pre-configured in `GEMINI.md`.
+- When `GOOGLE_GENAI_USE_VERTEXAI=TRUE`, `GOOGLE_API_KEY` and `GEMINI_API_KEY` are removed and `GOOGLE_CLOUD_LOCATION` defaults to `global`.
+- The template-generated [`.env.example`](.env.example) uses the `GOOGLE_GENAI_USE_ENTERPRISE` / `GEMINI_API_KEY` format. To use that format, copy it to `.env` in this folder.
 
 ---
 
-## Requirements
+## 3. Requirements
 
-Before starting, ensure you have the following tools installed:
-- **uv**: Fast Python package manager (used for all dependency management) - [Installation Guide](https://docs.astral.sh/uv/getting-started/installation/) ([add packages](https://docs.astral.sh/uv/concepts/dependencies/) with `uv add <package>`)
-- **agents-cli**: Google Agents CLI - Install via `uv tool install google-agents-cli`
-- **Google Cloud SDK**: SDK for GCP services - [Installation Guide](https://cloud.google.com/sdk/docs/install)
+- **uv**: Python package manager — [Installation Guide](https://docs.astral.sh/uv/getting-started/installation/)
+- **agents-cli**: `uv tool install google-agents-cli` (also installed together with the root `requirements.txt`)
+- **Google Cloud SDK** (for deployment): [Installation Guide](https://cloud.google.com/sdk/docs/install)
+- Python `>=3.11,<3.14`, `google-adk[gcp,otel-gcp,bigquery-analytics]>=2.12.0,<3.0.0`, `a2a-sdk[http-server]>=1.0,<2`, etc. (see [`pyproject.toml`](pyproject.toml))
 
 ---
 
-## Quick Start
+## 4. How to Run
 
-If `agents-cli` and related skills are not already installed, set them up:
-
-```bash
-uvx google-agents-cli setup
-```
-
-Install required packages:
+Run from the `part03_cli/my-agents-cli-mod` directory:
 
 ```bash
+cd part03_cli/my-agents-cli-mod
+
+# 1. Install dependencies (creates .venv / uv.lock)
 agents-cli install
-```
 
-Test the agent in a local web server environment:
-
-```bash
+# 2. Launch the local playground web UI
 agents-cli playground
+
+# 3. Run the FastAPI server directly (web UI + REST/SSE + A2A)
+uv run uvicorn app.fast_api_app:app --host 0.0.0.0 --port 8000 --reload
+
+# 4. Run with the ADK CLI (agent folder = app)
+uv run adk web --port 8008
+uv run adk run app
+
+# 5. Offline mode (uses backup data without calling the external weather API) - PowerShell
+$env:AGENT_OFFLINE="1"; agents-cli playground
 ```
 
-You can also leverage [ADK](https://adk.dev/) CLI features using `uv run adk`.
+Example prompts:
+- `What time is it in Seoul now?` · `Compare the weather in Tokyo and New York` · `What's the feels-like temperature in Paris?`
+- `Explain Python list comprehensions` (answered without calling tools)
 
 ---
 
-## Commands
+## 5. Testing · Evaluation · Deployment
 
 | Command | Description |
 | :--- | :--- |
-| `agents-cli install` | Install dependency packages using uv |
-| `agents-cli playground` | Launch local interactive development UI |
-| `agents-cli lint` | Run code quality and style checks |
-| `agents-cli eval` | Evaluate agent behavior (generate, score, analyze — see `agents-cli eval --help`) |
-| `uv run pytest tests/unit tests/integration` | Run unit and integration tests |
-| `agents-cli deploy` | Deploy agent to Google Cloud Agent Runtime |
-| `agents-cli publish gemini` | Register deployed agent with Gemini |
-| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | Launch A2A (Agent-to-Agent) Protocol Inspector |
-
----
-
-## 🛠️ Project Management
-
-| Command | Action |
-| :--- | :--- |
-| `agents-cli scaffold enhance` | Adds CI/CD pipelines and Terraform infrastructure code |
-| `agents-cli infra cicd` | One-command setup for entire CI/CD pipeline and infrastructure |
-| `agents-cli scaffold upgrade` | Upgrades template to the latest version while preserving user customizations |
-
----
-
-## Development
-
-Modify the agent logic in `app/agent.py` and test with `agents-cli playground`. Code is automatically hot-reloaded upon saving.
-
----
-
-## Deployment
+| `agents-cli lint` | Code quality checks (ruff · ty · codespell) |
+| `uv run pytest tests/unit` | Unit tests (`test_dummy.py`, no LLM required) |
+| `uv run pytest tests/integration` | Integration tests (`test_agent.py`: Runner streaming, `test_server_e2e.py`: FastAPI & A2A E2E) — requires a Gemini key |
+| `agents-cli eval run` | Runs `tests/eval/datasets/basic-dataset.json` (3 cases: greeting, San Francisco weather, capital of France) and scores with `custom_response_quality` (LLM-as-judge, 1–5 points) |
+| `agents-cli deploy` | Deploys to Google Cloud **Agent Runtime** (`deployment_target: agent_runtime`, region `us-east1`) → recorded in `deployment_metadata.json` |
+| `agents-cli publish gemini` | Registers the deployed agent with Gemini |
+| `agents-cli scaffold enhance` | Adds CI/CD and Terraform code (this project's `deployment/terraform/` was generated by this command) |
+| `agents-cli infra cicd` | One-click CI/CD pipeline and infrastructure setup |
+| `agents-cli scaffold upgrade` | Upgrades the template while preserving user customizations |
 
 ```bash
 gcloud config set project <your-project-id>
-agents-cli deploy
+agents-cli deploy --no-confirm-project
 ```
 
-- To add CI/CD and Terraform code, run `agents-cli scaffold enhance`.
-- To provision production infrastructure, run `agents-cli infra cicd`.
+> ⚠ The [`Dockerfile`](Dockerfile) copies `README.md` during the build (`COPY ./pyproject.toml ./README.md ./uv.lock* ./`), so deleting `README.md` will cause the container build to fail.
 
 ---
 
-## Observability
+## 6. Server Architecture (`app/fast_api_app.py`)
 
-Telemetry data export to Cloud Trace, BigQuery, and Cloud Logging is built-in by default.
+- `get_fast_api_app(agents_dir=..., web=True, ...)` creates the ADK web UI and default API routes such as `/run` and `/run_sse`.
+- In the lifespan hook, it creates `Runner(app=adk_app, auto_create_session=True)` and attaches the **A2A JSON-RPC endpoint `/a2a/app`** via `attach_a2a_routes()` (`is_a2a: true`).
+- `attach_reasoning_engine_routes(app)` adds `reasoning_engine` proxy routes for the Cloud console playground.
+- Sessions are `in_memory` (manifest `session_type`); telemetry is exported to Cloud Trace and others when `GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY=true`.
+- Uses port `8000` when run directly, and port `8080` in the container (Dockerfile).
+
+Use the [A2A Inspector](https://github.com/a2aproject/a2a-inspector) to test A2A interoperability.
 
 ---
 
-## A2A Inspector
+## 7. Supplementary Material: ADK Web Architecture Slides
 
-This agent natively supports the [A2A Protocol (Agent-to-Agent Protocol)](https://a2a-protocol.org/). To test interoperability with other agents, use [A2A Inspector](https://github.com/a2aproject/a2a-inspector).  
-For details, see the [A2A Inspector documentation](https://github.com/a2aproject/a2a-inspector).
+| File | Description |
+| :--- | :--- |
+| [`generate_adk_web_ppt.py`](generate_adk_web_ppt.py) | Script that generates ADK Web architecture slides (8 slides) using `python-pptx` |
+| `ADK_Web_Architecture_Guide.pptx` | Output of the script above — overall architecture, web UI packaging & FastAPI mounting, server startup lifecycle, `/run_sse` streaming, developer tools, `adk web` vs `adk api_server` comparison, run options summary |
+
+```bash
+uv pip install python-pptx
+uv run python generate_adk_web_ppt.py                  # Default output: ADK_Web_Architecture_Guide.pptx
+uv run python generate_adk_web_ppt.py my_slides.pptx   # Specify output file name
+```
 
 ---
----
 
-# 📂 `my-agents-cli-mod` Detailed Directory Structure and Dynamic Generation Analysis
-
-A detailed guide explaining the roles of all files and directories in `my-agents-cli-mod`, along with their **creation timing (initial scaffolding vs. dynamic generation vs. user customization)**.
+## 8. 📂 Detailed Directory Structure and Creation Timing
 
 ```text
 my-agents-cli-mod/
-├── 📁 app/                             # [Initial] Core agent application code
-│   ├── 📄 agent.py                     # ✏️ [Initial / User Customized] Agent core logic and tool definitions
-│   ├── 📄 fast_api_app.py              # 🟢 [Initial] FastAPI server supporting REST / SSE / A2A
-│   ├── 📄 __init__.py                  # 🟢 [Initial] Python package declaration
-│   ├── 📁 app_utils/                   # 🟢 [Initial] Agent auxiliary utility modules
-│   │   ├── 📄 a2a.py                   # 🟢 [Initial] A2A protocol communication & Agent Card handling
-│   │   ├── 📄 reasoning_engine.py      # 🟢 [Initial] Vertex AI Reasoning Engine wrapper
-│   │   └── 📄 services.py              # 🟢 [Initial] ADK session and artifact service factory
-│   ├── 📁 .adk/                        # ⚡ [Runtime Generated] Internal cache directory created on local execution
-│   │   └── 📄 session.db               # ⚡ [Runtime Generated] SQLite DB storing session and conversation state
-│   └── 📁 __pycache__/                 # ⚡ [Compilation Generated] Python interpreter bytecode cache
+├── 📁 app/                                  # 🟢 Core agent application (agent_directory)
+│   ├── 📄 __init__.py                       # 🟢 Python package declaration
+│   ├── 📄 agent.py                          # ✏️ Real-time time/weather tools + general assistant (modified)
+│   ├── 📄 fast_api_app.py                   # 🟢 FastAPI server: web UI + REST/SSE + A2A
+│   ├── 📁 app_utils/                        # 🟢 Helper utilities
+│   │   ├── 📄 a2a.py                        # 🟢 A2A route wiring and Agent Card handling
+│   │   ├── 📄 reasoning_engine_adapter.py   # 🟢 reasoning_engine proxy for the Cloud console playground
+│   │   └── 📄 services.py                   # 🟢 Session & artifact service factory
+│   ├── 📁 .adk/                             # ⚡ [Runtime] Created on local execution
+│   │   └── 📄 session.db                    # ⚡ SQLite DB for session & conversation state
+│   └── 📁 __pycache__/                      # ⚡ [Compile] Bytecode cache
 │
-├── 📁 deployment/                      # ⚡ [scaffold enhance] Infrastructure and deployment code directory
-│   └── 📁 terraform/                   # ⚡ [scaffold enhance] Terraform HCL code for GCP resource deployment
-│       ├── 📁 shared/                  # ⚡ Shared infrastructure modules
-│       └── 📁 single-project/          # ⚡ Single-project deployment scripts (main.tf, service.tf, etc.)
+├── 📁 deployment/terraform/                 # ⚡ [scaffold enhance] Terraform code for GCP infrastructure
+│   ├── 📁 shared/                           # ⚡ completions.sql, genai_logs_schema.json, dummy_source.b64
+│   └── 📁 single-project/                   # ⚡ apis · iam · service · storage · telemetry .tf, vars/env.tfvars
 │
-├── 📁 tests/                           # 🟢 [Initial] Agent test and evaluation directory
-│   ├── 📁 unit/                        # 🟢 [Initial] Unit test directory
-│   │   └── 📄 test_dummy.py            # 🟢 [Initial] Basic dummy unit test sample
-│   ├── 📁 integration/                 # 🟢 [Initial] Server integration test directory
-│   │   └── 📄 test_server_e2e.py       # 🟢 [Initial] FastAPI and A2A endpoint E2E test
-│   └── 📁 eval/                        # 🟢 [Initial] Agent evaluation pipeline
-│       ├── 📄 eval_config.yaml         # 🟢 [Initial] Evaluation metrics and config file
-│       ├── 📄 response_quality.py      # 🟢 [Initial] LLM response quality automated scorer
-│       └── 📁 datasets/                # 🟢 [Initial] Evaluation query dataset folder
-│           └── 📄 basic-dataset.json   # 🟢 [Initial] Evaluation queries and expected response data
+├── 📁 tests/                                # 🟢 Tests and evaluation
+│   ├── 📁 unit/test_dummy.py                # 🟢 Basic unit test
+│   ├── 📁 integration/
+│   │   ├── 📄 test_agent.py                 # 🟢 Runner SSE streaming integration test
+│   │   └── 📄 test_server_e2e.py            # 🟢 FastAPI & A2A endpoint E2E test
+│   └── 📁 eval/
+│       ├── 📄 eval_config.yaml              # 🟢 Evaluation metric settings (custom_response_quality, agent_turn_count)
+│       ├── 📄 response_quality.py           # 🟢 LLM-as-judge response quality scorer
+│       └── 📁 datasets/
+│           ├── 📄 basic-dataset.json        # 🟢 3 evaluation queries
+│           └── 📄 README.md                 # 🟢 Evaluation dataset usage
 │
-├── 📁 .venv/                           # ⚡ [Package Install] Virtual environment created by `agents-cli install` / `uv sync`
-├── 📁 .pytest_cache/                   # ⚡ [Test Cache] Cached pytest execution results
+├── 📁 .venv/                                # ⚡ [install] Virtual environment from agents-cli install / uv sync
+├── 📄 uv.lock                               # ⚡ [install] Package version lockfile
+├── 📄 deployment_metadata.json              # ⚡ [deploy] Deployed Agent Runtime (reasoningEngines) ID & timestamp
 │
-├── 📄 agents-cli-manifest.yaml         # 🟢 [Initial] agents-cli metadata (template, agent name, target runtime)
-├── 📄 pyproject.toml                   # 🟢 [Initial] uv-based Python project settings and dependency specification
-├── 📄 uv.lock                          # ⚡ [Package Install] Package version lockfile generated on install
-├── 📄 deployment_metadata.json         # ⚡ [Deployment] Remote engine ID and deployment record from `agents-cli deploy`
-├── 📄 Dockerfile                       # 🟢 [Initial] Docker manifest for container builds and deployment
-├── 📄 .env                             # 🟢 [Initial / User Config] API keys, model names, environment variables
-├── 📄 .env.example                     # 🟢 [Initial] Environment configuration template
-├── 📄 .gitignore                       # 🟢 [Initial] Git ignore rules
-├── 📄 .gcloudignore                    # 🟢 [Initial] GCP deployment upload ignore rules
-├── 📄 GEMINI.md                        # 🟢 [Initial] Project guide file for Antigravity/Gemini coding agents
-├── 📄 README.md                        # 🟢 [Initial] Standard English guide
-├── 📄 README-KR.md                     # ✏️ [User Added] Detailed Korean documentation and folder structure guide
-└── 📄 README-EN.md                     # 📄 [English Guide] Full English translation of README-KR.md (this file)
+├── 📄 agents-cli-manifest.yaml              # 🟢 agents-cli metadata (template, agent name, region, deploy target)
+├── 📄 pyproject.toml                        # 🟢 Dependencies and ruff/ty/pytest settings
+├── 📄 Dockerfile                            # 🟢 Container build spec (python:3.12-slim, port 8080)
+├── 📄 .env.example                          # 🟢 Environment variable template
+├── 📄 .gitignore / .gcloudignore            # 🟢 Git / GCP upload ignore rules
+├── 📄 GEMINI.md                             # 🟢 Development guide for coding agents (Antigravity/Gemini)
+├── 📄 README.md                             # ✏️ Project summary (English, required for the Dockerfile build)
+│
+├── 📄 generate_adk_web_ppt.py               # ✏️ [User added] ADK Web architecture slide generator script
+├── 📄 ADK_Web_Architecture_Guide.pptx       # ✏️ [User added] Slides generated by the script above
+├── 📄 README-KR.md / README-KR.pdf          # ✏️ [User added] Detailed Korean guide
+└── 📄 README-EN.md / README-EN.pdf          # ✏️ [User added] Detailed English guide (this file)
 ```
 
----
-
-## 📊 File / Directory Classification Criteria
-
-| Icon | Classification | Description | Representative Files / Folders |
+| Icon | Category | Description | Representative Files |
 | :---: | :--- | :--- | :--- |
-| 🟢 | **Initial Scaffold** | Automatically scaffolded from template upon initial `agents-cli create` command | `app/fast_api_app.py`, `tests/`, `Dockerfile`, `agents-cli-manifest.yaml` |
-| ⚡ | **Dynamically Generated (Runtime/CLI)** | Created during command execution (`install`, `enhance`, `deploy`, `run`, `pytest`) or during runtime | `.venv/`, `uv.lock`, `deployment/`, `deployment_metadata.json`, `app/.adk/session.db`, `.pytest_cache/` |
-| ✏️ | **Initial Scaffold & User Customized** | Files initially scaffolded and subsequently edited or added by developers to implement requirements | `app/agent.py`, `.env`, `README-KR.md`, `README-EN.md` |
+| 🟢 | **Initial Scaffold** | Auto-generated from the template by `agents-cli create` | `app/fast_api_app.py`, `tests/`, `Dockerfile`, `agents-cli-manifest.yaml` |
+| ⚡ | **Dynamically Generated** | Created afterwards by `install` · `scaffold enhance` · `deploy` · running · `pytest` | `.venv/`, `uv.lock`, `deployment/`, `deployment_metadata.json`, `app/.adk/session.db` |
+| ✏️ | **User Modified/Added** | Files edited from the template or added by the developer | `app/agent.py`, `README*.md`, `generate_adk_web_ppt.py`, `ADK_Web_Architecture_Guide.pptx` |
 

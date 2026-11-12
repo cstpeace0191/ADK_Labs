@@ -1,174 +1,203 @@
 # my-agents-cli-mod
 
-`agents-cli create my-agents-cli_mod -y` 으로 생성된 에이전트 프로젝트에서, ./app/agent.py 를 수정한 것입니다.
+`agents-cli create my-agents-cli-mod` (agents-cli **1.13.0**, 템플릿 `adk_python`)로 생성한 에이전트 프로젝트에서 [`app/agent.py`](app/agent.py)를 수정해 **전세계 도시의 실시간 현지 시각·날씨를 알려주고 일반 질문에도 답하는 범용 AI 어시스턴트**로 만든 실습 프로젝트입니다.
+
+> 📄 영어판: [README-EN.md](README-EN.md) · 템플릿 기본 안내(영문 요약): [README.md](README.md)
 
 ---
 
-## 프로젝트 개요 구조 (Project Structure)
+## 1. 원본 템플릿 대비 변경 사항 (`app/agent.py`)
 
-```text
-my-agents-cli-mod/
-├── app/         # 핵심 에이전트 코드
-│   ├── agent.py               # 메인 에이전트 로직
-│   ├── fast_api_app.py        # FastAPI 백엔드 서버
-│   └── app_utils/             # 앱 유틸리티 및 헬퍼 함수
-├── tests/                     # 단위, 통합 및 평가 테스트
-├── GEMINI.md                  # AI 보조 개발 가이드
-└── pyproject.toml             # 프로젝트 의존성 설정
+| 항목 | 내용 |
+| :--- | :--- |
+| 에이전트 이름 | `root_agent.name = "my_agents_cli_mod"` (`agents-cli-manifest.yaml`의 `root_agent_name`과 동일하게 유지), `App(name="app")` |
+| 모델 | `ADK_MODEL` 환경 변수 (기본값 `gemini-3.8-flash`), `HttpRetryOptions(attempts=3)` 재시도 |
+| 도구 | `geocode` · `get_current_time` · `get_weather` (3개) |
+| 외부 API | [Open-Meteo](https://open-meteo.com/) Geocoding / Forecast API — **API 키 불필요** |
+| 한국어 지원 | 한글 도시명 → 영문 변환 사전(`KOREAN_CITY_MAP`, 서울·부산·도쿄·뉴욕 등 28개), WMO 기상 코드 한국어 매핑(`WMO_WEATHER_CODES`) |
+| 오프라인 대비 | 네트워크 실패 또는 `AGENT_OFFLINE=1`일 때 주요 도시 좌표·시간대 백업(`_OFFLINE`)과 기본 날씨 응답(`source: offline_fallback`) 사용 |
+| 지시문 | 시간·날씨 질문은 도구를 사용해 한국어로 답변, 그 외 일반 질문(상식·프로그래밍·번역 등)은 도구 없이 직접 답변 |
+
+### 도구 요약
+
+| 도구 | 입력 | 반환 |
+| :--- | :--- | :--- |
+| `geocode(location)` | 도시/지역 이름 (한글·영문) | `display_name`, `latitude`, `longitude`, `timezone` |
+| `get_current_time(location, query, latitude, longitude)` | 도시 이름 또는 좌표 | 현지 시각(`%Y-%m-%d %H:%M:%S %Z (UTC%z)`), 시간대 |
+| `get_weather(location, query, latitude, longitude)` | 도시 이름 또는 좌표 | 날씨 상태, 기온, 체감 온도, 습도, 풍속 |
+
+---
+
+## 2. 환경 변수 (`.env`)
+
+`app/agent.py`는 `.env`를 두 곳에서 읽습니다:
+
+1. `my-agents-cli-mod/.env` (있으면 우선 적용, `override=True`)
+2. 실습 루트 `ADK_Labs/.env` (`_ROOT.parent.parent / ".env"`)
+
+따라서 **루트 `ADK_Labs/.env` 하나만 설정해도** 이 프로젝트가 동작합니다. 이 폴더에는 별도 `.env`가 없습니다.
+
+```ini
+# ① Google AI Studio
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+GOOGLE_API_KEY=<your-gemini-api-key>
+
+# ② Vertex AI (gcloud auth application-default login 필요)
+# GOOGLE_GENAI_USE_VERTEXAI=TRUE
+# GOOGLE_CLOUD_PROJECT=<your-gcp-project-id>
+# GOOGLE_CLOUD_LOCATION=global
+
+# (선택) 모델 변경 / 오프라인 모드
+# ADK_MODEL=gemini-3.5-flash-lite
+# AGENT_OFFLINE=1
 ```
 
-> 💡 **팁:** AI 지원 개발을 위해 [Antigravity CLI](https://antigravity.google/)를 사용하세요. 프로젝트 컨텍스트가 `GEMINI.md`에 사전 구성되어 있습니다.
+- `GOOGLE_GENAI_USE_VERTEXAI=TRUE`이면 `GOOGLE_API_KEY`·`GEMINI_API_KEY`를 제거하고 `GOOGLE_CLOUD_LOCATION` 기본값을 `global`로 설정합니다.
+- 템플릿이 만든 [`.env.example`](.env.example)은 `GOOGLE_GENAI_USE_ENTERPRISE` / `GEMINI_API_KEY` 형식을 사용합니다. 이 형식을 쓰려면 이 폴더에 `.env`로 복사해 사용합니다.
 
 ---
 
-## 요구 사항 (Requirements)
+## 3. 요구 사항
 
-시작하기 전에 다음 도구들이 설치되어 있는지 확인하세요:
-- **uv**: Python 패키지 관리자 (본 프로젝트의 모든 의존성 관리에 사용) - [설치 안내](https://docs.astral.sh/uv/getting-started/installation/) (`uv add <패키지>`로 [패키지 추가](https://docs.astral.sh/uv/concepts/dependencies/))
-- **agents-cli**: Google Agents CLI - `uv tool install google-agents-cli` 명령으로 설치
-- **Google Cloud SDK**: GCP 서비스 이용을 위한 SDK - [설치 안내](https://cloud.google.com/sdk/docs/install)
+- **uv**: Python 패키지 관리자 — [설치 안내](https://docs.astral.sh/uv/getting-started/installation/)
+- **agents-cli**: `uv tool install google-agents-cli` (또는 루트 `requirements.txt` 설치 시 함께 설치됨)
+- **Google Cloud SDK** (배포 시): [설치 안내](https://cloud.google.com/sdk/docs/install)
+- Python `>=3.11,<3.14`, `google-adk[gcp,otel-gcp,bigquery-analytics]>=2.12.0,<3.0.0`, `a2a-sdk[http-server]>=1.0,<2` 등 ([`pyproject.toml`](pyproject.toml) 참조)
 
 ---
 
-## 빠른 시작 (Quick Start)
+## 4. 실행 방법
 
-아직 설치되지 않은 경우 `agents-cli` 및 관련 스킬을 설치합니다:
-
-```bash
-uvx google-agents-cli setup
-```
-
-필요한 패키지를 설치합니다:
+`part03_cli/my-agents-cli-mod` 디렉터리에서 실행합니다:
 
 ```bash
+cd part03_cli/my-agents-cli-mod
+
+# 1. 의존성 설치 (.venv / uv.lock 생성)
 agents-cli install
-```
 
-로컬 웹 서버 환경에서 에이전트를 테스트합니다:
-
-```bash
+# 2. 로컬 플레이그라운드 웹 UI 실행
 agents-cli playground
+
+# 3. FastAPI 서버 직접 실행 (웹 UI + REST/SSE + A2A)
+uv run uvicorn app.fast_api_app:app --host 0.0.0.0 --port 8000 --reload
+
+# 4. ADK CLI로 실행 (에이전트 폴더 = app)
+uv run adk web --port 8008
+uv run adk run app
+
+# 5. 오프라인 모드(외부 날씨 API 호출 없이 백업 데이터 사용) - PowerShell
+$env:AGENT_OFFLINE="1"; agents-cli playground
 ```
 
-`uv run adk` 명령을 통해 [ADK](https://adk.dev/) CLI 기능들도 함께 활용할 수 있습니다.
+질문 예시:
+- `지금 서울 몇 시야?` · `도쿄랑 뉴욕 날씨 비교해줘` · `파리의 체감 온도는?`
+- `파이썬 리스트 컴프리헨션 설명해줘` (도구 호출 없이 답변)
 
 ---
 
-## 명령어 안내 (Commands)
+## 5. 테스트 · 평가 · 배포
 
 | 명령어 | 설명 |
 | :--- | :--- |
-| `agents-cli install` | uv를 사용하여 의존성 패키지 설치 |
-| `agents-cli playground` | 로컬 개발 환경(대화형 UI) 실행 |
-| `agents-cli lint` | 코드 품질 및 스타일 검사 실행 |
-| `agents-cli eval` | 에이전트 동작 평가 (생성, 채점, 분석 등 — `agents-cli eval --help` 참조) |
-| `uv run pytest tests/unit tests/integration` | 단위 및 통합 테스트 실행 |
-| `agents-cli deploy` | 에이전트를 Google Cloud Agent Runtime에 배포 |
+| `agents-cli lint` | 코드 품질 검사 (ruff · ty · codespell) |
+| `uv run pytest tests/unit` | 단위 테스트 (`test_dummy.py`, LLM 불필요) |
+| `uv run pytest tests/integration` | 통합 테스트 (`test_agent.py`: Runner 스트리밍, `test_server_e2e.py`: FastAPI·A2A E2E) — Gemini 키 필요 |
+| `agents-cli eval run` | `tests/eval/datasets/basic-dataset.json`(인사·샌프란시스코 날씨·프랑스 수도 3건)으로 실행 후 `custom_response_quality`(LLM-as-judge, 1~5점) 채점 |
+| `agents-cli deploy` | Google Cloud **Agent Runtime**에 배포 (`deployment_target: agent_runtime`, 리전 `us-east1`) → `deployment_metadata.json` 기록 |
 | `agents-cli publish gemini` | 배포된 에이전트를 Gemini에 등록 |
-| [A2A Inspector](https://github.com/a2aproject/a2a-inspector) | A2A(Agent-to-Agent) 프로토콜 인스펙터 실행 |
-
----
-
-## 🛠️ 프로젝트 관리 (Project Management)
-
-| 명령어 | 수행 작업 |
-| :--- | :--- |
-| `agents-cli scaffold enhance` | CI/CD 파이프라인 및 Terraform 인프라 코드 추가 |
-| `agents-cli infra cicd` | 단일 명령어로 전체 CI/CD 파이프라인 및 인프라 원클릭 설정 |
-| `agents-cli scaffold upgrade` | 사용자 정의 수정 사항을 보존하면서 최신 템플릿 버전으로 자동 업그레이드 |
-
----
-
-## 개발 (Development)
-
-`app/agent.py`에서 에이전트 로직을 수정하고 `agents-cli playground`로 테스트하세요. 파일 저장 시 코드가 자동으로 다시 로드(Hot-Reload)됩니다.
-
----
-
-## 배포 (Deployment)
+| `agents-cli scaffold enhance` | CI/CD 및 Terraform 코드 추가 (본 프로젝트의 `deployment/terraform/`이 이 명령으로 생성됨) |
+| `agents-cli infra cicd` | CI/CD 파이프라인 및 인프라 원클릭 설정 |
+| `agents-cli scaffold upgrade` | 사용자 수정 사항을 보존하면서 템플릿 업그레이드 |
 
 ```bash
 gcloud config set project <your-project-id>
-agents-cli deploy
+agents-cli deploy --no-confirm-project
 ```
 
-- CI/CD 및 Terraform 코드를 추가하려면 `agents-cli scaffold enhance` 명령을 실행하세요.
-- 프로덕션 인프라를 프로비저닝하려면 `agents-cli infra cicd` 명령을 실행하세요.
+> ⚠ [`Dockerfile`](Dockerfile)은 빌드 시 `README.md`를 복사(`COPY ./pyproject.toml ./README.md ./uv.lock* ./`)하므로 `README.md`를 삭제하면 컨테이너 빌드가 실패합니다.
 
 ---
 
-## 관측 가능성 (Observability)
+## 6. 서버 구조 (`app/fast_api_app.py`)
 
-Cloud Trace, BigQuery, Cloud Logging으로 텔레메트리(원격 측정) 데이터가 자동 내보내기(Export)되도록 기본 내장되어 있습니다.
+- `get_fast_api_app(agents_dir=..., web=True, ...)`로 ADK 웹 UI와 `/run`, `/run_sse` 등 기본 API 라우트를 생성합니다.
+- Lifespan에서 `Runner(app=adk_app, auto_create_session=True)`를 만들고 `attach_a2a_routes()`로 **A2A JSON-RPC 엔드포인트 `/a2a/app`**을 연결합니다 (`is_a2a: true`).
+- `attach_reasoning_engine_routes(app)`로 Cloud 콘솔 플레이그라운드용 `reasoning_engine` 프록시 라우트를 추가합니다.
+- 세션은 `in_memory`(manifest `session_type`), 텔레메트리는 `GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY=true`일 때 Cloud Trace 등으로 내보냅니다.
+- 직접 실행 시 포트 `8000`, 컨테이너(Dockerfile)에서는 포트 `8080`을 사용합니다.
+
+A2A 상호 운용성 테스트에는 [A2A Inspector](https://github.com/a2aproject/a2a-inspector)를 사용합니다.
 
 ---
 
-## A2A 인스펙터 (A2A Inspector)
+## 7. 부가 자료: ADK Web 아키텍처 슬라이드
 
-이 에이전트는 [A2A 프로토콜(Agent-to-Agent Protocol)](https://a2a-protocol.org/)을 기본 지원합니다. 다른 에이전트와의 상호 운용성을 테스트하려면 [A2A Inspector](https://github.com/a2aproject/a2a-inspector)를 사용하세요.  
-자세한 내용은 [A2A Inspector 문서](https://github.com/a2aproject/a2a-inspector)를 참조하시기 바랍니다.
+| 파일 | 설명 |
+| :--- | :--- |
+| [`generate_adk_web_ppt.py`](generate_adk_web_ppt.py) | `python-pptx`로 ADK Web 아키텍처 설명 슬라이드(8장)를 생성하는 스크립트 |
+| `ADK_Web_Architecture_Guide.pptx` | 위 스크립트의 출력물 — 전체 아키텍처, 웹 UI 패키징·FastAPI 마운트, 서버 기동 라이프사이클, `/run_sse` 스트리밍, 개발자 도구, `adk web` vs `adk api_server` 비교, 실행 옵션 요약 |
+
+```bash
+uv pip install python-pptx
+uv run python generate_adk_web_ppt.py                  # 기본 출력: ADK_Web_Architecture_Guide.pptx
+uv run python generate_adk_web_ppt.py my_slides.pptx   # 출력 파일명 지정
+```
 
 ---
----
 
-# 📂 `my-agents-cli-mod` 상세 폴더 구조 및 동적 생성 여부 분석
-
-`my-agents-cli-mod` 프로젝트를 구성하는 전체 폴더 및 파일의 역할과 **생성 시점(초기 스캐폴딩 vs 동적 생성 vs 사용자 수정)**을 상세히 정리한 가이드입니다.
+## 8. 📂 상세 폴더 구조 및 생성 시점
 
 ```text
 my-agents-cli-mod/
-├── 📁 app/                             # [초기 생성] 핵심 에이전트 애플리케이션 코드
-│   ├── 📄 agent.py                     # ✏️ [초기 생성 / 사용자 수정] 에이전트 코어 로직 및 도구 정의
-│   ├── 📄 fast_api_app.py              # 🟢 [초기 생성] REST / SSE / A2A 지원 FastAPI 서버
-│   ├── 📄 __init__.py                  # 🟢 [초기 생성] Python 패키지 선언
-│   ├── 📁 app_utils/                   # 🟢 [초기 생성] 에이전트 보조 유틸리티 모듈
-│   │   ├── 📄 a2a.py                   # 🟢 [초기 생성] A2A 프로토콜 통신 및 Agent Card 처리
-│   │   ├── 📄 reasoning_engine.py      # 🟢 [초기 생성] Vertex AI Reasoning Engine 래퍼
-│   │   └── 📄 services.py              # 🟢 [초기 생성] ADK 세션 및 아티팩트 서비스 팩토리
-│   ├── 📁 .adk/                        # ⚡ [동적 생성 - 런타임] 로컬 실행 시 자동 생성되는 내부 데이터 폴더
-│   │   └── 📄 session.db               # ⚡ [동적 생성 - 런타임] 로컬 실행 중 세션·대화 상태가 기록되는 SQLite DB
-│   └── 📁 __pycache__/                 # ⚡ [동적 생성 - 컴파일] Python 인터프리터 바이트코드 캐시
+├── 📁 app/                                  # 🟢 핵심 에이전트 애플리케이션 (agent_directory)
+│   ├── 📄 __init__.py                       # 🟢 Python 패키지 선언
+│   ├── 📄 agent.py                          # ✏️ 실시간 시각·날씨 도구 + 범용 어시스턴트 (수정됨)
+│   ├── 📄 fast_api_app.py                   # 🟢 웹 UI + REST/SSE + A2A FastAPI 서버
+│   ├── 📁 app_utils/                        # 🟢 보조 유틸리티
+│   │   ├── 📄 a2a.py                        # 🟢 A2A 라우트 연결 및 Agent Card 처리
+│   │   ├── 📄 reasoning_engine_adapter.py   # 🟢 Cloud 콘솔 플레이그라운드용 reasoning_engine 프록시
+│   │   └── 📄 services.py                   # 🟢 세션·아티팩트 서비스 팩토리
+│   ├── 📁 .adk/                             # ⚡ [런타임] 로컬 실행 시 생성
+│   │   └── 📄 session.db                    # ⚡ 세션·대화 상태 SQLite DB
+│   └── 📁 __pycache__/                      # ⚡ [컴파일] 바이트코드 캐시
 │
-├── 📁 deployment/                      # ⚡ [동적 생성 - scaffold enhance] 인프라 및 배포 코드 디렉터리
-│   └── 📁 terraform/                   # ⚡ [동적 생성 - scaffold enhance] GCP 리소스 배포용 Terraform HCL 코드
-│       ├── 📁 shared/                  # ⚡ [동적 생성] 공유 인프라 모듈
-│       └── 📁 single-project/          # ⚡ [동적 생성] 단일 프로젝트 배포 스크립트 (main.tf 등)
+├── 📁 deployment/terraform/                 # ⚡ [scaffold enhance] GCP 인프라 Terraform 코드
+│   ├── 📁 shared/                           # ⚡ completions.sql, genai_logs_schema.json, dummy_source.b64
+│   └── 📁 single-project/                   # ⚡ apis · iam · service · storage · telemetry .tf, vars/env.tfvars
 │
-├── 📁 tests/                           # 🟢 [초기 생성] 에이전트 테스트 및 평가 디렉터리
-│   ├── 📁 unit/                        # 🟢 [초기 생성] 단위 테스트 디렉터리
-│   │   └── 📄 test_dummy.py            # 🟢 [초기 생성] 기본 단위 테스트 샘플
-│   ├── 📁 integration/                 # 🟢 [초기 생성] 서버 통합 테스트 디렉터리
-│   │   └── 📄 test_server_e2e.py       # 🟢 [초기 생성] FastAPI 및 A2A 엔드포인트 E2E 테스트
-│   └── 📁 eval/                        # 🟢 [초기 생성] 에이전트 평가(Evaluation) 파이프라인
-│       ├── 📄 eval_config.yaml         # 🟢 [초기 생성] 평가 지표 및 설정 파일
-│       ├── 📄 response_quality.py      # 🟢 [초기 생성] LLM 응답 품질 자동 채점기
-│       └── 📁 datasets/                # 🟢 [초기 생성] 평가 질문 데이터셋 폴더
-│           └── 📄 basic-dataset.json   # 🟢 [초기 생성] 평가용 질의 및 기대 응답 데이터
+├── 📁 tests/                                # 🟢 테스트 및 평가
+│   ├── 📁 unit/test_dummy.py                # 🟢 기본 단위 테스트
+│   ├── 📁 integration/
+│   │   ├── 📄 test_agent.py                 # 🟢 Runner SSE 스트리밍 통합 테스트
+│   │   └── 📄 test_server_e2e.py            # 🟢 FastAPI·A2A 엔드포인트 E2E 테스트
+│   └── 📁 eval/
+│       ├── 📄 eval_config.yaml              # 🟢 평가 지표 설정 (custom_response_quality, agent_turn_count)
+│       ├── 📄 response_quality.py           # 🟢 LLM-as-judge 응답 품질 채점기
+│       └── 📁 datasets/
+│           ├── 📄 basic-dataset.json        # 🟢 평가 질의 3건
+│           └── 📄 README.md                 # 🟢 평가 데이터셋 사용법
 │
-├── 📁 .venv/                           # ⚡ [동적 생성 - 패키지 설치] `agents-cli install` / `uv sync` 실행 시 생성된 가상환경
-├── 📁 .pytest_cache/                   # ⚡ [동적 생성 - 테스트] `pytest` 실행 시 생성되는 테스트 결과 캐시
+├── 📁 .venv/                                # ⚡ [install] agents-cli install / uv sync 가상환경
+├── 📄 uv.lock                               # ⚡ [install] 패키지 버전 잠금 파일
+├── 📄 deployment_metadata.json              # ⚡ [deploy] 배포된 Agent Runtime(reasoningEngines) ID·시각 기록
 │
-├── 📄 agents-cli-manifest.yaml         # 🟢 [초기 생성] agents-cli 메타데이터 (템플릿, 에이전트 이름, 대상 런타임)
-├── 📄 pyproject.toml                   # 🟢 [초기 생성] uv 기반 Python 프로젝트 설정 및 의존성 명세
-├── 📄 uv.lock                          # ⚡ [동적 생성 - 패키지 설치] `agents-cli install` 실행 시 생성되는 패키지 버전 잠금 파일
-├── 📄 deployment_metadata.json         # ⚡ [동적 생성 - 배포] `agents-cli deploy` 성공 시 생성되는 원격 엔진 ID 및 배포 이력
-├── 📄 Dockerfile                       # 🟢 [초기 생성] 컨테이너 기반 빌드 및 배포를 위한 도커 명세서
-├── 📄 .env                             # 🟢 [초기 생성 / 사용자 설정] API 키, 모델명, 환경 설정값 파일
-├── 📄 .env.example                     # 🟢 [초기 생성] 환경 설정 예시 템플릿
-├── 📄 .gitignore                       # 🟢 [초기 생성] Git 형상 관리 제외 규칙
-├── 📄 .gcloudignore                    # 🟢 [초기 생성] GCP 배포 시 업로드 제외 규칙
-├── 📄 GEMINI.md                        # 🟢 [초기 생성] Antigravity/Gemini 코딩 에이전트용 프로젝트 가이드 문서
-├── 📄 README.md                        # 🟢 [초기 생성] 원본 영문 가이드 문서
-└── 📄 README-KR.md                     # ✏️ [사용자 추가 문서] 한글 번역 및 폴더 구조 상세 설명서 (본 파일)
+├── 📄 agents-cli-manifest.yaml              # 🟢 agents-cli 메타데이터 (템플릿·에이전트 이름·리전·배포 대상)
+├── 📄 pyproject.toml                        # 🟢 의존성 및 ruff/ty/pytest 설정
+├── 📄 Dockerfile                            # 🟢 컨테이너 빌드 명세 (python:3.12-slim, 포트 8080)
+├── 📄 .env.example                          # 🟢 환경 변수 템플릿
+├── 📄 .gitignore / .gcloudignore            # 🟢 Git / GCP 업로드 제외 규칙
+├── 📄 GEMINI.md                             # 🟢 코딩 에이전트(Antigravity/Gemini)용 개발 가이드
+├── 📄 README.md                             # ✏️ 프로젝트 요약 (영문, Dockerfile 빌드에 필요)
+│
+├── 📄 generate_adk_web_ppt.py               # ✏️ [사용자 추가] ADK Web 아키텍처 슬라이드 생성 스크립트
+├── 📄 ADK_Web_Architecture_Guide.pptx       # ✏️ [사용자 추가] 위 스크립트로 생성한 슬라이드
+├── 📄 README-KR.md / README-KR.pdf          # ✏️ [사용자 추가] 한글 상세 가이드 (본 파일)
+└── 📄 README-EN.md / README-EN.pdf          # ✏️ [사용자 추가] 영문 상세 가이드
 ```
 
----
-
-## 📊 파일/폴더 분류 기준 안내
-
-| 구분 아이콘 | 분류명 | 상세 설명 | 대표 파일 / 폴더 |
+| 아이콘 | 분류 | 설명 | 대표 파일 |
 | :---: | :--- | :--- | :--- |
-| 🟢 | **초기 스캐폴딩 생성** | `agents-cli create` 명령을 통해 템플릿으로부터 최초 프로젝트 생성 시 자동 구성되는 파일 | `app/fast_api_app.py`, `tests/`, `Dockerfile`, `agents-cli-manifest.yaml` |
-| ⚡ | **동적 생성 (런타임/명령)** | 프로젝트 초기 생성 시점에는 없었으나, 특정 명령어 실행(`install`, `enhance`, `deploy`, `run`, `pytest`) 또는 런타임 동작 시 사후 자동 생성되는 파일 및 디렉터리 | `.venv/`, `uv.lock`, `deployment/`, `deployment_metadata.json`, `app/.adk/session.db`, `.pytest_cache/` |
-| ✏️ | **초기 생성 및 사용자 수정** | 템플릿으로 제공된 골격을 바탕으로 개발자가 비즈니스 요구사항에 맞게 직접 편집하거나 추가한 파일 | `app/agent.py`, `.env`, `README-KR.md` |
-
+| 🟢 | **초기 스캐폴딩** | `agents-cli create` 시 템플릿에서 자동 생성 | `app/fast_api_app.py`, `tests/`, `Dockerfile`, `agents-cli-manifest.yaml` |
+| ⚡ | **동적 생성** | `install` · `scaffold enhance` · `deploy` · 실행 · `pytest` 시 사후 생성 | `.venv/`, `uv.lock`, `deployment/`, `deployment_metadata.json`, `app/.adk/session.db` |
+| ✏️ | **사용자 수정/추가** | 템플릿을 바탕으로 직접 편집하거나 추가한 파일 | `app/agent.py`, `README*.md`, `generate_adk_web_ppt.py`, `ADK_Web_Architecture_Guide.pptx` |
