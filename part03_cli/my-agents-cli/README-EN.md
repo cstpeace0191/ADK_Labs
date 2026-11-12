@@ -68,7 +68,72 @@ Before starting, make sure you have:
 
 ---
 
-## 3. How to Run
+## 3. Pre-Configuration: Google Cloud Authentication (ADC) Setup Before Running `agents-cli playground`
+
+When running `agents-cli playground` or an ADK server that uses Google Cloud services (Vertex AI, Gemini API, etc.), the following error occurs if Google Cloud Application Default Credentials (ADC) are not configured on your local machine:
+
+```text
+DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+```
+
+In a local development environment, complete authentication using one of the methods below before running `agents-cli playground`.
+
+### Method 1: Set Up ADC Login via Google Cloud CLI (`gcloud`) (Recommended)
+
+1. **Verify Google Cloud CLI Installation**
+   Run the command below in your terminal to check if the `gcloud` CLI is installed:
+   ```bash
+   gcloud --version
+   ```
+   - **How to verify**: If `Google Cloud SDK ...` version info is printed, proceed to the next step. (If you see `command not found` or an unrecognized command error, install it first from the [official Google Cloud CLI page](https://cloud.google.com/sdk/docs/install).)
+
+2. **Run Application Default Credentials (ADC) Login**
+   Enter the following command in your terminal to open the browser authentication window:
+   ```bash
+   gcloud auth application-default login
+   ```
+   - **How to verify**: Your web browser will open automatically and display the Google account sign-in screen.
+
+3. **Sign In with Your Google Account and Grant Permissions**
+   Sign in with a Google account that has access to your Google Cloud project and click **Allow**.
+   - **How to verify**: Authentication succeeds when the browser displays `You are now authenticated with the gcloud CLI!` and the terminal prints `Credentials saved to file: [.../application_default_credentials.json]`.
+
+4. **Set Project ID, Check `.env`, and Re-run**
+   Set your default Google Cloud project ID (and update `GOOGLE_CLOUD_PROJECT` in `.env` if needed), then run `agents-cli playground` again:
+   ```bash
+   gcloud config set project [YOUR_PROJECT_ID]
+   ```
+   - **How to verify**: Re-run `agents-cli playground` and confirm that it starts cleanly without `DefaultCredentialsError`.
+
+### Method 2 (Alternative): Authenticate with a Service Account Key (JSON) File
+
+If your environment requires using an issued Service Account key (`.json` file) instead of browser login, set the environment variable in your terminal before running the command:
+
+- **Windows (PowerShell)**:
+  ```powershell
+  $env:GOOGLE_APPLICATION_CREDENTIALS="C:\path\to\keyfile.json"
+  ```
+- **macOS / Linux**:
+  ```bash
+  export GOOGLE_APPLICATION_CREDENTIALS="/path/to/keyfile.json"
+  ```
+- **How to verify**: Re-run `agents-cli playground` in the same terminal session and confirm that the authentication error is resolved.
+
+### Method 3 (Alternative): Run with a Gemini API Key (Google AI Studio) Without GCP ADC
+
+If you prefer to run using a Gemini API key from Google AI Studio instead of a GCP project (Vertex AI), comment out the three GCP configuration lines in `my-agents-cli/.env` and enable `GEMINI_API_KEY`:
+
+```ini
+# GOOGLE_GENAI_USE_ENTERPRISE=true
+# GOOGLE_CLOUD_PROJECT=your-gcp-project-id
+# GOOGLE_CLOUD_LOCATION=global
+
+GEMINI_API_KEY=your-api-key-here
+```
+
+---
+
+## 4. How to Run
 
 Execute the following commands from within the `my-agents-cli` directory:
 
@@ -104,7 +169,7 @@ agents-cli publish gemini
 
 ---
 
-## 4. 🛠️ Project Management Commands
+## 5. 🛠️ Project Management Commands
 
 | Command | Action |
 | :--- | :--- |
@@ -114,7 +179,7 @@ agents-cli publish gemini
 
 ---
 
-## 5. Request Processing Flow: Uvicorn to Agent
+## 6. Request Processing Flow: Uvicorn to Agent
 
 Based on `app/fast_api_app.py`, this section explains how an HTTP request sent by a client reaches `root_agent`.
 
@@ -170,7 +235,7 @@ Key points:
 
 ---
 
-## 6. Observability and A2A Support
+## 7. Observability and A2A Support
 
 - **Observability**: Built-in telemetry exports trace, metrics, and logs to Cloud Trace, BigQuery, and Cloud Logging.
 - **A2A Inspector**: This agent fully supports the [A2A Protocol](https://a2a-protocol.org/). Use [A2A Inspector](https://github.com/a2aproject/a2a-inspector) to test interoperability.
