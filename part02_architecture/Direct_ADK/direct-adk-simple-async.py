@@ -44,6 +44,20 @@ async def main():
         session_id=session1.id,
         new_message=user_message
     ):
+        kinds = []
+        if event.content and event.content.parts:
+            for p in event.content.parts:
+                if p.text:
+                    kinds.append(f"text({len(p.text)} chars)")
+                if p.function_call:
+                    kinds.append(f"call:{p.function_call.name}")
+                if p.function_response:
+                    kinds.append(f"result:{p.function_response.name}")
+                if getattr(p, "thought", False):
+                    kinds.append("thought")
+
+        tokens = event.usage_metadata.total_token_count if event.usage_metadata else "-"
+        print(f"[{event.author}] {kinds} | Final={event.is_final_response()} | StateDelta={event.actions.state_delta} | Tokens={tokens}")
         if event.is_final_response():
             if event.content and event.content.parts:
                 response_text = "".join(p.text for p in event.content.parts if hasattr(p, "text") and p.text)
