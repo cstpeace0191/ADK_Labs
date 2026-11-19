@@ -27,7 +27,7 @@ def roll_dice(sides: int = 6, count: int = 3) -> dict:
 
 root_agent = Agent(
     name="host_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction="주사위는 roll_dice 로 직접 굴린다. 소수 판별은 prime_agent 에게 넘긴다.",
     tools=[roll_dice],
     sub_agents=[prime],

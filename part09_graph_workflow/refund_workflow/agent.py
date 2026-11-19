@@ -16,7 +16,7 @@ from google.adk.events import RequestInput
 from google.adk.workflow import JoinNode, node
 from pydantic import BaseModel
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 _KEY = os.getenv("GOOGLE_API_KEY", "")
 USE_LLM = (bool(_KEY) and not _KEY.startswith("<")) or \
     os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").upper() == "TRUE"

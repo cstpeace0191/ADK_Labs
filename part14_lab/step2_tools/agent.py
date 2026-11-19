@@ -61,7 +61,7 @@ def search_course(keyword: str) -> dict:
 
 root_agent = Agent(
     name="academic_tools",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="수강 과목·성적 조회가 가능한 학사 상담 에이전트",
     instruction="""
     너는 대학 학사지원센터 상담원이다. 로그인 학생: {user:name?}

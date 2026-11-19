@@ -100,7 +100,7 @@ def get_current_time(city: str) -> dict:
 # 3. Configure root Agent and bind tools
 root_agent = Agent(
     name="weather_time_agent",
-    model="gemini-3.5-flash",  # Specify Gemini model to use
+    model="gemini-3.8-flash",  # Specify Gemini model to use
     description="Agent to answer questions about the time and weather in a city.",
     instruction=(
         "You are a helpful agent who can answer user questions about the time and weather in a city. "

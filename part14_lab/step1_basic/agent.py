@@ -5,7 +5,7 @@ from google.adk import Agent
 
 root_agent = Agent(
     name="academic_basic",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="대학 학사 문의에 답하는 기본 에이전트",
     instruction="""
     너는 대학 학사지원센터 상담원이다.

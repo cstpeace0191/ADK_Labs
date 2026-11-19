@@ -9,7 +9,7 @@ from google.adk import Agent
 from google.adk.planners import BuiltInPlanner, PlanReActPlanner
 from google.genai import types
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 thinking_agent = Agent(
     name="thinker",

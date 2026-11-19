@@ -319,7 +319,7 @@ INSTRUCTION = """너는 세계 주요 도시의 현재 시간과 날씨 정보�
 """
 
 root_agent = Agent(
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     name="chat_time_weather_agent",
     description="세계 주요 도시의 실제 현재 시간과 날씨 정보를 조회하고 일반 질문에도 답변하는 범용 비서",
     instruction=INSTRUCTION,

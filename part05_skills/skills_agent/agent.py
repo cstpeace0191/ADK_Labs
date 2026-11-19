@@ -65,7 +65,7 @@ skills = skill_toolset.SkillToolset(
 
 root_agent = Agent(
     name="skill_user_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="스킬을 불러와 작업하는 에이전트",
     instruction="너는 학사 도우미다. 요청에 맞는 스킬이 있으면 먼저 불러온 뒤 그 지시를 정확히 따른다.",
     tools=[skills],

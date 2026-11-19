@@ -33,7 +33,7 @@ def book_flight(destination: str, tool_context: ToolContext) -> str:
 # ── 2. Configure Agent ──────────────────────────────────────────────
 agent = Agent(
     name="flight_agent",
-    model="gemini-3.6-flash",
+    model="gemini-3.8-flash",
     instruction="""
     You are a travel booking agent.
     Respond kindly, referencing the user's Working Memory (State).

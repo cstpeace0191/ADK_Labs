@@ -32,7 +32,7 @@ def count_visit(tool_context: ToolContext) -> dict:
 
 root_agent = Agent(
     name="state_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction="""
     사용자 이름: {user:name?}
     공지: {app:notice?}

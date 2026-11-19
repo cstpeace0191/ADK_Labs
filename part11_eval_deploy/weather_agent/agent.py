@@ -18,7 +18,7 @@ def get_weather(city: str) -> dict:
 
 root_agent = Agent(
     name="weather_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="도시 날씨를 알려주는 에이전트",
     instruction="사용자가 묻는 도시의 날씨를 get_weather로 조회해 한 문장으로 답하라. "
                 "도시 이름은 '서울', '부산'처럼 한글로 넘긴다.",

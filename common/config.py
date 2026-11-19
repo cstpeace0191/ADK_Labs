@@ -17,7 +17,7 @@ else:
     os.environ.pop("GOOGLE_CLOUD_LOCATION", None)
 
 # 슬라이드와 adk.dev 퀵스타트가 사용하는 별칭. 운영에서는 버전 고정을 권장.
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 
 def has_llm_credentials() -> bool:

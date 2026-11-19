@@ -127,7 +127,7 @@ def get_current_time(city: str) -> dict:
 #       weather/time tools as well as general knowledge queries directly.
 
 agent = LlmAgent(
-    model="gemini-3.5-flash",
+    model="gemini-3.8-flash",
     name="weather_and_time_agent",
     instruction=(
         "You are a versatile, helpful AI assistant. "

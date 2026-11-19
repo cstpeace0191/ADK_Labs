@@ -10,7 +10,7 @@ import os
 from google.adk import Agent
 from pydantic import BaseModel, Field
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 
 # ── 도구 (목업)

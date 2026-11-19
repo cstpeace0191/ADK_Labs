@@ -17,7 +17,7 @@ my_agent/
 ```
 
 ### Key Files and Roles
-- **`agent.py`**: The main entry point for the agent. It defines `root_agent` with model (`gemini-3.5-flash`), agent name (`root_agent`), description, and system instructions.
+- **`agent.py`**: The main entry point for the agent. It defines `root_agent` with model (`gemini-3.8-flash`), agent name (`root_agent`), description, and system instructions.
 - **`__init__.py`**: Exports the agent module (`from . import agent`) so that ADK's `AgentLoader` can discover and load the agent using just the folder name `my_agent`.
 - **`.adk/session.db`**: SQLite database generated during execution (`adk run`, `adk web`, etc.) to persist conversation state across invocations.
 

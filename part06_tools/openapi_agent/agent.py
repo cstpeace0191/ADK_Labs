@@ -21,7 +21,7 @@ hr_tools = OpenAPIToolset(
 
 root_agent = Agent(
     name="hr_bot",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     tools=[hr_tools],
     instruction="휴가 잔여일은 HR API(get_leave_balance)로만 조회하라. 공휴일은 list_holidays.",
 )

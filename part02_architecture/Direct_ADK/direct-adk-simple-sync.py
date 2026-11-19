@@ -12,7 +12,7 @@ load_dotenv(override=True)
 
 agent = Agent(
     name="memory_assistant",
-    model="gemini-2.5-flash",
+    model="gemini-3.8-flash",
     instruction="You are a helpful AI assistant who remembers user information and responds kindly."
 )
 session_service = InMemorySessionService()

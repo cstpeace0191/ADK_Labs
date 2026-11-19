@@ -60,7 +60,7 @@ def mask_phone(callback_context: CallbackContext, llm_response: LlmResponse):
 
 root_agent = Agent(
     name="guarded_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction="쇼핑 도우미. 상품 담기 요청은 add_to_cart 로 처리하고 결과를 그대로 알려라.",
     tools=[add_to_cart],
     before_model_callback=guard,

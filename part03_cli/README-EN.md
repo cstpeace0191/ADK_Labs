@@ -32,7 +32,7 @@ You only need one `.env` file at the lab root (`ADK_Labs/.env`). `adk` traverses
 
 ### 1) `my_agent/` Summary
 - **Structure**: `agent.py`, `__init__.py`, `.env`, `.gitignore`, `.adk/session.db`
-- **Role**: Minimal baseline ADK agent (`gemini-3.5-flash`). Executes default system prompt instructions without extra tools.
+- **Role**: Minimal baseline ADK agent (`gemini-3.8-flash`). Executes default system prompt instructions without extra tools.
 - **Run**: From `part03_cli`: `adk run my_agent` or `adk web --port 8000`
 
 ### 2) `my_agent_mod/` Summary

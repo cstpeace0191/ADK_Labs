@@ -16,7 +16,7 @@ from google.adk import Agent, Context, Event, Workflow
 from step2_tools.agent import COURSES, ENROLLMENTS, GRADES
 from step3_callback.guardrails import detect_pii
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 _KEY = os.getenv("GOOGLE_API_KEY", "")
 USE_LLM = (bool(_KEY) and not _KEY.startswith("<")) or \
     os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").upper() == "TRUE"

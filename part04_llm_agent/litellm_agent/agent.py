@@ -11,7 +11,7 @@ if os.getenv("ANTHROPIC_API_KEY"):
 
     model = LiteLlm(model=os.getenv("LITELLM_MODEL", "anthropic/claude-sonnet-5-5"))
 else:
-    model = os.getenv("ADK_MODEL", "gemini-flash-latest")
+    model = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 root_agent = Agent(
     name="multi_model_agent",

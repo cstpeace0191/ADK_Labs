@@ -333,7 +333,7 @@ load_dotenv(override=True)
 # 1. Define Agent
 agent = Agent(
     name="memory_assistant",
-    model="gemini-2.5-flash",
+    model="gemini-3.8-flash",
     instruction="You are a helpful and accurate assistant."
 )
 

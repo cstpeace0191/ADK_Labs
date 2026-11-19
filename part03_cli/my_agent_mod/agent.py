@@ -31,7 +31,7 @@ def get_weather(city: str) -> dict:
 
 root_agent = Agent(
     name="weather_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="An agent that answers general questions and provides city weather.",
     instruction="Use get_weather to look up the weather for a city the user asks about and answer in one sentence. Answer other questions using your general knowledge.",
     tools=[get_weather],

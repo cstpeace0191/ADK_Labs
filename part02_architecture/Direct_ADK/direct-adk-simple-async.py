@@ -11,7 +11,7 @@ load_dotenv(override=True)
 # 1. Define agent and memory/session services
 agent = Agent(
     name="memory_assistant",
-    model="gemini-3.5-flash",
+    model="gemini-3.8-flash",
     instruction="You are a helpful AI assistant who remembers user information and responds kindly."
 )
 

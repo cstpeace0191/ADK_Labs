@@ -19,7 +19,7 @@ def check_prime(nums: list[int]) -> dict:
 
 root_agent = Agent(
     name="prime_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="정수 목록이 소수인지 판별하는 원격 에이전트",
     instruction="숫자가 주어지면 check_prime 으로 판별하고 결과를 간단히 알려라.",
     tools=[check_prime],

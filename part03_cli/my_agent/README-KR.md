@@ -17,7 +17,7 @@ my_agent/
 ```
 
 ### 주요 파일 역할
-- **`agent.py`**: ADK의 기본 진입점(Entry Point)입니다. `root_agent` 객체에 모델(`gemini-3.5-flash`), 에이전트 이름(`root_agent`), 설명(Description), 기본 지침(Instruction)이 정의되어 있습니다.
+- **`agent.py`**: ADK의 기본 진입점(Entry Point)입니다. `root_agent` 객체에 모델(`gemini-3.8-flash`), 에이전트 이름(`root_agent`), 설명(Description), 기본 지침(Instruction)이 정의되어 있습니다.
 - **`__init__.py`**: `from . import agent` 구문을 통해 ADK의 `AgentLoader`가 디렉터리 이름(`my_agent`)만으로 에이전트를 인식하고 로드할 수 있게 합니다.
 - **`.adk/session.db`**: `adk run` 또는 `adk web` 실행 시 대화 상태를 지속 관리하기 위해 자동 생성되는 SQLite 데이터베이스입니다.
 

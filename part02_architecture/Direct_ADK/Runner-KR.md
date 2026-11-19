@@ -336,7 +336,7 @@ load_dotenv(override=True)
 # 1. 에이전트 정의
 agent = Agent(
     name="memory_assistant",
-    model="gemini-2.5-flash",
+    model="gemini-3.8-flash",
     instruction="친절하고 정확하게 답변하는 AI 어시스턴트입니다."
 )
 

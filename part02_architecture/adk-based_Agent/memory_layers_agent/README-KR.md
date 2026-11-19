@@ -129,7 +129,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # GOOGLE_CLOUD_LOCATION=us-central1
 
 # 에이전트 모델 설정
-ADK_MODEL=gemini-flash-latest
+ADK_MODEL=gemini-3.8-flash
 ```
 
 ---

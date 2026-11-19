@@ -57,7 +57,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # GOOGLE_CLOUD_LOCATION=us-central1
 
 # Default Agent model (Optional)
-ADK_MODEL=gemini-flash-latest
+ADK_MODEL=gemini-3.8-flash
 
 # Offline testing mode (0: online API, 1: built-in offline data)
 AGENT_OFFLINE=0

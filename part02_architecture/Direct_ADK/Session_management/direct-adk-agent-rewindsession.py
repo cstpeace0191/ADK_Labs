@@ -62,7 +62,7 @@ def get_state_color(tool_context: ToolContext) -> str:
 # ---------------------------------------------------------------------------
 agent = Agent(
     name="color_agent",
-    model="gemini-3.5-flash",
+    model="gemini-3.8-flash",
     instruction=(
         "You are an assistant managing session state (Working Memory).\n"
         "When the user asks to set or change a color, always call the `set_state_color` tool.\n"

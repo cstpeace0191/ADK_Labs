@@ -222,14 +222,14 @@ inv_B 이후 이벤트를 논리적으로 무시함.
 
 ### 1. 환경 변수 설정 (`.env`)
 
-Vertex AI Express Mode 및 `gemini-3.5-flash` 모델을 사용하는 설정입니다:
+Vertex AI Express Mode 및 `gemini-3.8-flash` 모델을 사용하는 설정입니다:
 
 ```env
 # Vertex AI Express Mode 활성화
 GOOGLE_GENAI_USE_VERTEXAI=TRUE
 GOOGLE_CLOUD_PROJECT=ssu-agent-vertex-509708
 
-# gemini-3.5-flash 모델은 global 엔드포인트에 배포되어 있으므로 global 설정 필수
+# gemini-3.8-flash 모델은 global 엔드포인트에 배포되어 있으므로 global 설정 필수
 GOOGLE_CLOUD_LOCATION=global
 
 # Vertex AI Express Mode 인증 키
@@ -238,7 +238,7 @@ GEMINI_API_KEY=AQ.Ab8RN6...
 ```
 
 > [!NOTE]
-> - `gemini-3.5-flash` 모델을 Vertex AI에서 호출할 때는 리전(`us-central1` 등)이 아닌 `GOOGLE_CLOUD_LOCATION=global`로 설정해야 404 NOT_FOUND 에러를 방지할 수 있습니다.
+> - `gemini-3.8-flash` 모델을 Vertex AI에서 호출할 때는 리전(`us-central1` 등)이 아닌 `GOOGLE_CLOUD_LOCATION=global`로 설정해야 404 NOT_FOUND 에러를 방지할 수 있습니다.
 > - `AQ.` 접두사 키는 Vertex AI Express Mode 인증 키이므로 `GOOGLE_GENAI_USE_VERTEXAI=TRUE`로 지정해야 합니다.
 
 ### 2. 실행 명령어

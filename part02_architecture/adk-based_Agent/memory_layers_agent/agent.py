@@ -53,7 +53,7 @@ def save_trip(trip: str, tool_context: ToolContext) -> dict:
 
 root_agent = Agent(
     name="memory_layers_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="Session(단기) State 와 Memory(장기) 검색을 함께 쓰는 비서",
     instruction="""
     너는 개인 비서다.

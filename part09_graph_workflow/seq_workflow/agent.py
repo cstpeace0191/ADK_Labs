@@ -10,7 +10,7 @@ import os
 from google.adk import Agent, Event, Workflow
 from pydantic import BaseModel
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 city_generator = Agent(
     name="city_generator", model=MODEL,

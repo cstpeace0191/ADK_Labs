@@ -58,7 +58,7 @@ def checkout(tool_context: ToolContext) -> dict:
 
 root_agent = Agent(
     name="shop_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="상품 조회와 장바구니를 관리하는 쇼핑 도우미",
     instruction="상품은 list_products, 담기는 add_to_cart, 확인은 view_cart, 결제는 checkout 도구를 쓴다. "
                 "상품 이름으로 요청하면 list_products로 ID를 찾아 처리한다. "

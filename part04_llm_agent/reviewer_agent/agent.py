@@ -13,7 +13,7 @@ class Review(BaseModel):
 
 root_agent = Agent(
     name="code_reviewer",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="코드 리뷰 결과를 JSON으로 반환한다.",
     instruction="입력 코드를 리뷰하고 JSON으로만 답하라.",
     output_schema=Review,  # 응답 형식 강제 (이 에이전트는 도구를 쓰지 않는다)

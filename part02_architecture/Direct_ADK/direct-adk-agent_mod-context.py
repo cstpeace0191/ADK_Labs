@@ -267,7 +267,7 @@ def get_current_time(city: str) -> dict:
 # Agent & Runner Configuration
 # ─────────────────────────────────────────────
 agent = LlmAgent(
-    model="gemini-3.5-flash",
+    model="gemini-3.8-flash",
     name="weather_and_time_agent",
     instruction=(
         "You are a versatile, helpful AI assistant. "

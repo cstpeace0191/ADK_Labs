@@ -28,7 +28,7 @@ def get_time(city: str) -> dict:
 
 root_agent = Agent(
     name="obs_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction="날씨는 get_weather, 시각은 get_time 도구로 확인해 한두 문장으로 답한다. 도구가 오류면 솔직히 말한다.",
     tools=[get_weather, get_time],
 )

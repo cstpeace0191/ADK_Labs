@@ -13,7 +13,7 @@ from google.adk.tools.agent_tool import AgentTool
 # adk web/run 은 part06_tools 폴더를 sys.path에 넣으므로 형제 에이전트 패키지를 그대로 import 한다
 from shop_agent.agent import add_to_cart, list_products
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 search_agent = Agent(
     name="searcher",

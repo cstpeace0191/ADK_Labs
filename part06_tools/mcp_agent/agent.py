@@ -25,7 +25,7 @@ fs_tools = McpToolset(
 
 root_agent = Agent(
     name="file_assistant",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction=f"{REPORTS_DIR} 폴더의 파일만 읽어 답하라. 먼저 list_directory로 목록을 확인한다.",
     tools=[fs_tools],
 )

@@ -3,7 +3,7 @@ import os
 
 from google.adk import Agent
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 
 def get_weather(city: str) -> dict:

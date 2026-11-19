@@ -86,7 +86,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # GOOGLE_CLOUD_LOCATION=us-central1
 
 # 선택 사항: 사용할 모델 지정 (기본값: gemini-flash-latest)
-ADK_MODEL=gemini-flash-latest
+ADK_MODEL=gemini-3.8-flash
 
 # 선택 사항: 오프라인 테스트 모드 강제 활성화 (0: 온라인, 1: 오프라인 내장 데이터)
 AGENT_OFFLINE=0

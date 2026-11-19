@@ -31,7 +31,7 @@ refund_tool = LongRunningFunctionTool(func=request_refund)
 
 root_agent = Agent(
     name="refund_agent",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     instruction="환불 요청은 request_refund 로 접수한다. 결과가 pending이면 승인 대기 중이라고 안내하고, "
                 "이후 승인/거절 결과가 오면 그 결과를 사용자에게 알린다.",
     tools=[refund_tool],

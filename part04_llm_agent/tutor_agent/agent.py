@@ -9,7 +9,7 @@ from google.adk import Agent
 
 root_agent = Agent(
     name="tutor",
-    model=os.getenv("ADK_MODEL", "gemini-flash-latest"),
+    model=os.getenv("ADK_MODEL", "gemini-3.8-flash"),
     description="과목 조교 에이전트",
     instruction="""
     너는 {course} 과목 조교다.

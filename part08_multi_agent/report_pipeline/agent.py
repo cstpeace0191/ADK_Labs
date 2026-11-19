@@ -9,7 +9,7 @@ from google.adk import Agent
 from google.adk.agents import LoopAgent, ParallelAgent, SequentialAgent
 from google.adk.tools import ToolContext
 
-MODEL = os.getenv("ADK_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("ADK_MODEL", "gemini-3.8-flash")
 
 news_agent = Agent(
     name="news_agent", model=MODEL,

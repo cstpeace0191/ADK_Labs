@@ -32,7 +32,7 @@ part03_cli/
 
 ### 1) `my_agent/` 요약
 - **구조**: `agent.py`, `__init__.py`, `.env`, `.gitignore`, `.adk/session.db`
-- **역할**: 최소 단위의 ADK 기본 에이전트(`gemini-3.5-flash`). 별도 도구 없이 LLM의 기본 시스템 지침을 수행.
+- **역할**: 최소 단위의 ADK 기본 에이전트(`gemini-3.8-flash`). 별도 도구 없이 LLM의 기본 시스템 지침을 수행.
 - **실행**: `part03_cli` 폴더에서 `adk run my_agent` 또는 `adk web --port 8000`
 
 ### 2) `my_agent_mod/` 요약
