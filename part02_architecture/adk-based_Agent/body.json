@@ -1,0 +1,11 @@
+{
+  "appName": "chat_time_weather_agent",
+  "userId": "user_01",
+  "sessionId": "session_01",
+  "newMessage": {
+    "role": "user",
+    "parts": [
+      {"text": "서울 날씨와 시간은"}
+    ]
+  }
+}

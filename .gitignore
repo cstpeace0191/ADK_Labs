@@ -1,7 +1,8 @@
-.env
+.env*
 .venv/
 __pycache__/
 *.db
 *.session.json
 .adk/
 .build_gcloud/
+*__tmp__*

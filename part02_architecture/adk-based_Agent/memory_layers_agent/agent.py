@@ -111,22 +111,27 @@ root_agent = Agent(
     description="An assistant utilizing both Session (short-term) State and Memory (long-term) retrieval",
     instruction="""
     You are a personal assistant.
+    [Language Handling]
+    - You fluently understand both English and Korean.
+    - Always respond in the exact same language used by the user in their inquiry (if the user asks in Korean, reply in Korean; if the user asks in English, reply in English).
+
     [User Profile & Persistent State]
       User name: {user:name?}
       Persistent trip itinerary: {user:trip?}
       Current session plan: {trip?}
+
     Rules:
-    1) When the user mentions their name, call save_profile.
+    1) When the user mentions their name (in English or Korean, e.g., "My name is John"), call save_profile.
     2) When they mention a business trip, itinerary, or travel plan, call save_trip.
-    3) When the user explicitly requests to save, register, or remember plans/details (e.g., "save this itinerary", "remember this plan"),
+    3) When the user explicitly requests to save, register, or remember plans/details (e.g., "save this itinerary", "remember this plan", or their Korean equivalents),
        call save_to_memory to also transfer them into long-term memory.
     4) When asked about upcoming trips, plans, or places:
        - Check {user:trip?} and {trip?} first.
        - For additional details not in state (sightseeing spots, food preferences, past conversations, etc.),
          check automatically provided past memories first. If insufficient, search using load_memory.
-         Use single concise keywords without extra particles for load_memory search queries (e.g., "Jeju", "Yongduam", "business trip", "spicy").
+         Use single concise keywords without extra grammatical particles for load_memory search queries (e.g., "Jeju", "Yongduam", "business trip", "spicy").
     5) If information is not in memory or state either, state that you do not know. Do not make things up.
-    6) Keep responses concise in 2 to 3 sentences.
+    6) Keep responses concise in 2 to 3 sentences in the user's language.
     """,
     tools=[save_profile, save_trip, save_to_memory, preload_memory, load_memory],
     after_agent_callback=auto_save_session_to_memory,
@@ -134,7 +139,7 @@ root_agent = Agent(
 
 
 # ---------------------------------------------------------------------------
-# 4. Multi-Session Lifecycle Demonstration (Run Directly)
+# 4. Multi-Session Lifecycle Demonstration & Interactive Console
 # ---------------------------------------------------------------------------
 
 async def demo_lifecycle():
@@ -209,5 +214,109 @@ async def demo_lifecycle():
     print("=" * 75)
 
 
+async def interactive_session():
+    """Runs an interactive CLI chat session supporting both English and Korean.
+
+    Commands:
+      /new or /reset  - Save current session to memory and begin a fresh session
+      /state          - Display current Session State and User State
+      /save           - Explicitly transfer current session conversation into Long-Term Memory
+      /help           - Display command help
+      exit or quit    - Exit the program
+    """
+    from common.runner_util import Session
+
+    session_service = InMemorySessionService()
+    memory_service = InMemoryMemoryService()
+    app_name, user_id = "memory_layers_cli", "user_interactive"
+    session_count = 1
+
+    print("=" * 75)
+    print("🤖 Memory Layers Agent — Interactive Console")
+    print("=" * 75)
+    print("• Multilingual: You can interact in English or Korean.")
+    print("• Commands:")
+    print("    /new or /reset : Start a new session (tests cross-session memory recall)")
+    print("    /state         : Inspect current Session State and User State")
+    print("    /save          : Save current session to Long-Term Memory")
+    print("    /help          : Show command help")
+    print("    exit or quit   : Exit the interactive console")
+    print("=" * 75)
+
+    s = Session(
+        root_agent,
+        app_name=app_name,
+        user_id=user_id,
+        session_service=session_service,
+        memory_service=memory_service,
+        verbose=True,
+    )
+    print(f"\n[Session #{session_count} started]")
+
+    while True:
+        try:
+            user_input = input("\n[User] > ").strip()
+        except (KeyboardInterrupt, EOFError):
+            print("\nExiting interactive session.")
+            break
+
+        if not user_input:
+            continue
+
+        cmd = user_input.lower()
+        if cmd in ("exit", "quit"):
+            print("Session terminated. Goodbye!")
+            break
+
+        if cmd in ("/help", "help"):
+            print("\nAvailable Commands:")
+            print("  /new or /reset  : Start a new session (tests cross-session memory recall)")
+            print("  /state          : Inspect current Session State and User State")
+            print("  /save           : Manually index current session into long-term memory")
+            print("  exit or quit    : Exit program")
+            continue
+
+        if cmd in ("/state", "state"):
+            curr_session = await s.get_session()
+            print("\n--- [Current State Snapshot] ---")
+            print("  Session ID :", curr_session.id)
+            print("  User ID    :", curr_session.user_id)
+            print("  State Keys :", dict(curr_session.state))
+            continue
+
+        if cmd in ("/save", "save"):
+            curr_session = await s.get_session()
+            await memory_service.add_session_to_memory(curr_session)
+            print("\n✅ Current session successfully saved to Long-Term Memory Bank.")
+            continue
+
+        if cmd in ("/new", "/reset", "new", "reset"):
+            prev_session = await s.get_session()
+            await memory_service.add_session_to_memory(prev_session)
+            session_count += 1
+            print(f"\n🔄 Session #{session_count - 1} saved to memory. Starting Session #{session_count}...")
+            s = Session(
+                root_agent,
+                app_name=app_name,
+                user_id=user_id,
+                session_service=session_service,
+                memory_service=memory_service,
+                verbose=True,
+            )
+            new_s = await s.get_session()
+            print(f"[Session #{session_count} active (ID: {new_s.id})]")
+            print(f"  • Retained user-scoped state : {[k for k in new_s.state if k.startswith('user:')]}")
+            print(f"  • Session-scoped state (e.g. 'trip') has been cleared.")
+            continue
+
+        try:
+            await s.send(user_input)
+        except Exception as e:
+            print(f"\n[Error]: {e}")
+
+
 if __name__ == "__main__":
-    asyncio.run(demo_lifecycle())
+    if len(sys.argv) > 1 and sys.argv[1] == "--demo":
+        asyncio.run(demo_lifecycle())
+    else:
+        asyncio.run(interactive_session())
