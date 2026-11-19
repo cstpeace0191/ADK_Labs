@@ -105,11 +105,110 @@ uv run Direct_ADK/run_events.py
 uv run Direct_ADK/run_memory_layers.py offline
 uv run Direct_ADK/run_memory_layers.py llm
 uv run Direct_ADK/run_memory_layers.py all
+
+# 3) memory_layers_agent의 멀티 세션 이관 전체 생명주기 데모 직접 실행
+uv run python adk-based_Agent/memory_layers_agent/agent.py
 ```
 
 ---
 
-## 5. 상세 문서 링크
+## 5. 핵심 심화 분석: `memory_layers_agent`의 이중 계층 및 장기 메모리(Memory Service) 구조
+
+`memory_layers_agent`는 Google ADK가 제공하는 **단기 작업 기억(Session Service)**과 **장기 영속 기억(Memory Service)**을 결합한 지능형 메모리 아키텍처 실습 패키지입니다.
+
+```mermaid
+flowchart TD
+    subgraph ShortTerm["단기 메모리 계층 (Session Service)"]
+        direction TB
+        ST_EV["대화 이벤트 이력 (Turn Messages)"]
+        ST_STATE["Session State (키-값 딕셔너리)"]
+        ST_INJECT["Instruction 템플릿 치환 ({user:name?}, {trip?})"]
+        ST_EV --- ST_STATE --- ST_INJECT
+    end
+
+    subgraph Storage["로컬 SQLite 세션 저장소 (.adk/session.db)"]
+        direction TB
+        DB_SESSIONS["sessions 테이블 (세션별 임시 상태: trip)"]
+        DB_USER["user_states 테이블 (사용자 영속 상태: user:name, user:trip)"]
+    end
+
+    subgraph LongTerm["장기 메모리 계층 (Memory Service / Memory Bank)"]
+        direction TB
+        LT_FACTS["영구 사용자 사실 & 선호도 (Facts / Preferences)"]
+        LT_SESSIONS["과거 세션 대화 요약 및 사건 기록"]
+        LT_FACTS --- LT_SESSIONS
+    end
+
+    %% 상호 작용
+    ST_STATE -- "접두사 없음" --> DB_SESSIONS
+    ST_STATE -- "user: 접두사" --> DB_USER
+
+    ShortTerm -- "1) save_to_memory 도구<br>2) auto_save_session_to_memory 콜백" --> LongTerm
+    LongTerm -- "1) preload_memory (턴 시작 시 자동 사전 인출)<br>2) load_memory (LLM 온디맨드 능동 검색)" --> ShortTerm
+```
+
+### 1) 단기 메모리(Session Service)와 장기 메모리(Memory Service) 비교
+
+| 비교 차원 | Session Service (단기 메모리) | Memory Service (장기 메모리) |
+|---|---|---|
+| **역할 및 범위** | 단일 대화 스레드(Session) 내의 일시적인 작업 메모리 | 여러 세션을 넘나드는 영구적인 사실, 선호도, 과거 경험 기억 |
+| **관리 대상 데이터** | 최근 발화 이력, 도구 실행 결과, Session State 변수 | 구조화된 지식, 대화 요약, 사용자 프로필, 세션 간 누적 사건 |
+| **생명주기** | 세션 종료 시 기본 소멸 (DB 백엔드 사용 시 세션 키로 보존) | 프로세스 재시작이나 새 세션 시작과 무관하게 영구 보존 |
+| **접근 방식** | • 대화 이벤트 이력 컨텍스트 자동 주입<br>• `{key?}` 지시문(Instruction) 템플릿 치환<br>• 도구 내부 `tool_context.state` 직접 읽기/쓰기 | • `preload_memory`: 사용자 발화 키워드 기반 자동 사전 검색<br>• `load_memory`: LLM이 필요 시 능동적으로 질의하는 검색 도구 |
+
+### 2) Session State 변수 접두사(Prefix) 스코프 체계
+
+Google ADK의 세션 상태는 딕셔너리 키에 부여된 접두사에 따라 저장 스코프가 엄격히 분리됩니다:
+
+1. **`user:<key>` (사용자 영속 스코프)**:
+   - 동일 사용자(`user_id`)가 생성한 **모든 세션 간에 지속적으로 공유**됩니다.
+   - 로컬 CLI 환경(`adk run`)에서는 `.adk/session.db` 파일의 `user_states` 테이블에 JSON 문자열로 저장되어 프로세스를 종료했다가 다시 실행해도 값이 복원됩니다.
+   - 예: `user:name` (사용자 성명), `user:trip` (영속 보존 출장 일정)
+2. **접두사 없음 (`<key>`) (세션 격리 스코프)**:
+   - 해당 대화 세션(`session_id`) 내부에서만 유효하며, 새 세션이 시작되면 완전히 초기화됩니다.
+   - 로컬 SQLite에서는 `sessions` 테이블의 해당 세션 행에만 기록됩니다.
+   - 예: `trip` (현재 세션의 임시 여행 일정)
+3. **`app:<key>` (애플리케이션 전역 스코프)**:
+   - 애플리케이션(`app_name`) 내의 모든 사용자와 모든 세션이 공유하는 전역 설정값입니다.
+4. **`temp:<key>` (단일 턴 휘발성 스코프)**:
+   - 단일 턴(Turn) 동안만 메모리에 임시 유지되며 영구 저장소에 기록되지 않습니다.
+
+### 3) 단기 세션에서 장기 기억(Memory Service)으로의 이관 메커니즘
+
+`memory_layers_agent`에서는 두 가지 방식으로 세션 데이터를 장기 기억으로 이관(Ingestion)합니다:
+
+1. **명시적 도구 호출 (`save_to_memory`)**:
+   - 사용자가 *"이 일정을 저장해줘"*, *"기억해줘"*, *"장기 메모리에 등록해줘"*라고 명시적으로 요청하면, LLM이 `save_to_memory` 도구를 호출합니다.
+   - 내부적으로 `await tool_context.add_session_to_memory()`를 실행하여 현재 세션의 전체 대화 및 결정된 일정을 Memory Service의 메모리 뱅크에 즉시 색인화합니다.
+2. **라이프사이클 콜백을 통한 자동 이관 (`after_agent_callback`)**:
+   - `agent.py`의 `after_agent_callback=auto_save_session_to_memory`가 설정되어 있어, 매 턴 응답이 완료될 때마다 백그라운드에서 `await callback_context.add_session_to_memory()`를 호출합니다.
+   - 대화 도중 세션이 비정상 종료되거나 새 세션으로 넘어가더라도 직전 대화 기록이 유실되지 않고 장기 기억으로 자동 누적됩니다.
+
+### 4) 장기 기억 검색 및 인출(Retrieval) 메커니즘
+
+장기 기억으로 이관된 데이터는 다음 두 가지 내장 도구를 통해 에이전트에게 공급됩니다:
+
+1. **`preload_memory` (자동 사전 인출)**:
+   - 사용자가 발화할 때마다, 해당 질의에 포함된 명사와 키워드를 기반으로 Memory Service를 사전에 검색합니다.
+   - 검색된 과거 기억 청크(Memories)는 LLM이 지시문을 읽기 전 프롬프트 컨텍스트의 최상단에 자동으로 배치됩니다.
+2. **`load_memory` (LLM 온디맨드 능동 검색)**:
+   - 사전 주입된 정보만으로 답변하기 어려운 세부사항(예: 과거에 언급된 관광지, 특정 음식 취향 등)이 있을 경우, LLM이 능동적으로 `load_memory(query="용두암")`와 같이 단일 핵심 키워드로 장기 기억을 추가 조회합니다.
+
+### 5) CLI 환경의 영속성 특성 및 실습 팁
+
+- **`adk run` CLI 실행 시 주의사항**:
+  - `adk run`은 세션 저장소로 디스크의 SQLite(`.adk/session.db`)를 사용하므로 `user:` 접두사 상태(`user:name`, `user:trip`)는 CLI 창을 닫아도 안전하게 유지됩니다.
+  - 반면, CLI 환경의 기본 Memory Service는 프로세스 메모리(`InMemoryMemoryService`)에 상주하므로, 터미널 세션을 완전히 종료(`Aborted!` / `exit`)하면 장기 메모리 뱅크가 휘발됩니다.
+- **멀티 세션 생명주기 전체 실습**:
+  - 세션 종료 후 장기 메모리에서 과거 기억이 새 세션으로 온전히 인출되는 전체 과정을 테스트하려면 다음 스크립트를 직접 실행합니다:
+    ```bash
+    uv run python adk-based_Agent/memory_layers_agent/agent.py
+    ```
+  - 동일한 `InMemoryMemoryService`를 공유하는 두 개의 연속된 세션(Session 1: 일정 등록 및 장기 기억 이관 ➔ Session 2: 세션 리셋 후 장기 기억 인출)이 순차적으로 실행되는 동작을 터미널에서 즉시 검증할 수 있습니다.
+
+---
+
+## 6. 상세 문서 링크
 각 에이전트의 세부 도구 파라미터, 프롬프트 엔지니어링 지시문, 대화 시나리오 및 트러블슈팅 가이드는 각 폴더의 문서를 참조하십시오:
 
 - [chat_time_weather_agent 상세 설명서 (README-KR.md)](./chat_time_weather_agent/README-KR.md) / [English (README-EN.md)](./chat_time_weather_agent/README-EN.md)

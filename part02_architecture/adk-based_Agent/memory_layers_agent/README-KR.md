@@ -1,7 +1,8 @@
-# memory_layers_agent — 이중 계층 메모리(Session 단기 vs Memory 장기) 에이전트
+# memory_layers_agent — 이중 계층 메모리(Session 단기 vs Memory 장기) 가이드
 
-`memory_layers_agent`는 Google Agent Development Kit (ADK)의 **이중 계층 메모리(Dual-Layer Memory)** 아키텍처를 실습하고 검증하기 위한 지능형 에이전트입니다.
-대화의 임시 상태와 활성 스레드를 다루는 **Session Service(단기 메모리)**와, 세션을 넘어 영속적인 사실과 사용자 지식을 유지·인출하는 **Memory Service(장기 메모리)**를 결합하여 사용자 맞춤형 연속 대화를 수행합니다.
+`part02_architecture/adk-based_Agent/memory_layers_agent` 프로젝트는 Google Agent Development Kit (ADK)의 **이중 계층 메모리(Dual-Layer Memory)** 아키텍처를 구현하고 실습하기 위한 에이전트 패키지입니다.
+
+대화 스레드 단위의 일시적 작업 상태를 관리하는 **Session Service (단기 메모리)**와, 여러 세션을 넘나들며 영구적인 사용자 지식과 과거 경험을 축적·검색하는 **Memory Service (장기 메모리)**를 상호 결합하여 개인화된 연속 대화를 수행합니다.
 
 > **관련 강의노트**: Part 2 · 02. Google ADK 아키텍처 (슬라이드 29: 이중 계층 메모리)
 
@@ -11,210 +12,249 @@
 
 | 비교 차원 | Session Service (단기 메모리) | Memory Service (장기 메모리) |
 |---|---|---|
-| **저장 범위** | 활성 대화 스레드 및 세션 임시 상태 | 세션을 넘어서는 영속적인 사용자 사실·선호·지식 |
-| **저장 데이터** | 메시지 이력, 도구 호출 결과, State 변수 | 구조화/추출된 사용자 프로필, 과거 대화 사건 및 선호 정보 |
-| **생명주기** | 대화 스레드 종료 시 소멸 (단, DB 세션 사용 시 세션 키로 보존) | 세션 간 영구 보존 |
-| **구현체** | `InMemorySessionService`, `DatabaseSessionService`, `VertexAiSessionService` | `InMemoryMemoryService`, `VertexAiMemoryBankService` |
-| **에이전트 접근 방식** | 이벤트 이력 자동 주입, `{key}` 지시문 템플릿, `tool_context.state` | `preload_memory`(매 턴 자동 사전 검색), `load_memory`(에이전트 능동 검색 도구) |
+| **저장 범위 (Scope)** | 활성 대화 스레드 및 세션 임시 상태 | 세션을 넘어서는 영속적인 사용자 사실·선호·지식 |
+| **저장 데이터 (Data)** | 대화 메시지 이력, 도구 호출/반환값, Session State | 구조화된 사용자 프로필, 대화 요약, 과거 사건 및 선호도 |
+| **생명주기 (Lifecycle)** | 대화 스레드 종료 시 소멸 (DB 영속화 시 세션 키로 보존) | 프로세스 재시작이나 세션 종료와 무관하게 영구 보존 |
+| **백엔드 구현체** | `InMemorySessionService`, `DatabaseSessionService`, `VertexAiSessionService` | `InMemoryMemoryService`, `VertexAiMemoryBankService` |
+| **에이전트 접근 방식** | • 대화 이벤트 이력 자동 주입<br>• `{key?}` 지시문(Instruction) 템플릿 치환<br>• 도구 내부 `tool_context.state` 직접 입출력 | • `preload_memory`: 매 턴 사용자 질의어 기반 자동 사전 검색<br>• `load_memory`: LLM이 필요 시 능동적으로 호출하는 검색 도구 |
 
 ---
 
-## 2. 세션 State 변수 접두사(Prefix) 규칙
+## 2. Session State 변수 접두사(Prefix) 규칙
 
-ADK의 Session State는 키의 접두사(Prefix)에 따라 저장 범위와 공유 스코프가 엄격하게 결정됩니다:
+ADK의 Session State(`tool_context.state`)는 딕셔너리 키의 **접두사(Prefix)**에 따라 저장 범위와 공유 스코프가 엄격하게 제어됩니다:
 
-* **`user:<key>`** (예: `user:name`):
-  * **사용자 스코프**: 동일한 사용자(`user_id`)가 생성한 **모든 대화 세션 간에 자동 공유 및 유지**됩니다.
-  * 사용자 이름, 직책, 기본 설정 등 영속적 프로필 저장에 적합합니다.
-* **접두사 없음** (예: `trip`):
-  * **세션 스코프**: 해당 대화 세션(`session_id`) 내부에서만 유효합니다. 새 세션이 시작되면 완전히 초기화됩니다.
-  * 일회성 여행 계획, 현재 처리 중인 주문 번호 등 임시 컨텍스트에 적합합니다.
-* **`app:<key>`** (예: `app:notice`):
-  * **애플리케이션 전역 스코프**: 애플리케이션(`app_name`) 내의 모든 사용자와 모든 세션이 공유하는 전역 설정값입니다.
-* **`temp:<key>`** (예: `temp:raw`):
-  * **일회성 호출 스코프**: 단일 호출 턴(Turn) 동안만 메모리에 임시 유지되며, 세션 저장소(DB 등)에 영구 기록되지 않습니다.
+```mermaid
+flowchart TD
+    subgraph UserLevel["사용자 스코프 (user: prefix)"]
+        U["user:name<br>동일 사용자의 모든 세션에서 영구 공유"]
+    end
+
+    subgraph SessionLevel["세션 스코프 (No prefix)"]
+        S1["세션 1 State<br>trip='부산 출장'"]
+        S2["세션 2 State<br>(trip 초기화됨)"]
+    end
+
+    subgraph AppLevel["애플리케이션 전역 스코프 (app: prefix)"]
+        A["app:notice<br>모든 사용자와 모든 세션이 공유"]
+    end
+
+    subgraph TempLevel["일회성 호출 스코프 (temp: prefix)"]
+        T["temp:raw<br>단일 턴 메모리 유지 후 DB 미저장"]
+    end
+
+    U -.-> S1
+    U -.-> S2
+    A -.-> S1
+    A -.-> S2
+```
+
+1. **`user:<key>`** (예: `user:name`):
+   - **사용자 스코프**: 동일한 사용자(`user_id`)가 생성한 **모든 세션 간에 자동 공유 및 유지**됩니다.
+   - 사용자 이름, 언어 선호도, 직책 등 영속적인 개인 프로필 저장에 적합합니다.
+2. **접두사 없음** (예: `trip`):
+   - **세션 스코프**: 해당 대화 세션(`session_id`) 내부에서만 유효합니다. 새 세션이 시작되면 완전히 초기화됩니다.
+   - 특정 대화의 일회성 여행 계획, 현재 처리 중인 주문 번호 등 임시 컨텍스트에 적합합니다.
+3. **`app:<key>`** (예: `app:notice`):
+   - **애플리케이션 전역 스코프**: 애플리케이션(`app_name`) 내의 모든 사용자와 모든 세션이 공유하는 전역 설정값입니다.
+4. **`temp:<key>`** (예: `temp:raw`):
+   - **일회성 호출 스코프**: 단일 호출 턴(Turn) 동안만 메모리에 임시 유지되며, 세션 저장소(DB)에 영구 기록되지 않습니다.
 
 ---
 
-## 3. 에이전트 동작 원리 및 도구 구성
+## 3. `memory_layers_agent` 구조 및 동작 메커니즘
 
-`memory_layers_agent`는 지시문(Instruction) 템플릿 치환과 전용 도구를 통해 두 메모리 계층을 모두 활용합니다:
+`memory_layers_agent`는 지시문(Instruction) 템플릿과 전용 도구(Custom Tools + Built-in Tools)를 결합하여 두 메모리 계층을 자연스럽게 활용합니다.
 
-```text
-               ┌────────────────────────────────────────────────────────┐
-               │                  memory_layers_agent                   │
-               └────────────────────────────────────────────────────────┘
-                       │                                        │
-           [단기 State 템플릿 주입]                        [장기 Memory 검색]
-          {user:name?}, {trip?}                     preload_memory / load_memory
-                       │                                        │
-                       ▼                                        ▼
-    ┌─────────────────────────────────────┐  ┌────────────────────────────────────┐
-    │       Session Service (단기)        │  │       Memory Service (장기)        │
-    │  - user:name: 세션 간 유지          │  │  - add_session_to_memory로 축적   │
-    │  - trip: 이번 세션에만 유효         │  │  - "매운", "부산" 등 키워드 검색  │
-    └─────────────────────────────────────┘  └────────────────────────────────────┘
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as 사용자
+    participant Agent as memory_layers_agent
+    participant Session as Session Service (단기)
+    participant Memory as Memory Service (장기)
+
+    Note over User,Memory: [세션 1: 정보 수집 및 단기 State 저장]
+    User->>Agent: "안녕, 내 이름은 John이고 화요일에 부산 출장이 있어."
+    Agent->>Session: save_profile("John") ➔ state["user:name"] = "John"
+    Agent->>Session: save_trip("부산 출장") ➔ state["trip"] = "부산 출장"
+    Agent-->>User: "John님 반갑습니다. 화요일 부산 출장 일정을 기억하겠습니다."
+
+    Note over Session,Memory: 세션 종료 시점: add_session_to_memory(session) 실행
+    Session->>Memory: 세션 1의 대화 이력 및 사실을 장기 기억으로 이관
+
+    Note over User,Memory: [세션 2: 새 대화 스레드 시작 - trip 초기화, user:name 유지]
+    User->>Agent: "내 이름이 뭐지? 그리고 이번 부산 출장 저녁 메뉴 추천해줘."
+    Agent->>Session: 템플릿 자동 주입: {user:name?} ➔ "John" (유지됨)
+    Agent->>Session: 템플릿 자동 주입: {trip?} ➔ None (초기화됨)
+    Agent->>Memory: preload_memory('부산') ➔ 장기 기억 자동 검색
+    Memory-->>Agent: 과거 기억 인출 ("매운 음식 못 먹음", "화요일 부산 출장")
+    Agent-->>User: "John님, 매운 음식을 못 드시니 담백한 부산 돼지국밥이나 생선구이를 추천합니다."
 ```
 
 ### ① 지시문(Instruction) 템플릿
 ```python
 instruction="""
-너는 개인 비서다.
-[단기: 이번 세션 State]
-  사용자 이름: {user:name?}
-  이번 세션의 계획: {trip?}
-규칙
-1) 사용자가 이름을 말하면 save_profile, 출장·여행 계획을 말하면 save_trip 을 호출한다.
-2) 이번 세션 State 에 없는 과거 정보(음식 취향, 지난 대화의 계획 등)는
-   자동으로 제공되는 과거 기억을 먼저 보고, 부족하면 load_memory 로 검색한다.
-   load_memory 검색어는 조사를 붙이지 않은 핵심 단어 하나씩 쓴다 (예: "매운", "부산", "출장").
-3) 기억에도 없으면 모른다고 말한다. 지어내지 않는다.
-4) 답은 2~3문장으로 한다.
+You are a personal assistant.
+[Short-term: Current Session State]
+  User name: {user:name?}
+  Current session plan: {trip?}
+Rules:
+1) When the user mentions their name, call save_profile. When they mention business trip or travel plans, call save_trip.
+2) For past information not in the current session State (food preferences, plans from past conversations, etc.),
+   check automatically provided past memories first. If insufficient, search using load_memory.
+   Use single concise keywords without extra particles for load_memory search queries (e.g., "spicy", "Busan", "business trip").
+3) If information is not in memory either, state that you do not know. Do not make things up.
+4) Keep responses concise in 2 to 3 sentences.
 """
 ```
-* **`{user:name?}`**: 세션 State에 `user:name`이 존재하면 값을 주입하고, 없으면 물음표(`?`) 문법에 따라 빈 값으로 안전하게 대체됩니다.
-* **`{trip?}`**: 이번 세션에 등록된 계획 정보를 프롬프트에 자동으로 주입합니다.
+- **`{user:name?}`**: 세션 State에 `user:name`이 있으면 값을 주입하고, 없으면 물음표(`?`) 문법에 따라 빈 문자열로 안전하게 치환됩니다.
+- **`{trip?}`**: 현재 세션 State에 등록된 일정 정보를 프롬프트에 자동으로 주입합니다.
 
 ### ② 도구 구성 (Tools)
-1. **`save_profile(name, tool_context)`**:
-   * `tool_context.state["user:name"] = name`
-   * 사용자 이름을 영속적인 `user:` 스코프 State로 저장합니다. 다른 세션에서도 즉시 공유됩니다.
-2. **`save_trip(trip, tool_context)`**:
-   * `tool_context.state["trip"] = trip`
-   * 출장이나 여행 일정을 현재 세션 스코프 State로 저장합니다.
-3. **`preload_memory`**:
-   * Google ADK 내장 도구. 매 턴마다 사용자의 입력 문장에 포함된 키워드를 기반으로 Memory Service를 자동 사전 검색하여 프롬프트 컨텍스트에 주입합니다.
-4. **`load_memory`**:
-   * Google ADK 내장 도구. 모델이 추론 중 추가적인 과거 기억(음식 취향, 과거 이력 등)이 필요하다고 판단할 때 능동적으로 장기 기억을 검색합니다.
+1. **`save_profile(name: str, tool_context: ToolContext) -> dict`**:
+   - `tool_context.state["user:name"] = name`
+   - 사용자 이름을 `user:` 접두사 State로 저장하여 다른 세션에서도 즉시 공유됩니다.
+2. **`save_trip(trip: str, tool_context: ToolContext) -> dict`**:
+   - `tool_context.state["user:trip"] = trip` 및 `tool_context.state["trip"] = trip`
+   - 출장 일정을 사용자 스코프(`user:trip`)로 저장하여 SQLite DB(`session.db`)의 `user_states`에 영구 보존합니다. 따라서 CLI 창을 닫고 다시 실행해도 일정이 유지됩니다.
+3. **`save_to_memory(tool_context: ToolContext) -> dict`**:
+   - `await tool_context.add_session_to_memory()`
+   - 사용자가 "이 일정을 저장해줘", "기억해줘"라고 요청할 때 현재 세션의 전체 대화와 세부 내용을 장기 메모리(Memory Service)로 즉시 이관합니다.
+4. **`preload_memory`** (ADK 내장 도구):
+   - 매 턴마다 사용자의 입력 문장에 포함된 키워드를 기반으로 Memory Service를 자동 사전 검색하여 프롬프트 컨텍스트에 주입합니다.
+4. **`load_memory`** (ADK 내장 도구):
+   - LLM이 답변 생성 중 추가적인 과거 기억(음식 취향, 과거 이력 등)이 더 필요하다고 판단할 때 능동적으로 장기 기억을 검색합니다.
 
 ---
 
-## 4. 파일 구성
+## 4. 파일 구성 및 역할
 
 ```text
-memory_layers_agent/
-├── __init__.py           # agent 모듈 및 root_agent 객체 노출
+part02_architecture/adk-based_Agent/memory_layers_agent/
+├── __init__.py           # agent 모듈 노출 (from . import agent)
 ├── agent.py              # save_profile, save_trip 도구, 지시문 및 root_agent 정의
 ├── README-KR.md          # 한국어 상세 매뉴얼 (본 문서)
-└── README-EN.md          # 영문 번역 매뉴얼
+└── README-EN.md          # 영문 상세 매뉴얼
 ```
 
-* **`agent.py`**:
-  * `save_profile(name: str, tool_context: ToolContext) -> dict`: 사용자 이름 저장 (`user:name`)
-  * `save_trip(trip: str, tool_context: ToolContext) -> dict`: 현재 세션 일정 저장 (`trip`)
-  * `preload_memory`, `load_memory`: ADK 공식 메모리 도구 등록
-  * `root_agent`: Gemini 기반 에이전트 인스턴스
+- **`agent.py`**:
+  - `model=os.getenv("ADK_MODEL", "gemini-3.8-flash")`
+  - ADK 규격에 맞게 `root_agent` 객체를 정의하여 `adk run`, `adk web`, Python Runner에서 직접 불러올 수 있도록 구현되어 있습니다.
 
 ---
 
-## 5. 사전 환경 준비 및 설정
+## 5. 실행 환경 설정 (`.env`)
 
-### 1) 의존성 패키지 설치
-```bash
-pip install google-adk python-dotenv
-# 또는 uv 사용 시
-uv pip install google-adk python-dotenv
-```
-
-### 2) 환경 변수(`.env`) 설정
-상위 디렉터리(`part02_architecture` 또는 프로젝트 루트)에 `.env` 파일을 생성하고 설정합니다:
+상위 폴더(`part02_architecture` 또는 프로젝트 루트)의 `.env` 파일에 다음과 같이 API 인증 정보를 설정합니다:
 
 ```env
-# Gemini Developer API 키
-GEMINI_API_KEY=your_gemini_api_key_here
+# Vertex AI Express Mode (AQ. 로 시작하는 키)
+GOOGLE_GENAI_USE_VERTEXAI=TRUE
+GOOGLE_CLOUD_PROJECT=ssu-agent-vertex-509708
+GOOGLE_CLOUD_LOCATION=global
+GOOGLE_API_KEY=AQ.Ab8RN6...
+GEMINI_API_KEY=AQ.Ab8RN6...
 
-# 또는 Vertex AI 사용 시
-# GOOGLE_GENAI_USE_VERTEXAI=TRUE
-# GOOGLE_CLOUD_PROJECT=your-gcp-project-id
-# GOOGLE_CLOUD_LOCATION=us-central1
+# 또는 일반 Google AI Studio 키 (AIza... 로 시작하는 키)
+# GOOGLE_GENAI_USE_VERTEXAI=FALSE
+# GEMINI_API_KEY=AIzaSy...
 
-# 에이전트 모델 설정
+# 사용할 Gemini 모델
 ADK_MODEL=gemini-3.8-flash
 ```
 
 ---
 
-## 6. 수행 및 실행 방법
+## 6. 실행 및 검증 방법
 
 ### 방법 1: 터미널 대화형 인터랙티브 모드 (`adk run`)
-터미널에서 직접 에이전트와 대화하며 세션 State 저장 과정을 확인합니다:
+`part02_architecture/adk-based_Agent` 디렉터리에서 ADK CLI를 통해 직접 에이전트를 대화형으로 실행합니다:
 
 ```bash
-# adk-based_Agent 폴더에서 실행
+# 1. adk-based_Agent 디렉터리로 이동
+cd "part02_architecture/adk-based_Agent"
+
+# 2. 에이전트 실행
 adk run memory_layers_agent
 ```
 
-또는 상위 폴더 `part02_architecture`에서 실행:
-```bash
-cd ..
-adk run adk-based_Agent/memory_layers_agent
-```
-
-실행 후 다음과 같이 대화하며 동작을 확인합니다:
+**대화 예시**:
 ```text
-User: 안녕, 내 이름은 홍길동이고 다음 주 월요일 제주도 출장이 있어.
-Agent: 홍길동님 반갑습니다. 다음 주 월요일 제주도 출장 일정을 기억하겠습니다.
+User: Hello, my name is John and I have a business trip to Busan next Tuesday.
+Agent: Hello John, nice to meet you. I will keep your business trip to Busan next Tuesday in mind.
 ```
 
-### 방법 2: 웹 개발 UI 환경 (`adk web`)
-Google ADK 브라우저 GUI를 통해 대화를 진행하고, 세션 State 변수와 이벤트 로그를 실시간으로 확인합니다:
+---
+
+### 방법 2: 웹 GUI 개발 환경 (`adk web`)
+브라우저 인터페이스를 통해 세션 State 변수 변화, 도구 호출 내역, 이벤트 스트림을 시각적으로 모니터링합니다:
 
 ```bash
-# adk-based_Agent 폴더에서 실행
+cd "part02_architecture/adk-based_Agent"
 adk web --port 8008
 ```
-브라우저로 `http://localhost:8008`에 접속한 뒤 좌측 상단에서 **`memory_layers_agent`**를 선택합니다. 대화 중 도구 호출 파라미터와 `state_delta`가 어떻게 누적되는지 시각적으로 관찰할 수 있습니다.
 
-### 방법 3: 메모리 계층 전용 검증 스크립트 실행 (`run_memory_layers.py`)
-상위 `Direct_ADK` 폴더의 검증 스크립트를 통해 단기 메모리(Session)와 장기 메모리(Memory)의 저장 범위, 생명주기, 인출 메커니즘을 단계별로 검증합니다:
+1. 웹 브라우저로 `http://localhost:8008` 접속.
+2. 좌측 상단 드롭다운에서 **`memory_layers_agent`** 선택.
+3. 대화를 진행하면서 우측 패널에서 `tool_context.state` 갱신 내역(`user:name`, `trip`)을 실시간 확인.
+
+---
+
+### 방법 3: 다중 계층 통합 검증 스크립트 실행 (`run_memory_layers.py`)
+`part02_architecture/Direct_ADK/run_memory_layers.py`는 단기 세션의 생명주기와 장기 메모리 전이 과정을 코드로 엄밀하게 증명하는 스크립트입니다:
 
 ```bash
-# part02_architecture 폴더에서 실행
+# part02_architecture 디렉터리에서 실행
 
-# 1) 오프라인 모드: LLM 호출 없이 Service API 레벨에서 저장 구조와 생명주기 직접 확인
+# 1) 오프라인 모드: LLM 호출 없이 Service API 레벨에서 State 스코프와 메모리 검색 메커니즘 검증
 uv run Direct_ADK/run_memory_layers.py offline
 
-# 2) LLM 연동 모드: Gemini 모델을 통해 세션 1 저장 ➡️ 세션 2 장기 기억 인출 검증
+# 2) LLM 연동 모드: Gemini 모델을 통해 세션 1 저장 ➔ 장기 메모리 이관 ➔ 세션 2 인출 검증
 uv run Direct_ADK/run_memory_layers.py llm
 
 # 3) 전체 실행 (기본값)
 uv run Direct_ADK/run_memory_layers.py all
 ```
 
-### 방법 4: 파이썬 코드를 통한 멀티 세션 기억 유지 검증
-두 개의 연속된 세션을 생성하여 장기 메모리 전이 과정을 확인하는 코드 예시입니다:
+---
+
+### 방법 4: 독립 파이썬 스크립트 기반 멀티 세션 테스트
+
+`google.adk.sessions.InMemorySessionService`와 `InMemoryMemoryService`를 활용하여 2개의 연속 세션 간 상태 전이를 테스트하는 코드입니다:
 
 ```python
 import asyncio
 from google.adk.sessions import InMemorySessionService
 from google.adk.memory import InMemoryMemoryService
 from common.runner_util import Session
-from memory_layers_agent.agent import root_agent
+from part02_architecture.adk-based_Agent.memory_layers_agent.agent import root_agent
 
 async def main():
     session_service = InMemorySessionService()
     memory_service = InMemoryMemoryService()
-    app, user = "memory_demo", "user_kim"
+    app, user = "memory_layers", "user_01"
 
-    # [세션 1] 개인 정보 및 취향 저장
-    print("=== 세션 1 시작 ===")
+    # [세션 1] 프로필과 단기 일정 및 음식 취향 전달
+    print("=== [세션 1] 대화 시작 ===")
     s1 = Session(root_agent, app_name=app, user_id=user, 
                  session_service=session_service, memory_service=memory_service)
-    await s1.send("안녕! 나는 김철수야. 매운 음식을 전혀 못 먹어. 다음 주 화요일에 부산 출장이 있어.")
+    await s1.send("Hello, I am John. I cannot eat spicy food, and I have a business trip to Busan next Tuesday.")
     
-    # 세션 종료 후 장기 기억으로 이관
+    # 세션 1 종료 시점에 장기 메모리로 대화 이관
     current_s1 = await s1.get_session()
     await memory_service.add_session_to_memory(current_s1)
-    print("세션 1 State:", current_s1.state)
+    print("세션 1 State:", {k: v for k, v in current_s1.state.items() if not k.startswith("_")})
 
-    # [세션 2] 새 세션 시작 (새로운 세션 ID)
-    print("\n=== 세션 2 시작 (새 대화 스레드) ===")
+    # [세션 2] 새 대화 스레드 시작 (trip은 사라지고 user:name만 유지됨)
+    print("\n=== [세션 2] 새 대화 시작 ===")
     s2 = Session(root_agent, app_name=app, user_id=user, 
                  session_service=session_service, memory_service=memory_service)
-    # preload_memory 검색을 위해 '부산' 키워드 포함 질의
-    res = await s2.send("내 이름이 뭐였지? 그리고 이번 부산 출장 때 먹을 저녁 메뉴 하나만 추천해줘.")
-    print("에이전트 답변:", res)
-    print("세션 2 State:", (await s2.get_session()).state)
+    
+    # preload_memory 검색을 위해 'Busan' 키워드를 포함하여 질의
+    res = await s2.send("What was my name? And please recommend a dinner menu for my business trip to Busan.")
+    print("세션 2 에이전트 답변:", res)
+    print("세션 2 State:", {k: v for k, v in (await s2.get_session()).state.items() if not k.startswith("_")})
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -222,32 +262,11 @@ if __name__ == "__main__":
 
 ---
 
-## 7. 시나리오 동작 예시
-
-### [세션 1] 프로필과 단기 계획 및 취향 전달
-* **사용자**: "안녕, 나는 김철수야. 매운 음식을 못 먹고, 다음 주 화요일에 부산 출장이 있어."
-* **에이전트 동작**:
-  1. `save_profile(name="김철수")` 호출 ➡️ `state["user:name"] = "김철수"` 저장 (사용자 전역 스코프)
-  2. `save_trip(trip="다음 주 화요일 부산 출장")` 호출 ➡️ `state["trip"] = "다음 주 화요일 부산 출장"` 저장 (세션 한정 스코프)
-  3. 세션 종료 시 `memory_service.add_session_to_memory(session)`를 통해 세션 전체 대화가 장기 기억(Memory Service)으로 이관
-
-### [세션 2] 새 대화 시작 (새 세션 ID)
-* **상태 비교**:
-  * `trip` 변수는 이전 세션의 종료와 함께 초기화되어 세션 2에는 존재하지 않음.
-  * `user:name`은 사용자 스코프(`user:`)이므로 새 세션 State에도 그대로 유지됨.
-* **사용자**: "내 이름이 뭐였지? 그리고 이번 부산 출장 때 먹을 저녁 메뉴 하나만 추천해줘."
-* **에이전트 동작**:
-  1. 지시문 템플릿 `{user:name?}`을 통해 사용자 이름 "김철수"를 세션 State에서 즉각 인지.
-  2. 질문의 '부산' 키워드를 바탕으로 `preload_memory` 및 `load_memory`가 장기 기억에서 "매운 음식을 못 먹는다"는 과거 선호 정보를 검색·인출.
-* **최종 응답**:
-  > "김철수님, 매운 음식을 피하셔야 하므로 자극적이지 않고 담백한 부산 돼지국밥이나 신선한 생선구이를 추천해 드립니다."
-
----
-
-## 8. 문제 해결 (FAQ & Troubleshooting)
+## 7. 트러블슈팅 및 주의사항 (FAQ)
 
 | 현상 | 원인 | 해결 방법 |
 |---|---|---|
-| 새 세션에서 사용자 이름이 기억나지 않음 | `user:` 접두사 없이 State에 저장되었거나 세션 서비스 인스턴스가 재생성됨 | `save_profile` 도구가 `tool_context.state["user:name"]` 형태로 키를 저장하는지 확인합니다. |
-| 새 세션에서 과거 취향(예: 매운 음식 불가)을 찾지 못함 | 세션 1 종료 시 `memory_service.add_session_to_memory(s1)`가 호출되지 않음 | 대화 세션 종료 후 장기 메모리 저장 메서드가 정상 호출되었는지 확인합니다. |
-| `InMemoryMemoryService` 검색 결과가 비어 있음 | `InMemory` 구현체는 키워드의 완전 일치(Exact substring) 방식을 사용함 | 사용자의 질문에 장기 기억에 저장된 핵심 단어(예: "부산", "매운")가 포함되어 있는지 확인합니다. 프로덕션 환경에서는 시맨틱 벡터 검색을 지원하는 `VertexAiMemoryBankService`를 사용합니다. |
+| **새 세션에서 사용자 이름이 유지되지 않음** | `user:` 접두사 없이 State에 저장되었거나 세션 서비스 인스턴스가 새로 생성됨 | `save_profile` 도구가 `tool_context.state["user:name"]` 형태로 키를 저장하는지 확인합니다. |
+| **새 세션에서 과거 취향(매운 음식 불가)을 기억하지 못함** | 세션 1 종료 시 `memory_service.add_session_to_memory(s1)`가 호출되지 않음 | 대화 세션 종료 후 장기 메모리 저장 메서드가 정상 호출되었는지 확인합니다. |
+| **`InMemoryMemoryService` 검색 결과가 비어 있음** | `InMemory` 구현체는 키워드의 **완전 부분 일치(Exact substring match)** 방식을 사용함 | 사용자의 질문에 장기 기억에 저장된 핵심 단어(예: "Busan", "spicy")가 포함되어 있는지 확인합니다. 프로덕션 환경에서는 시맨틱 벡터 임베딩 검색을 지원하는 `VertexAiMemoryBankService`를 사용합니다. |
+| **Vertex AI 호출 시 404 NOT_FOUND 에러 발생** | `gemini-3.8-flash` 모델이 특정 리전(`us-central1` 등)으로 요청됨 | `.env`에서 `GOOGLE_CLOUD_LOCATION=global`로 설정해야 합니다. |
