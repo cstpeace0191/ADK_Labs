@@ -44,6 +44,7 @@ async def main():
         session_id=session1.id,
         new_message=user_message
     ):
+        print(f"event={event}\n")
         kinds = []
         if event.content and event.content.parts:
             for p in event.content.parts:
