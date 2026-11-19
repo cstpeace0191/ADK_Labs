@@ -1,9 +1,13 @@
 import asyncio
+import os
+from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.events import Event, EventActions
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.genai import types
+
+load_dotenv(override=True)
 
 agent = Agent(
     model="gemini-3.8-flash",
@@ -12,7 +16,12 @@ agent = Agent(
 )
 
 session_service = InMemorySessionService()
-runner = Runner(agent=agent, app_name="event_app", session_service=session_service)
+runner = Runner(
+    agent=agent,
+    app_name="event_app",
+    session_service=session_service,
+    auto_create_session=True,
+)
 
 async def process_with_events(message: str):
     """Process a message and handle all event types using ADK methods."""
