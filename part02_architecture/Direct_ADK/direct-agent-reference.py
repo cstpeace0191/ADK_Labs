@@ -6,7 +6,7 @@ from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
 agent = Agent(
-    model="gemini-2.5-flash",
+    model="gemini-3.8-flash",
     name="event_demo_agent",
     instruction="You are a helpful assistant.",
 )
