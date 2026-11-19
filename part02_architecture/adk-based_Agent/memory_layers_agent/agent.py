@@ -118,13 +118,13 @@ root_agent = Agent(
     Rules:
     1) When the user mentions their name, call save_profile.
     2) When they mention a business trip, itinerary, or travel plan, call save_trip.
-    3) When the user explicitly requests to save, register, or remember plans/details ("이 일정을 저장해줘", "기억해줘"),
+    3) When the user explicitly requests to save, register, or remember plans/details (e.g., "save this itinerary", "remember this plan"),
        call save_to_memory to also transfer them into long-term memory.
     4) When asked about upcoming trips, plans, or places:
        - Check {user:trip?} and {trip?} first.
        - For additional details not in state (sightseeing spots, food preferences, past conversations, etc.),
          check automatically provided past memories first. If insufficient, search using load_memory.
-         Use single concise keywords without extra particles for load_memory search queries (e.g., "제주", "용두암", "출장", "spicy").
+         Use single concise keywords without extra particles for load_memory search queries (e.g., "Jeju", "Yongduam", "business trip", "spicy").
     5) If information is not in memory or state either, state that you do not know. Do not make things up.
     6) Keep responses concise in 2 to 3 sentences.
     """,
@@ -161,8 +161,8 @@ async def demo_lifecycle():
     )
 
     prompt_1 = (
-        "내 이름은 홍길동이고 다음 주 월요일에 1박2일 제주도 출장 일정이 있어. "
-        "1일차에는 주요 미팅 후 용두암에 가고, 2일차에는 업무 마무리 후 복귀할 거야. 이 일정을 저장해줘."
+        "My name is John Doe and I have a 2-day business trip to Jeju scheduled for next Monday. "
+        "On Day 1, I will visit Yongduam Rock after the primary meeting, and on Day 2, I will return after wrapping up work. Please save this itinerary."
     )
     print(f"\n[User (Session 1)]: {prompt_1}")
     res1 = await s1.send(prompt_1)
@@ -196,7 +196,7 @@ async def demo_lifecycle():
     print("  • user:trip (Retained from user scope) :", s2_session.state.get("user:trip"))
     print("  • trip      (Reset! Value is None)      :", s2_session.state.get("trip"))
 
-    prompt_2 = "내 이름이 뭐지? 그리고 내 다음 주 출장 일정과 1일차 방문 장소를 알려줘."
+    prompt_2 = "What is my name? And tell me my business trip schedule for next week along with the Day 1 visiting spot."
     print(f"\n[User (Session 2)]: {prompt_2}")
     res2 = await s2.send(prompt_2)
     print(f"\n[Agent (Session 2)]:\n{res2.final_text}")
